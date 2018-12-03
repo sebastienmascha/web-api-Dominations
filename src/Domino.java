@@ -45,10 +45,15 @@ public class Domino {
 
 	}
 	
+	/*public String toString() {
+        return type1;
+    }*/
+	
 
 	
 	public static void afficherDomino(int num) {
-		System.out.println(listeDominos.get(num));
+		System.out.println(listeDominos.get(num).toString());
+		
 		//arriver à printer l'objet de la liste
 		
 	}
