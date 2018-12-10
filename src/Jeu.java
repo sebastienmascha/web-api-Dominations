@@ -2,6 +2,7 @@
 public class Jeu {
 	
 	static Domino[] dominos=new Domino[48];
+	
 
 	public static Domino[] creationListeDominos() {
 		/*
@@ -21,5 +22,7 @@ public class Jeu {
 		 
 		
 	}
-
+	
+	
+	
 }

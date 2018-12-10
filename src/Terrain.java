@@ -7,6 +7,40 @@ import java.util.Scanner;
 public class Terrain {
 	
 	
+	static Tuile[][] positionTuiles=new Tuile[48][2];
+	
+	
+	public static Tuile[][] creationListeTuilesDominos() {
+		/*
+		Domino.listeDominos.get(1).gettype1();
+		
+		Domino d1= Domino.listeDominos.get(1);
+		*/
+		
+		
+		  
+		  for (int i = 0; i < positionTuiles.length; i++) {
+			  positionTuiles[i][1]=Tuile.listeTuiles.get(i);
+			  positionTuiles[i][2]=Tuile.listeTuiles.get(i+1);
+			  
+		  }
+		  
+		  return positionTuiles;
+		
+		 
+		
+	}
+	
+	//creer tableau tuiles
+
+	
+	
+	
+	
+	
+	
+	
+	
 static Map<String, ArrayList<String>> bibliotheque = new HashMap<>();
 	
 	static ArrayList<String> artisteliste = new ArrayList<String>();
