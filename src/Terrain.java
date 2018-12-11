@@ -6,6 +6,11 @@ import java.util.Scanner;
 
 public class Terrain {
 	
+	ArrayList<ArrayList<Integer>> listOLists = new ArrayList<ArrayList<Integer>>();
+	
+
+	
+	/*
 	
 	static Tuile[][] positionTuiles=new Tuile[48][2];
 	
@@ -17,12 +22,11 @@ public class Terrain {
 		Domino d1= Domino.listeDominos.get(1);
 		*/
 		
-		
+		/*
 		  
 		  for (int i = 0; i < positionTuiles.length; i++) {
 			  positionTuiles[i][1]=Tuile.listeTuiles.get(i);
-			  positionTuiles[i][2]=Tuile.listeTuiles.get(i+1);
-			  
+			  positionTuiles[i][2]=Tuile.listeTuiles.get(i+1);  
 		  }
 		  
 		  return positionTuiles;
@@ -33,8 +37,7 @@ public class Terrain {
 	
 	//creer tableau tuiles
 
-	
-	
+	*/
 	
 	
 	
@@ -63,7 +66,7 @@ static Map<String, ArrayList<String>> bibliotheque = new HashMap<>();
 				remplirListe(liste);
 			}
 		} else {
-			System.out.println("Vous avez décidé de ne pas ajouter de valeur ");
+			System.out.println("Vous avez dï¿½cidï¿½ de ne pas ajouter de valeur ");
 
 		}
 		return liste;
