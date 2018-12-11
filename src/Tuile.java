@@ -7,7 +7,8 @@ public class Tuile {
 
 	int nbCouronne, num1, num2;
 	String type;
-
+	
+	static Tuile[][] positionTuiles=new Tuile[48][2];
 	static ArrayList<Tuile> listeTuiles = new ArrayList<Tuile>();
 
 	public Tuile(int num1, int num2, int nbCouronne, String type) {
@@ -18,19 +19,25 @@ public class Tuile {
 
 	}
 
-	public static ArrayList<Tuile> creerUneTuile(Domino domi) {
+	public static Tuile[][] creerUneTuile(Domino domi) {
 
 			
-		Tuile tuile = new Tuile(domi.num, 1, domi.nbCouronne1, domi.type1);
-		Tuile tuile2 = new Tuile(domi.num, 2, domi.nbCouronne2, domi.type2);
+		Tuile tuile1 = new Tuile(domi.getnum() , 1, domi.getnbCouronne1(), domi.gettype1());
+		Tuile tuile2 = new Tuile(domi.getnum(), 2, domi.getnbCouronne2(), domi.gettype2());
 
-		listeTuiles.set(domi.num,tuile);
-		listeTuiles.set(domi.num,tuile);
-		listeTuiles.add(tuile);
+		positionTuiles[domi.getnum()][0]=tuile1;
+		positionTuiles[domi.getnum()][1]=tuile2;
+		
+		//old
+		/*
+		listeTuiles.set(domi.getnum(),tuile1);
+		listeTuiles.set(domi.getnum(),tuile2);
+		listeTuiles.add(tuile1);
 		listeTuiles.add(tuile2);
+		*/
 		
 	// This prints out the working directory
-	return listeTuiles;
+	return positionTuiles;
 
 
 }

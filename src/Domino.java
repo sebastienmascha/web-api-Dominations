@@ -7,11 +7,11 @@ import java.io.File;
 public class Domino {
 	
 	//attributs des dominos
-	int nbCouronne1, nbCouronne2, num;
-	String type1, type2;
+	public int nbCouronne1, nbCouronne2, num;
+	public String type1, type2;
 	
 	//liste des dominos
-	static ArrayList<Domino> listeDominos = new ArrayList<Domino>();
+	public static ArrayList<Domino> listeDominos = new ArrayList<Domino>();
 
 	//constructeur d'un Domino
 	public Domino(int num, int nbCouronne1, String type1, int nbCouronne2, String type2) {
@@ -59,6 +59,14 @@ public class Domino {
 	}
 
 	// Getters & Setters
+	public int getnum() {
+		return num;
+	}
+
+	public void setnum(int num) {
+		this.num = num;
+	}
+	
 	public String gettype1() {
 		return type1;
 	}
