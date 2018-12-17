@@ -4,6 +4,21 @@ import java.io.FileNotFoundException;
 import java.awt.List;
 import java.io.File;
 
+
+
+/* Fonctions à faire:
+ * 
+ * affichageTerrain(Terrain terrain)
+ * 
+ * pour cela il faut parcourir le tableau terrain et
+ * afficher en ASCII les attributs de chaque tuile présente dans le tableau.
+ * 
+ */
+
+
+
+
+
 public class Affichage {
 
 	public static void DessineDomino (Domino dom) {
@@ -58,12 +73,3 @@ public class Affichage {
 	
 	
 }
-/*
-public Domino(int num, int nbCouronne1, String type1, int nbCouronne2, String type2) {
-numeroDomino = num;
-nbCouronne1 = nbCouronne1;
-type1 = type1;
-nbCouronne2 = nbCouronne2;
-type2 = type2;
-
-/*/
