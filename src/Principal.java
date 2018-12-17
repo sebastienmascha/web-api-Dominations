@@ -21,13 +21,13 @@ public class Principal {
 		System.out.println("\nAfficher domino depuis liste :");
 			Domino.afficherDomino(Jeu.dominos[2]);
 			
-		System.out.println("\nAfficher domino depuis son attribut numéro :");
+		System.out.println("\nAfficher domino depuis son attribut numï¿½ro :");
 			Domino.afficherDominoParNum(2);
 			
-		System.out.println("\nRécupérer le type 1 du domino 2 :");
+		System.out.println("\nRï¿½cupï¿½rer le type 1 du domino 2 :");
 			System.out.println(Jeu.dominos[2].gettype1());
 			
-		System.out.println("\nAjouter une tuile à la liste des tuiles depuis la liste des dominos.");
+		System.out.println("\nAjouter une tuile ï¿½ la liste des tuiles depuis la liste des dominos.");
 			Tuile.ajoutertuile(Jeu.dominos[2]);
 			
 		System.out.println("\nAfficher une tuile depuis la liste des tuiles :");
