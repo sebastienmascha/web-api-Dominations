@@ -1,19 +1,26 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Terrain {
+	private Chateau[] tabChateau;
+    private List<Domino> listeDomino;
+    private int tourJoueur = 1;
+    
+    Tuile terrain[][] = new Tuile[9][9];
+    
+    public Terrain() {
+        //tabChateau = new Chateau[2];
+        //listeDomino = new ArrayList<Domino>();
+    }
+    
+    
+
 	
-	public static Tuile[][] terrain = new Tuile[5][5];
-
-	public Terrain() {
-		
-
-	}
-
-	public static void remplirTerrain(Tuile tuile, int posx, int posy) {
+	public void remplirTerrain(Tuile tuile, int posx, int posy) {
 
 		terrain[posx][posy] = tuile;
 
@@ -22,76 +29,24 @@ public class Terrain {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public Chateau getChateau(int indice) {
+        return tabChateau[indice];
+    }
 
-	ArrayList<ArrayList<Integer>> listOLists = new ArrayList<ArrayList<Integer>>();
+    public List<Domino> getListeDomino() {
+        return listeDomino;
+    }
+    
+    public int getTourJoueur() {
+        return tourJoueur;
+    }
 
-	/*
-	 * 
-	 * static Tuile[][] positionTuiles=new Tuile[48][2];
-	 * 
-	 * 
-	 * public static Tuile[][] creationListeTuilesDominos() { /*
-	 * Domino.listeDominos.get(1).gettype1();
-	 * 
-	 * Domino d1= Domino.listeDominos.get(1);
-	 */
+    public void setTourJoueur(int tourJoueur) {
+        this.tourJoueur = tourJoueur;
+    }
+    
+    
 
-	/*
-	 * 
-	 * for (int i = 0; i < positionTuiles.length; i++) {
-	 * positionTuiles[i][1]=Tuile.listeTuiles.get(i);
-	 * positionTuiles[i][2]=Tuile.listeTuiles.get(i+1); }
-	 * 
-	 * return positionTuiles;
-	 * 
-	 * 
-	 * 
-	 * }
-	 * 
-	 * //creer tableau tuiles
-	 * 
-	 */
-
-	static Map<String, ArrayList<String>> bibliotheque = new HashMap<>();
-
-	static ArrayList<String> artisteliste = new ArrayList<String>();
-	static ArrayList<String> albumliste = new ArrayList<String>();
-
-	public static ArrayList<Integer> remplirListe(ArrayList<Integer> liste) {
-		ArrayList<Integer> liste1 = new ArrayList<>(Arrays.asList());
-
-		System.out.println("Voulez-vous saisir une nouvelle valeur ? (y/n)");
-		Scanner scanner = new Scanner(System.in);
-		String yesno = scanner.nextLine();
-		if (yesno == "y") {
-			try {
-				System.out.println("Quelle valeur voulez-vous ajouter ?");
-				liste.add(Integer.valueOf(scanner.nextLine()));
-				remplirListe(liste);
-
-			} catch (NumberFormatException e) {
-				System.out.println("vous devez mettre un entier");
-				remplirListe(liste);
-			}
-		} else {
-			System.out.println("Vous avez d�cid� de ne pas ajouter de valeur ");
-
-		}
-		return liste;
-
-	}
+	
 
 }
