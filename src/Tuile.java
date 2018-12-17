@@ -8,7 +8,7 @@ public class Tuile {
 	int nbCouronne, num1, num2;
 	String type;
 
-	public static Tuile[][] positionTuiles = new Tuile[48][2];
+	public static Tuile[][] tuiles = new Tuile[48][2];
 	public static ArrayList<Tuile> listeTuiles = new ArrayList<Tuile>();
 
 	public Tuile(int num1, int num2, int nbCouronne, String type) {
@@ -24,8 +24,8 @@ public class Tuile {
 		Tuile tuile1 = new Tuile(domi.getnum(), 1, domi.getnbCouronne1(), domi.gettype1());
 		Tuile tuile2 = new Tuile(domi.getnum(), 2, domi.getnbCouronne2(), domi.gettype2());
 
-		positionTuiles[domi.getnum()][0] = tuile1;
-		positionTuiles[domi.getnum()][1] = tuile2;
+		tuiles[domi.getnum()][0] = tuile1;
+		tuiles[domi.getnum()][1] = tuile2;
 
 		// old
 		/*
@@ -34,22 +34,36 @@ public class Tuile {
 		 */
 
 		// This prints out the working directory
-		return positionTuiles;
+		return tuiles;
 
 	}
 	
 	//remplir la liste des tuiles avec tous les dominos
-	public static Tuile[][] remplirlistetuile(Domino listeDominos){
+	public static Tuile[][] remplirlistetuile(Domino[] dominos){
 		
-		for (int i=0; i<=Domino.nombredominos; i++) {
-			
+		for (int i=0; i<=Domino.nombredominos-1; i++) {
+			ajoutertuile(dominos[i]);
 		}
 		
-		
-		return positionTuiles;
+		return tuiles;
 		
 	}
 	
+	//supprimer une tuile de la liste
+	public static Tuile[][] supprimertuiledetuile(int num0, int num1){
+		
+		tuiles[num0][num1] = null;
+		
+		return tuiles;
+	}
+	
+	public static Tuile[][] supprimerdominodetuile(int num0){
+		
+		tuiles[num0][0] = null;
+		tuiles[num0][1] = null;
+		
+		return tuiles;
+	}
 	
 	
 	//affichage console des attributs d'une tuile

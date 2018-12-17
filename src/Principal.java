@@ -2,33 +2,41 @@
 public class Principal {
 
 	public static void main(String[] args) {
-		//initialisation
-		Domino.extraireCsv("dominos.csv");
-		System.out.println(Domino.nombredominos);
 		
-		Domino.afficherDomino(Jeu.dominos[2]);
+		//Initialisations
+		Domino.extraireCsv("dominos.csv");
+		
+		System.out.println("\nVoici le nombre de dominos extraits du csv : " + Domino.nombredominos);
 		Jeu.creationListeDominos();
 		
-		Tuile.ajoutertuile(Jeu.dominos[2]);
-		Tuile.ajoutertuile(Jeu.dominos[46]);
+		System.out.println("\nRemplir la liste des tuiles avec toutes les tuiles.");
+		Tuile.remplirlistetuile(Jeu.dominos);
 		
-		//tests fonctions
-		Domino.afficherDominoParNum(2);
-		System.out.println("______________");
 		
-		Domino.afficherDomino(Jeu.dominos[2]);
-		System.out.println("______________");
 		
-		Domino.afficherDomino(Domino.listeDominos[2]);
-		System.out.println("______________");
+		// Test des fonctions
+			
 		
-		System.out.println(Jeu.dominos[2].gettype1());
-		System.out.println("______________");
+			
+		System.out.println("\nAfficher domino depuis liste :");
+			Domino.afficherDomino(Jeu.dominos[2]);
+			
+		System.out.println("\nAfficher domino depuis son attribut numéro :");
+			Domino.afficherDominoParNum(2);
+			
+		System.out.println("\nRécupérer le type 1 du domino 2 :");
+			System.out.println(Jeu.dominos[2].gettype1());
+			
+		System.out.println("\nAjouter une tuile à la liste des tuiles depuis la liste des dominos.");
+			Tuile.ajoutertuile(Jeu.dominos[2]);
+			
+		System.out.println("\nAfficher une tuile depuis la liste des tuiles :");
+			System.out.println(Tuile.positionTuiles[2][0]);
+			
+		System.out.println("\nAfficher une tuile depuis la liste des tuiles :");
+			System.out.println(Tuile.positionTuiles[45][0]);
+			
 
-		System.out.println(Tuile.positionTuiles[46][1]);
-		System.out.println("______________");
-		
 	}
-
 
 }
