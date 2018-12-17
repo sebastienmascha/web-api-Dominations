@@ -5,17 +5,18 @@ import java.awt.List;
 import java.io.File;
 
 public class Domino {
-	
-	//attributs des dominos
+
+	// attributs des dominos
 	public int nbCouronne1, nbCouronne2, num;
 	public String type1, type2;
-	
-	//liste des dominos
+	public static int nombredominos;
+
+	// liste des dominos
 	public static ArrayList<Domino> listeDominos = new ArrayList<Domino>();
 
-	//constructeur d'un Domino
+	// constructeur d'un Domino
 	public Domino(int num, int nbCouronne1, String type1, int nbCouronne2, String type2) {
-		this.num = num-1;
+		this.num = num - 1;
 		this.nbCouronne1 = nbCouronne1;
 		this.type1 = type1;
 		this.nbCouronne2 = nbCouronne2;
@@ -23,7 +24,7 @@ public class Domino {
 
 	}
 
-	//creation de la liste initiale des dominos en extrayant le fichier csv
+	// creation de la liste initiale des dominos en extrayant le fichier csv
 	public static ArrayList<Domino> extraireCsv(String nomcsv) {
 		String fileName = nomcsv;
 		File file = new File(fileName);
@@ -31,6 +32,7 @@ public class Domino {
 		try {
 			Scanner inputStream = new Scanner(file);
 			inputStream.next();
+			nombredominos = 0;
 			while (inputStream.hasNext()) {
 				String data = inputStream.next();
 				String[] values = data.split(",");
@@ -39,6 +41,7 @@ public class Domino {
 						Integer.parseInt(values[2]), values[3]);
 
 				listeDominos.add(domi);
+				nombredominos += 1;
 			}
 			inputStream.close();
 
@@ -66,7 +69,7 @@ public class Domino {
 	public void setnum(int num) {
 		this.num = num;
 	}
-	
+
 	public String gettype1() {
 		return type1;
 	}
@@ -98,13 +101,13 @@ public class Domino {
 	public void setnbCouronne2(int nbCouronne2) {
 		this.nbCouronne2 = nbCouronne2;
 	}
-	
-	//afficher un Domino par son numéro
+
+	// afficher un Domino par son numéro
 	public static void afficherDominoParNum(int num) {
 		System.out.println(listeDominos.get(num));
 	}
-	
-	//afficher un Domino depuis une liste de dominos
+
+	// afficher un Domino depuis une liste de dominos
 	public static void afficherDomino(Domino dominos) {
 		System.out.println(dominos);
 	}

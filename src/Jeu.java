@@ -1,7 +1,16 @@
 
 public class Jeu {
 	
-	static Domino[] dominos=new Domino[48];
+	/* A faire:
+	 * 
+	 * règles de placement dans le terrain : prend en argument le terrain actuel et voir si le placement
+	 * demandé par le joueur est possible ou pas
+	 * 
+	 */
+	
+	
+	
+	static Domino[] dominos=new Domino[Domino.nombredominos];
 	
 
 	public static Domino[] creationListeDominos() {
