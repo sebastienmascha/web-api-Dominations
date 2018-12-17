@@ -41,7 +41,7 @@ public class Tuile {
 	//remplir la liste des tuiles avec tous les dominos
 	public static Tuile[][] remplirlistetuile(Domino[] dominos){
 		
-		for (int i=0; i<=Domino.nombredominos-1; i++) {
+		for (int i=0; i<=Domino.nombreinitialdominos-1; i++) {
 			ajoutertuile(dominos[i]);
 		}
 		

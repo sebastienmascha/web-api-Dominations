@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Terrain {
-	private Chateau[] tabChateau;
     private List<Domino> listeDomino;
     private int tourJoueur = 1;
     
@@ -29,9 +28,6 @@ public class Terrain {
 	
 	
 	
-	public Chateau getChateau(int indice) {
-        return tabChateau[indice];
-    }
 
     public List<Domino> getListeDomino() {
         return listeDomino;

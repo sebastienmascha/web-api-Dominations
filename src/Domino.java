@@ -9,10 +9,11 @@ public class Domino {
 	// attributs des dominos
 	public int nbCouronne1, nbCouronne2, num;
 	public String type1, type2;
-	public static int nombredominos;
+	public static int nombreinitialdominos;
 
 	// liste des dominos
-	public static ArrayList<Domino> listeDominos = new ArrayList<Domino>();
+	public static ArrayList<Domino> listedetouslesDominos = new ArrayList<Domino>();
+	static Domino[] dominos = new Domino[Domino.nombreinitialdominos];
 
 	// constructeur d'un Domino
 	public Domino(int num, int nbCouronne1, String type1, int nbCouronne2, String type2) {
@@ -32,7 +33,7 @@ public class Domino {
 		try {
 			Scanner inputStream = new Scanner(file);
 			inputStream.next();
-			nombredominos = 0;
+			nombreinitialdominos = 0;
 			while (inputStream.hasNext()) {
 				String data = inputStream.next();
 				String[] values = data.split(",");
@@ -40,8 +41,8 @@ public class Domino {
 				Domino domi = new Domino(Integer.parseInt(values[4]), Integer.parseInt(values[0]), values[1],
 						Integer.parseInt(values[2]), values[3]);
 
-				listeDominos.add(domi);
-				nombredominos += 1;
+				listedetouslesDominos.add(domi);
+				nombreinitialdominos += 1;
 			}
 			inputStream.close();
 
@@ -50,7 +51,24 @@ public class Domino {
 			System.out.println("Fichier csv non trouvé");
 		}
 		// This prints out the working directory
-		return listeDominos;
+		return listedetouslesDominos;
+
+	}
+
+	
+
+	public static Domino[] creationListeDominos() {
+		/*
+		 * Domino.listeDominos.get(1).gettype1();
+		 * 
+		 * Domino d1= Domino.listeDominos.get(1);
+		 */
+
+		for (int i = 0; i < dominos.length; i++) {
+			dominos[i] = Domino.listedetouslesDominos.get(i);
+		}
+
+		return dominos;
 
 	}
 
@@ -104,7 +122,7 @@ public class Domino {
 
 	// afficher un Domino par son numéro
 	public static void afficherDominoParNum(int num) {
-		System.out.println(listeDominos.get(num));
+		System.out.println(listedetouslesDominos.get(num));
 	}
 
 	// afficher un Domino depuis une liste de dominos
