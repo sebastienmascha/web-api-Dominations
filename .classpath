@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="PROJETEXT/Kingdomino/src"/>
+	<classpathentry kind="src" path="King-Domino-master/Kingdomino/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="PROJETEXT/Kingdomino/bg.jpg"/>
+	<classpathentry kind="lib" path="PROJETEXT/Kingdomino/chateau.jpg"/>
+	<classpathentry kind="lib" path="PROJETEXT/Kingdomino/desert.png"/>
+	<classpathentry kind="lib" path="PROJETEXT/Kingdomino/fond1.png"/>
+	<classpathentry kind="lib" path="PROJETEXT/Kingdomino/fond3.png"/>
+	<classpathentry kind="lib" path="PROJETEXT/Kingdomino/foret.png"/>
+	<classpathentry kind="lib" path="PROJETEXT/Kingdomino/grass.png"/>
+	<classpathentry kind="lib" path="PROJETEXT/Kingdomino/header.png"/>
+	<classpathentry kind="lib" path="PROJETEXT/Kingdomino/Kingdomino.iml"/>
+	<classpathentry kind="lib" path="PROJETEXT/Kingdomino/mines.png"/>
+	<classpathentry kind="lib" path="PROJETEXT/Kingdomino/parchemin.jpg"/>
+	<classpathentry kind="lib" path="PROJETEXT/Kingdomino/test.txt"/>
+	<classpathentry kind="lib" path="PROJETEXT/Kingdomino/water.png"/>
+	<classpathentry kind="lib" path="PROJETEXT/Kingdomino/wheat.png"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
