@@ -4,22 +4,42 @@ public class Jeu {
 
 	public int nbjoueurs, nbrois;
 
-	public void initialisation() {
+	public void preparation() {
 		supprimerdominos();
-		if (nbjoueurs < 2) {
-			nbrois=2*nbjoueurs;
-		}
-		else {
-			nbrois=nbjoueurs;
+		definirnbrois();
 
+	}
+	
+	public void premiertour() {
+		
+	}
+
+	private void supprimerdominos() {
+		int randomNum;
+		for (int i = 0; i <= (Domino.nombreinitialdominos-(12 * nbjoueurs)) - 1; i++) {
+			randomNum = ThreadLocalRandom.current().nextInt(0, 48 + 1);
+			Tuile.supprimerdominodetuile(randomNum);
 		}
 
 	}
 
-	private void supprimerdominos() {
+	private int definirnbrois() {
+		if (nbjoueurs < 2) {
+			this.nbrois = 2 * nbjoueurs;
+		} else {
+			this.nbrois = nbjoueurs;
 
-		for (int i = 0; i <= 12 * nbjoueurs - 1; i++) {
-			int randomNum = ThreadLocalRandom.current().nextInt(0, 48 + 1);
+		}
+		return nbrois;
+	}
+	
+	
+	private void piocherdominos(int n) {
+		int randomNum;
+		for (int i = 0; i <= n - 1; i++) {
+			randomNum = ThreadLocalRandom.current().nextInt(0, 48 + 1);
+			//il faut creer une liste pioche qui se rebuild à chaque fois qu'on supprime un domino
+			// ou alors creer une liste des numéros des dominos supprimés pour les exclure du random
 			Tuile.supprimerdominodetuile(randomNum);
 		}
 

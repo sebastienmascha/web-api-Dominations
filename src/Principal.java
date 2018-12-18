@@ -12,6 +12,13 @@ public class Principal {
 		System.out.println("\nRemplir la liste des tuiles avec toutes les tuiles.");
 		Tuile.remplirlistetuile(Domino.dominos);
 		
+		//création d'une partie
+		Jeu jeu1 = new Jeu();
+		jeu1.nbjoueurs=3;
+		
+		jeu1.preparation();
+		jeu1.premiertour();
+		
 		
 		
 		// Test des fonctions
