@@ -9,8 +9,7 @@ public class Tuile {
 	String type;
 
 	public static Tuile[][] tuiles = new Tuile[48][2];
-	public static ArrayList<Tuile> listeTuiles = new ArrayList<Tuile>();
-
+	
 	public Tuile(int num1, int num2, int nbCouronne, String type) {
 		this.num1 = num1;
 		this.num2 = num2;
