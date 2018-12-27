@@ -28,7 +28,7 @@ public class FenetreJeu extends JPanel {
 		
 			//PANEL NORD
 			this.add(panelN, "Haut" );
-			panelN.setLayout(null);
+			panelN.setLayout(new GridLayout(0, 1, 0, 0));
 			lblPlateau.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 18));				lblPlateau.setForeground(Color.RED);
 			lblPlateau.setHorizontalAlignment(SwingConstants.CENTER);
 			lblPlateau.setBounds(152, 16, 146, 16);
@@ -48,7 +48,7 @@ public class FenetreJeu extends JPanel {
 			this.add(panelS, "Bas");
 				
 			//PANEL SUD
-			panelS.setLayout(null);
+			panelS.setLayout(new GridLayout(0, 1, 0, 0));
 			btnRetournerAuMenu.setBounds(281, 45, 163, 29);
 			panelS.add(btnRetournerAuMenu);
 	}

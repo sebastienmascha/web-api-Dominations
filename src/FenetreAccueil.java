@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,7 +31,12 @@ public class FenetreAccueil extends PanelDeJeu {
 	public FenetreAccueil() {
 
 		//BorderLayout.CENTER
-		this.setLayout(null);
+		this.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		lblKingdomino.setForeground(Color.WHITE);
+		lblKingdomino.setFont(new Font("Comic Sans MS", Font.ITALIC, 20));
+		lblKingdomino.setBounds(179, 16, 114, 32);
+		this.add(lblKingdomino);
 		
 		lblChoisissezLeNombre.setForeground(Color.WHITE);
 		lblChoisissezLeNombre.setBounds(121, 98, 205, 16);
@@ -57,21 +63,16 @@ public class FenetreAccueil extends PanelDeJeu {
 		QuatreJoueurs.setBounds(282, 126, 91, 23);
 		this.add(QuatreJoueurs);
 		
-		lblKingdomino.setForeground(Color.WHITE);
-		lblKingdomino.setFont(new Font("Comic Sans MS", Font.ITALIC, 20));
-		lblKingdomino.setBounds(179, 16, 114, 32);
-		this.add(lblKingdomino);
-		BoutonRegles.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		BoutonRegles.setBounds(312, 243, 132, 29);
-		this.add(BoutonRegles);
 		lblNombreDeJoueurs.setForeground(Color.WHITE);
-
 		lblNombreDeJoueurs.setBounds(153, 191, 250, 16);
 		this.add(lblNombreDeJoueurs);
 		
 		btnJouer.setBounds(50, 243, 117, 29);
 		this.add(btnJouer);
 		
+		BoutonRegles.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		BoutonRegles.setBounds(312, 243, 132, 29);
+		this.add(BoutonRegles);
 		
 		DeuxJoueurs.addActionListener(ActionChoixJoueurs);
 		TroisJoueurs.addActionListener(ActionChoixJoueurs);
