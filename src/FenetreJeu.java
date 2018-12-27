@@ -29,7 +29,8 @@ public class FenetreJeu extends JPanel {
 			//PANEL NORD
 			this.add(panelN, "Haut" );
 			panelN.setLayout(new GridLayout(0, 1, 0, 0));
-			lblPlateau.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 18));				lblPlateau.setForeground(Color.RED);
+			lblPlateau.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 18));				
+			lblPlateau.setForeground(Color.RED);
 			lblPlateau.setHorizontalAlignment(SwingConstants.CENTER);
 			lblPlateau.setBounds(152, 16, 146, 16);
 			panelN.add(lblPlateau);
@@ -41,10 +42,10 @@ public class FenetreJeu extends JPanel {
 			panelC.setLayout(new GridLayout(9, 9, 0, 0));
 			for (int i=1; i <=40; i++) {
 				panelC.add(new JButton("Domino " + i), BorderLayout.CENTER);}
+			panelC.add(new JButton(new ImageIcon("//Users/lebens/Desktop/Dominations/images/chateau.jpg")), BorderLayout.CENTER);
 			for (int i=42; i <=81; i++) {
 				panelC.add(new JButton("Domino " + i), BorderLayout.CENTER);}
 			this.add(panelC, "Central");
-			panelC.add(new JButton(new ImageIcon("chateau.jpg")), BorderLayout.CENTER);
 			this.add(panelS, "Bas");
 				
 			//PANEL SUD
