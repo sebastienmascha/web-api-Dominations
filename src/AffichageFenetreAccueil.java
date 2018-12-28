@@ -30,7 +30,7 @@ public class AffichageFenetreAccueil extends JPanel {
 	JRadioButton QuatreJoueurs = new JRadioButton("4 joueurs");
 	JToggleButton BoutonRegles = new JToggleButton("Règles du jeu");
 	JButton btnJouer = new JButton("Jouer !");
-	JLabel lblNombreDeJoueurs = new JLabel("Nombre de joueurs :" + jeu1.nbjoueurs);
+	JLabel lblNombreDeJoueurs = new JLabel("Nombre de joueurs :" + jeu1.nbjoueurs + ", veuillez choisir ...");
 	JLabel lblKingdomino = new JLabel("KingDomino");
 
 

@@ -87,33 +87,89 @@ public class AffichageFenetreJeu extends JPanel {
 			SelectionDefilante.setModel(new DefaultComboBoxModel(new String[] {"Choissisez votre Terrain...", "Terrain 1", "Terrain 2", "Terrain 3", "Terrain 4"}));
 			panelS.add(SelectionDefilante);
 			SelectionDefilante.setBounds(152, 33, 146, 41);
+			
 			//Définition de l'action au moment du choix sur le bouton de selection des terrains
-			SelectionDefilante.addActionListener(new ActionListener()	{
-				@Override
-				public void actionPerformed (ActionEvent e){
-			        String s = (String) SelectionDefilante.getSelectedItem();//get the selected item    
-	                switch (s) {//check for a match
-	                    case "Terrain 1":
-	                        ValeurSelection = 1;
-	                        break;
-	                    case "Terrain 2":
-	                        ValeurSelection = 2; 
-	                        break;
-	                    case "Terrain 3":
-	                        ValeurSelection = 3;
-	                        break;   
-	                    case "Terrain 4":
-	                    	ValeurSelection = 4;
-	                    	break;
-	                }
-	                lbl.setText("Vous êtes sur le " + ((JComboBox) e.getSource()).getItemAt(ValeurSelection));
-                    lblPlateau.setText("Plateau #" + ValeurSelection);
-	                PlusieursTerrains.show(panelC, listeIndice[ValeurSelection]);
-
-	            }
-			});
+			/**
+			if (Affichage.PageAccueil.QuatreJoueurs.isSelected()) {
+			SelectionDefilante.addActionListener(Quatrejoueurs);
+			}
+			*/
 	}
 
+	public ActionListener Quatrejoueurs = new ActionListener() {
+		@Override
+		public void actionPerformed (ActionEvent e){
+	        String s = (String) SelectionDefilante.getSelectedItem();//get the selected item    
+            switch (s) {//check for a match
+                case "Terrain 1":
+                    ValeurSelection = 1;
+                    break;
+                case "Terrain 2":
+                    ValeurSelection = 2; 
+                    break;
+                case "Terrain 3":
+                    ValeurSelection = 3;
+                    break;   
+                case "Terrain 4":
+                	ValeurSelection = 4;
+                	break;
+            }
+            lbl.setText("Vous êtes sur le " + ((JComboBox) e.getSource()).getItemAt(ValeurSelection));
+            lblPlateau.setText("Plateau #" + ValeurSelection);
+            PlusieursTerrains.show(panelC, listeIndice[ValeurSelection]);
+
+        }
+	};
+	
+	public ActionListener Troisjoueurs = new ActionListener() {
+		@Override
+		public void actionPerformed (ActionEvent e){
+	        String s = (String) SelectionDefilante.getSelectedItem();//get the selected item    
+            switch (s) {//check for a match
+                case "Terrain 1":
+                    ValeurSelection = 1;
+                    break;
+                case "Terrain 2":
+                    ValeurSelection = 2; 
+                    break;
+                case "Terrain 3":
+                    ValeurSelection = 3;
+                    break;   
+                case "Terrain 4":
+                	ValeurSelection = 4;
+                	break;
+            }
+            lbl.setText("Vous êtes sur le " + ((JComboBox) e.getSource()).getItemAt(ValeurSelection));
+            lblPlateau.setText("Plateau #" + ValeurSelection);
+            PlusieursTerrains.show(panelC, listeIndice[ValeurSelection]);
+
+        }
+	};
+
+	public ActionListener Deuxjoueurs = new ActionListener() {
+		@Override
+		public void actionPerformed (ActionEvent e){
+	        String s = (String) SelectionDefilante.getSelectedItem();//get the selected item    
+            switch (s) {//check for a match
+                case "Terrain 1":
+                    ValeurSelection = 1;
+                    break;
+                case "Terrain 2":
+                    ValeurSelection = 2; 
+                    break;
+                case "Terrain 3":
+                    ValeurSelection = 3;
+                    break;   
+                case "Terrain 4":
+                	ValeurSelection = 4;
+                	break;
+            }
+            lbl.setText("Vous êtes sur le " + ((JComboBox) e.getSource()).getItemAt(ValeurSelection));
+            lblPlateau.setText("Plateau #" + ValeurSelection);
+            PlusieursTerrains.show(panelC, listeIndice[ValeurSelection]);
+
+        }
+	};
 
 
 }

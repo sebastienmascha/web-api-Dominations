@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.ImageIcon;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -46,6 +47,7 @@ public class Affichage {
 	}
 
 	private void Initialisation() {
+		FenetreJeu.setIconImage(new ImageIcon ("//Users/lebens/Desktop/Dominations/images/ISEP.png").getImage());
 		FenetreJeu.setBounds(100, 100, 450, 300);
 		FenetreJeu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//FenetreJeu.getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
