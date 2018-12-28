@@ -32,8 +32,8 @@ public class Affichage {
 	JFrame FenetreJeu = new JFrame("Projet Kingdomino" );
 	
 	//On définit les différentes pages de notre application
-	FenetreJeu PageJeu = new FenetreJeu();
-	FenetreAccueil PageAccueil = new FenetreAccueil();
+	AffichageFenetreJeu PageJeu = new AffichageFenetreJeu();
+	AffichageFenetreAccueil PageAccueil = new AffichageFenetreAccueil();
 	JLayeredPane layeredPane = new JLayeredPane();
 	JPanel pane = new JPanel();
 	CardLayout PlusieursPages = new CardLayout(0, 0);
