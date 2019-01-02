@@ -1,3 +1,4 @@
+import java.awt.EventQueue;
 
 public class Principal {
 
@@ -7,29 +8,35 @@ public class Principal {
 		Domino.extraireCsv("dominos.csv");
 		
 		System.out.println("\nVoici le nombre de dominos extraits du csv : " + Domino.nombreinitialdominos);
-		Domino.creationListeDominos();
+		//Domino.creationListeDominos();
 		
 		System.out.println("\nRemplir la liste des tuiles avec toutes les tuiles.");
-		Tuile.remplirlistetuile(Domino.dominos);
+		//Tuile.remplirlistetuile(Domino.dominos);
 		
-		//création d'une partie
+		//crï¿½ation d'une partie
 		Jeu jeu1 = new Jeu();
-		jeu1.nbjoueurs=3;
+		//jeu1.nbjoueurs=3;
 		
-		jeu1.preparation();
-		jeu1.premiertour();
+		//jeu1.preparation();
+		//jeu1.premiertour();
 		
 		
 		
-		// Test des fonctions
+		// Test de l'interface graphique
 			
-		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+					Affichage window = new Affichage();
+					window.FenetreJeu.setVisible(true);
+					
+			}
+		});
 			
 		System.out.println("\nAfficher domino depuis liste :");
-			Domino.afficherDomino(Domino.dominos[2]);
+			//Domino.afficherDomino(Domino.dominos[2]);
 			
 		System.out.println("\nAfficher domino depuis son attribut numï¿½ro :");
-			Domino.afficherDominoParNum(2);
+			//Domino.afficherDominoParNum(2);
 			
 		System.out.println("\nRï¿½cupï¿½rer le type 1 du domino 2 :");
 			System.out.println(Domino.dominos[2].gettype1());
