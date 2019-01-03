@@ -65,8 +65,8 @@ public class Affichage {
 			});
 			
 			SelectionDefilante.setModel(new DefaultComboBoxModel<String>(new String[] {"Choissisez votre Terrain...", "Terrain 1", "Terrain 2", "Terrain 3", "Terrain 4"}));		
-			SelectionDefilante.addActionListener(A);
-		PageJeu.NordEst.add(SelectionDefilante);
+			SelectionDefilante.addActionListener(ConfigJoueurs);
+		PageJeu.Centre.add(SelectionDefilante);
 		//SelectionDefilante.addItemListener();
 		
 		/**
@@ -83,7 +83,7 @@ public class Affichage {
 		
 	}
 	//Définition de l'action au moment du choix sur le bouton de selection des terrains
-	public ActionListener A = new ActionListener() {
+	public ActionListener ConfigJoueurs = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 		

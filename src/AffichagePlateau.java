@@ -8,15 +8,19 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class AffichagePlateau extends JPanel {
-	
+	ImageIcon Chateau = new ImageIcon("//Users/lebens/Desktop/Dominations/images/bulle.jpg");
+	JButton C = new JButton(Chateau);
 	public AffichagePlateau(){
 		this.setLayout(new GridLayout(9, 9, 0, 0));
 		for (int i=1; i <=40; i++) {
 			this.add(new JButton("Domino " + i), BorderLayout.CENTER);}
-		this.add(new JButton(new ImageIcon("//Users/lebens/Desktop/Dominations/images/chateau.jpg")), BorderLayout.CENTER);
+		
+		this.add(C);
+		//C.setIcon(Chateau);
 		for (int i=42; i <=81; i++) {
 			this.add(new JButton("Domino " + i), BorderLayout.CENTER);}
 	}

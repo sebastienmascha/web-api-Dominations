@@ -97,14 +97,15 @@ public class AffichageFenetreAccueil extends JPanel {
 		BoutonRegles.setBounds(312, 243, 132, 29);
 		GridBagConstraints gbc_BoutonRegles = new GridBagConstraints();
 		gbc_BoutonRegles.insets = new Insets(0, 0, 0, 5);
-		gbc_BoutonRegles.gridx = 0;
+		gbc_BoutonRegles.gridx = 1;
 		gbc_BoutonRegles.gridy = 8;
 		this.add(BoutonRegles, gbc_BoutonRegles);
 		BoutonRegles.addActionListener(ActionRegles);
 		
 		btnJouer.setBounds(50, 243, 117, 29);
 		GridBagConstraints gbc_btnJouer = new GridBagConstraints();
-		gbc_btnJouer.gridx = 4;
+		gbc_btnJouer.insets = new Insets(0, 0, 0, 5);
+		gbc_btnJouer.gridx = 3;
 		gbc_btnJouer.gridy = 8;
 		this.add(btnJouer, gbc_btnJouer);
 
