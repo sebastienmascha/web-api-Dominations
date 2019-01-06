@@ -49,19 +49,18 @@ public class Tuile {
 	}
 	
 	//supprimer une tuile de la liste
-	public static Tuile[][] supprimertuiledetuile(int num0, int num1){
+	public static void supprimertuiledetuile(int num0, int num1){
 		
 		tuiles[num0][num1] = null;
 		
-		return tuiles;
 	}
 	
-	public static Tuile[][] supprimerdominodetuile(int num0){
+	public static void supprimerdominodetuile(int num0){
 		
 		tuiles[num0][0] = null;
 		tuiles[num0][1] = null;
 		
-		return tuiles;
+
 	}
 	
 	

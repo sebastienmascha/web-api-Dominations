@@ -3,7 +3,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Jeu {
 
 	public int nbjoueurs, nbrois, nombrededominosrestants;
-	public Tuile[][] pioche = creerunepioche(Tuile.tuiles);
+	public Tuile[][] pioche = reconstruirepioche(Tuile.tuiles);
 	public Tuile[][] dominostour = new Tuile[48][2];
 
 	public void preparation() {
@@ -28,7 +28,7 @@ public class Jeu {
 	}
 
 	private void definirnbrois() {
-		if (nbjoueurs < 2) {
+		if (nbjoueurs <= 2) {
 			this.nbrois = 2 * nbjoueurs;
 		} else {
 			this.nbrois = nbjoueurs;
@@ -39,7 +39,7 @@ public class Jeu {
 	
 	
 	//la fonction va "rebuild" la pioche comportant des trous en créant une pioche sans trous
-		private Tuile[][] creerunepioche(Tuile listetuiles[][]) {
+		private Tuile[][] reconstruirepioche(Tuile listetuiles[][]) {
 			Tuile[][] piochetemporaire = new Tuile[listetuiles.length][2];
 			this.nombrededominosrestants = 0;
 
@@ -65,7 +65,7 @@ public class Jeu {
 			pioche[randomNum]=null;
 		}
 		//recreer la pioche à partir de la précédente pioche ("rebuild")
-		this.pioche=creerunepioche(pioche);
+		this.pioche=reconstruirepioche(pioche);
 
 	}
 
@@ -77,8 +77,7 @@ public class Jeu {
 		for (int i = 0; i <= dominostour.length - 1; i++) {
 			//trier une liste par ordre croissant en fonction des dominostour[i].getnumdomi();
 			if (dominostour[i][0].getnumdomi() > dominostour[i+1][0].getnumdomi()) {
-				//il faut permuter les dominos dans la liste pour cela il faut creer une variable
-				//temporaire afin de se souvenir temporairement de la valeur avant de la remplacer
+				
 				
 			}
 			
