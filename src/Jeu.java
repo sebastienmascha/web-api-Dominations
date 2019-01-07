@@ -10,12 +10,12 @@ public class Jeu {
 		supprimerdominos();
 		definirnbrois();
 		piocherdominos(nbrois);
-		dominostour=trierdominostour(dominostour);
+		
 
 	}
 
 	public void premiertour() {
-
+		dominostour=trierdominostour(dominostour);
 	}
 
 	private void supprimerdominos() {
@@ -84,7 +84,8 @@ public class Jeu {
 		}
 		
 		return dominostour;
-		//on return car plus facile et safe de travailler en local pour permuter les elements d'une liste
+		// on return car plus facile et safe de travailler en local pour permuter les
+		// elements d'une liste
 	}
 
 	/* ______________________________________________________________________ */

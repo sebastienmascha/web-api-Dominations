@@ -15,10 +15,9 @@ public class Principal {
 		
 		//cr�ation d'une partie
 		Jeu jeu1 = new Jeu();
-		//jeu1.nbjoueurs=3;
 		
-		//jeu1.preparation();
-		//jeu1.premiertour();
+		jeu1.preparation();
+		jeu1.premiertour();
 		
 		
 		
