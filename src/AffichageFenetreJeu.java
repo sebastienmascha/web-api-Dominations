@@ -26,7 +26,7 @@ import javax.swing.BoxLayout;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.UIManager;
-import org.eclipse.wb.swing.FocusTraversalOnArray;
+//import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 import java.awt.Container;
 
@@ -111,7 +111,7 @@ public class AffichageFenetreJeu extends JPanel {
 				test.add(T3,IndiceTerrain[3]);
 				test.add(T4,IndiceTerrain[4]);
 				test.setBorder(new MatteBorder(5, 4, 4, 5, (Color) Color.ORANGE));
-				test.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{T1, T2, T3, T4}));
+				//test.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{T1, T2, T3, T4}));
 				
 			this.add(SudEst);
         }
