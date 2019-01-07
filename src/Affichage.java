@@ -147,7 +147,9 @@ public class Affichage {
 		}
 	};
 	
-
+	public int getnbjoueurs (){
+		return PageAccueil.nbjoueurs;
+	}
             /**
 	public ActionListener ChangerPage = new ActionListener() {
 		@Override
