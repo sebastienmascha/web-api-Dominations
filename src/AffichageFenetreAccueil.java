@@ -23,21 +23,23 @@ import java.awt.Insets;
 
 public class AffichageFenetreAccueil extends JPanel {
 	
-	Jeu jeu1 = new Jeu();
 	
+	int nbjoueurs=0;
 	JRadioButton DeuxJoueurs = new JRadioButton("2 joueurs");
 	JRadioButton TroisJoueurs = new JRadioButton("3 joueurs");
 	JRadioButton QuatreJoueurs = new JRadioButton("4 joueurs");
 	JToggleButton BoutonRegles = new JToggleButton("Règles du jeu");
 	JButton btnJouer = new JButton("Jouer !");
-	JLabel lblNombreDeJoueurs = new JLabel("Nombre de joueurs :" + jeu1.nbjoueurs + ", veuillez choisir ...");
+	JLabel lblNombreDeJoueurs = new JLabel("Nombre de joueurs :" + nbjoueurs + ", veuillez choisir ...");
 	JLabel lblKingdomino = new JLabel("KingDomino");
-	String NombreDeJoueursString ="0";
+	String NombreDeJoueursString = String.valueOf(nbjoueurs);
+	
+	GridBagLayout Layout = new GridBagLayout();
 	
 	public AffichageFenetreAccueil() {
 
 		//BorderLayout.CENTER
-		this.setLayout(new GridBagLayout());
+		this.setLayout(Layout);
 		
 		lblKingdomino.setForeground(Color.WHITE);
 		lblKingdomino.setFont(new Font("Comic Sans MS", Font.ITALIC, 20));
