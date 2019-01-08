@@ -17,6 +17,25 @@ public class Jeu {
 		 * System.out.println("\nlongueur de la liste avant suppr :" +
 		 * Tuile.tuiles.length);
 		 */
+		
+		//creation terrains
+				if (nbjoueurs==2) {
+					Terrain terrain1 = new Terrain();
+					Terrain terrain2 = new Terrain();
+				}
+				else if (nbjoueurs==3) {
+					Terrain terrain1 = new Terrain();
+					Terrain terrain2 = new Terrain();
+					Terrain terrain3 = new Terrain();
+				}
+				else {
+					Terrain terrain1 = new Terrain();
+					Terrain terrain2 = new Terrain();
+					Terrain terrain3 = new Terrain();
+					Terrain terrain4 = new Terrain();
+				}
+		
+		
 
 		supprimerdominosinitial();
 		System.out.println("Les dominos ont correctements été supprimés de la liste tuiles initiale.");
