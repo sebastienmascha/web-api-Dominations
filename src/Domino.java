@@ -13,7 +13,7 @@ public class Domino {
 
 	// liste des dominos
 	public static ArrayList<Domino> listedetouslesDominos = new ArrayList<Domino>();
-	static Domino[] dominos = new Domino[Domino.nombreinitialdominos];
+	static Domino[] dominos = new Domino[48];
 
 	// constructeur d'un Domino
 	public Domino(int num, int nbCouronne1, String type1, int nbCouronne2, String type2) {
@@ -63,7 +63,7 @@ public class Domino {
 		 * 
 		 * Domino d1= Domino.listeDominos.get(1);
 		 */
-
+		
 		for (int i = 0; i < dominos.length; i++) {
 			dominos[i] = Domino.listedetouslesDominos.get(i);
 		}
@@ -126,8 +126,8 @@ public class Domino {
 	}
 
 	// afficher un Domino depuis une liste de dominos
-	public static void afficherDomino(Domino dominos) {
-		System.out.println(dominos);
+	public static void afficherDomino(Domino undomi) {
+		System.out.println(undomi);
 	}
 
 }
