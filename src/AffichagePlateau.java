@@ -1,29 +1,55 @@
-import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class AffichagePlateau extends JPanel {
 	ImageIcon Chateau = new ImageIcon("//Users/lebens/Desktop/Dominations/images/bulle.jpg");
 	JButton C = new JButton(Chateau);
-	public AffichagePlateau(){
-		this.setLayout(new GridLayout(9, 9, 0, 0));
-		for (int i=1; i <=40; i++) {
-			this.add(new JButton("Domino " + i), BorderLayout.CENTER);}
-		
-		this.add(C);
-		//C.setIcon(Chateau);
-		for (int i=42; i <=81; i++) {
-			this.add(new JButton("Domino " + i), BorderLayout.CENTER);}
+	GridLayout Layout = new GridLayout(9, 9, 0, 0);
+	List<JButton> ListeBoutons = new ArrayList<JButton>();
+	
+	public  AffichagePlateau(){
+		this.setLayout(Layout);
+        for (int i = 0; i < 9 * 9; i++) {
+            int ligne = i / 9;
+            int colonne = i % 9;
+            JButton gb = CreerBoutonOrganise(ligne, colonne);
+            ListeBoutons.add(gb);
+            this.add(gb);
+        }		
 	}
+	
+    private JButton getGridButton(int x, int y) {
+        int index = x * 9 + y;
+        return ListeBoutons.get(index);
+    }
+	
+	
+	public JButton CreerBoutonOrganise(final int x, final int y) {
+	     final JButton b = new JButton("[" + x + "][" + y + "]");
+	     b.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	                JButton gb = getGridButton(x, y);
+	                System.out.println("[" + x + "][" + y + "]"
+	                    + " enclenché sur le terrain " + ((JButton) e.getSource()).getParent());
+	                ((JButton) e.getSource()).setText("Cliqué !");
+	                ((JButton) e.getSource()).setIcon(Chateau);
+	            }
+	        });
+	        return b;
+	    }
 	
 	public void paintComponent(Graphics g){
 		try {
@@ -33,5 +59,7 @@ public class AffichagePlateau extends JPanel {
 			e.printStackTrace();
 		}
 	}
-	
+        
 }
+
+
