@@ -8,7 +8,7 @@ public class Tuile {
 	int nbCouronne, num1, num2;
 	String type;
 
-	public static Tuile[][] tuiles = new Tuile[48][2];
+	public static Tuile[][] tuiles = new Tuile[49][2];
 	
 	public Tuile(int num1, int num2, int nbCouronne, String type) {
 		this.num1 = num1;
@@ -20,8 +20,8 @@ public class Tuile {
 
 	public static Tuile[][] ajoutertuile(Domino domi) {
 
-		Tuile tuile1 = new Tuile(domi.getnum(), 1, domi.getnbCouronne1(), domi.gettype1());
-		Tuile tuile2 = new Tuile(domi.getnum(), 2, domi.getnbCouronne2(), domi.gettype2());
+		Tuile tuile1 = new Tuile(domi.getnum(), 0, domi.getnbCouronne1(), domi.gettype1());
+		Tuile tuile2 = new Tuile(domi.getnum(), 1, domi.getnbCouronne2(), domi.gettype2());
 
 		tuiles[domi.getnum()][0] = tuile1;
 		tuiles[domi.getnum()][1] = tuile2;
