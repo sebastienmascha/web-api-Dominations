@@ -55,9 +55,10 @@ public class Principal {
 		jeu1.nbjoueurs=3;
 		jeu1.preparation();
 		jeu1.premiertour();
-
+		/*
 		System.out.println("\nAfficher liste dominostour :");
 		System.out.println(jeu1.dominostour);
+		*/
 
 	}
 
