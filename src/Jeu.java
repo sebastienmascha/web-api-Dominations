@@ -5,7 +5,7 @@ public class Jeu {
 
 	public int nbjoueurs, nbrois;
 	public Tuile[][] pioche = new Tuile[48][2];
-	public Tuile[][] dominostour = new Tuile[48][2];
+	public Tuile[][] dominostour = new Tuile[4][2];
 
 	public void preparation() {
 		/*
@@ -32,8 +32,17 @@ public class Jeu {
 		 */
 
 		pioche = reconstruirepioche(Tuile.tuiles);
-		System.out.println(
-				"La pioche a été creee en fonction de la liste tuiles et a été reconstruite pour enlever les elements null.");
+		int lginitpioche = pioche.length;
+		System.out.println("La pioche a été creee (longueur: " + pioche.length
+				+ ") en fonction de la liste tuiles et a été reconstruite pour enlever les elements null.");
+
+		// affichage pioche
+
+		for (int i = 0; i <= pioche.length - 1; i++) {
+			System.out.println("____");
+			System.out.println(pioche[i][0]);
+
+		}
 
 		definirnbrois();
 		System.out.println("Le nombre de rois a été correctement défini, nbrois= " + nbrois + ".");
@@ -46,17 +55,32 @@ public class Jeu {
 		for (int i = 0; i <= pioche.length - 1; i++) {
 			System.out.println("____");
 			System.out.println(pioche[i][0]);
-			System.out.println("____");
-			System.out.println(pioche[i][1]);
-			System.out.println("____");
 		}
 
-		System.out.println("\nlongueur de la pioche :" + pioche.length);
+		System.out.println("\nlongueur de la pioche :" + pioche.length + " (avant piochage : " + lginitpioche + ")");
 
 	}
 
 	public void premiertour() {
+
+		dominostour = reconstruirepioche(dominostour);
+
+		// afficher dominostour avant tri
+		System.out.println("dominotours avant tri_____");
+		for (int i = 0; i <= dominostour.length - 1; i++) {
+			System.out.println("____");
+			System.out.println(dominostour[i][0]);
+		}
+
 		dominostour = trierdominostour(dominostour);
+
+		// afficher dominostour apres tri
+		System.out.println("dominotours apres tri_____");
+		for (int i = 0; i <= dominostour.length - 1; i++) {
+			System.out.println("____");
+			System.out.println(dominostour[i][0]);
+		}
+
 	}
 
 	private void supprimerdominosinitial() {
@@ -72,21 +96,27 @@ public class Jeu {
 	}
 
 	private void supprimerdomino(Tuile tuile, Tuile listetuiles[][]) {
-		int i=0;
-		try {
-		
-			do {
-				i++;
-			}
-			while (listetuiles[i][0].getnumdomi()!=tuile.getnumdomi());
+		int i = 0;
+
+		while (listetuiles[i][0] == null || listetuiles[i][0].getnumdomi() != tuile.getnumdomi()) {
+			// System.out.println(i + "\n " + (listetuiles[i][0].getnumdomi() + "!=" +
+			// tuile.getnumdomi()));
+			i++;
 		}
-		catch (Exception e) {
-			
-		}
+
+		System.out.println(i + "\n " + (listetuiles[i][0].getnumdomi() + "=" + tuile.getnumdomi()));
+		System.out.println(
+				"La tuile dont le vrai numéro vaut : " + listetuiles[i][1].getnumdomi() + " va être supprimée.");
 
 		listetuiles[i][0] = null;
 		listetuiles[i][1] = null;
-		
+		System.out.println("La tuile d'index " + i + " a été supprimée");
+
+		this.pioche = listetuiles;
+
+		// reconstruirepioche(pioche);
+		// System.out.println("La liste a bien été reconstruite, la longueur de la
+		// pioche est :" + pioche.length);
 
 	}
 
@@ -108,15 +138,26 @@ public class Jeu {
 		int nombrededominosrestants = 0;
 
 		for (int i = 0; i <= listetuiles.length - 1; i++) {
-			try {
-				if ((listetuiles[i][0].getnbcouronne() == 1) || (listetuiles[i][0].getnbcouronne() == 2)
-						|| (listetuiles[i][0].getnbcouronne() == 0)) {
-					piochetemporaire[nombrededominosrestants] = listetuiles[i];
-					nombrededominosrestants += 1;
-				}
-			} catch (Exception e) {
+			/*
+			 * 
+			 * try {
+			 */
+			/*
+			 * if ((listetuiles[i][0].getnbcouronne() == 1) ||
+			 * (listetuiles[i][0].getnbcouronne() == 2) ||
+			 * (listetuiles[i][0].getnbcouronne() == 0)) {
+			 * 
+			 */
 
+			if ((listetuiles[i][0] != null)) {
+
+				piochetemporaire[nombrededominosrestants] = listetuiles[i];
+				nombrededominosrestants += 1;
 			}
+			/*
+			 * } catch (Exception e) {
+			 * System.out.println("\nAttention Problème avec reconstruction"); }
+			 */
 		}
 
 		/*
@@ -167,12 +208,25 @@ public class Jeu {
 			System.out.println("\nRandomnum :" + randomNum);
 			System.out.println("vrai numero :" + numpioche.get(randomNum));
 
-			this.dominostour[i] = this.pioche[randomNum];
+			this.dominostour[i][0] = this.pioche[randomNum][0];
+			this.dominostour[i][1] = this.pioche[randomNum][1];
+
+			System.out.println("\nDomino sélectionné: " + this.dominostour[i][0]);
+
+			for (int j = 0; j <= dominostour.length - 1; j++) {
+				System.out.println("\n_____\ndominostour " + dominostour[j][0]);
+
+			}
+			System.out.println("_____________");
+
+			numpioche.remove(randomNum);
+			System.out.println("\nLe numéro d'index: " + randomNum
+					+ " a été supprimé la liste numpioche a mtn pr longueur " + numpioche.size());
 
 			supprimerdomino(this.pioche[randomNum][0], pioche);
 
 		}
-		reconstruirepioche(this.pioche);
+		this.pioche = reconstruirepioche(this.pioche);
 
 	}
 
