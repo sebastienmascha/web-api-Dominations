@@ -37,7 +37,7 @@ public class AffichagePlateau extends JPanel {
 	
 	
 	public JButton CreerBoutonOrganise(final int x, final int y) {
-	     final JButton b = new JButton("[" + x + "][" + y + "]");
+	     final MBouton b = new MBouton("[" + x + "][" + y + "]","//Users/lebens/Desktop/Dominations/images/champ.jpg" ,"//Users/lebens/Desktop/Dominations/images/montagne.jpg" );
 	     b.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {

@@ -34,7 +34,6 @@ import javax.swing.border.MatteBorder;
 import java.awt.BorderLayout;
 import javax.swing.JScrollBar;
 import java.awt.FlowLayout;
-import javax.swing.border.LineBorder;
 
 public class AffichageFenetreJeu extends JPanel {
 	
@@ -81,7 +80,7 @@ public class AffichageFenetreJeu extends JPanel {
 			
 			
 			this.add(EcranNord);
-
+			
 			
 			this.add(NordEst);
 
@@ -100,10 +99,8 @@ public class AffichageFenetreJeu extends JPanel {
 			
 			//Mise en place du dossier du Joueur actif (à qui c'est de jouer quoi)
 			this.add(EcranSud);
-				EcranSud.setBorder(new LineBorder(Color.RED, 2, true));
 				EcranSud.setBackground(Color.ORANGE);
-				EcranSud.setLayout(new BorderLayout(1, 1));
-				lblPlateau.setHorizontalAlignment(SwingConstants.CENTER);
+				EcranSud.setLayout(new BorderLayout(0, 0));
 				EcranSud.add(lblPlateau, BorderLayout.NORTH);
 					lblPlateau.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 18));								
 					lblPlateau.setForeground(Color.WHITE);
