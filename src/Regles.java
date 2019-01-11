@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 public class Regles {
 	
-	
 	public static boolean placementTuile(Tuile tuile, Terrain terrain) {
 		boolean valide = true;
 		int i = 0;
@@ -34,7 +33,45 @@ public class Regles {
 	}
 	
 	public static boolean isTuileBasVide(int posx, int posy, Terrain terrain) {
-		return terrain.terrain[posx-1][posy-1] == null;
+		return terrain.terrain[posx][posy-1] == null;
 	}
+
+	
+	// SCORE CODE GENERAL
+	public static int score(Terrain terrain) {
+		int i = 0;
+		int j =0;
+		while (i <= 8) {
+			while (j <= 8) {
+				
+			}
+			i++;
+		}
+		return 1;
+	}
+	
+	
+	// REGLES ADDITIONNELLES BONUS
+	// Empire du milieu
+	public static boolean isChateauAuMilieu(int posChateauX, int posChateauY,int positionRoyaumeX, int positionRoyaumeY, Terrain terrain) {
+		boolean chateauMilieu = false;
+		if (posChateauX==positionRoyaumeX) {
+			if (posChateauX==positionRoyaumeX) {
+				chateauMilieu=true;
+			}
+		}
+		return chateauMilieu;
+	}
+	// Dynastie
+		public static boolean isDynastie(int posChateauX, int posChateauY,int positionRoyaumeX, int positionRoyaumeY, Terrain terrain) {
+			boolean chateauMilieu = false;
+			if (posChateauX==positionRoyaumeX) {
+				if (posChateauX==positionRoyaumeX) {
+					chateauMilieu=true;
+				}
+			}
+			return chateauMilieu;
+		}
+	
 
 }
