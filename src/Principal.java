@@ -40,7 +40,7 @@ public class Principal {
 
 		// creation d'une partie
 		Jeu jeu1 = new Jeu();
-		System.out.println("\nUne nouvelle partie a été instanciée.");
+		System.out.println("\n_____________Nouvelle Partie_____________\n");
 
 
 		/*
@@ -52,7 +52,7 @@ public class Principal {
 		 * 
 		 * } });
 		 */
-		jeu1.nbjoueurs=3;
+		jeu1.setNbJoueurs(2);
 		jeu1.preparation();
 		jeu1.premiertour();
 		/*
