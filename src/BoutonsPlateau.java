@@ -5,10 +5,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
-public class MBouton extends JButton {
-
-	public MBouton(String Titre, String img, String imgflottante) {
+public class BoutonsPlateau extends JButton {
+	AffichagePanelDeJeu4 a = new AffichagePanelDeJeu4();
+	public BoutonsPlateau(String Titre, String img, String imgflottante) {
 		super(Titre);
+		//this.add(a);
 		setForeground(Color.WHITE);
         
         setOpaque(false);
@@ -18,10 +19,10 @@ public class MBouton extends JButton {
          
         setHorizontalAlignment(SwingConstants.CENTER);
         setHorizontalTextPosition(SwingConstants.CENTER);
-         
+          
         setIcon(new ImageIcon(img));
         setRolloverIcon(new ImageIcon(imgflottante));
-
+        //Rajouter la main survolante
 	}
 
 }

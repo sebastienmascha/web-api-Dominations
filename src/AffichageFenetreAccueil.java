@@ -20,6 +20,12 @@ import javax.swing.JButton;
 import javax.swing.JTextPane;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.UIManager;
+import javax.swing.border.EtchedBorder;
 
 public class AffichageFenetreAccueil extends JPanel {
 	
@@ -66,7 +72,7 @@ public class AffichageFenetreAccueil extends JPanel {
 		GridBagConstraints gbc_DeuxJoueurs = new GridBagConstraints();
 		gbc_DeuxJoueurs.insets = new Insets(0, 0, 5, 5);
 		gbc_DeuxJoueurs.gridx = 2;
-		gbc_DeuxJoueurs.gridy = 4;
+		gbc_DeuxJoueurs.gridy = 5;
 		this.add(DeuxJoueurs, gbc_DeuxJoueurs);
 		
 		DeuxJoueurs.addActionListener(ActionChoixJoueurs);
@@ -79,7 +85,7 @@ public class AffichageFenetreAccueil extends JPanel {
 		GridBagConstraints gbc_TroisJoueurs = new GridBagConstraints();
 		gbc_TroisJoueurs.insets = new Insets(0, 0, 5, 5);
 		gbc_TroisJoueurs.gridx = 2;
-		gbc_TroisJoueurs.gridy = 5;
+		gbc_TroisJoueurs.gridy = 6;
 		this.add(TroisJoueurs, gbc_TroisJoueurs);
 		TroisJoueurs.addActionListener(ActionChoixJoueurs);
 		
@@ -91,7 +97,7 @@ public class AffichageFenetreAccueil extends JPanel {
 		GridBagConstraints gbc_QuatreJoueurs = new GridBagConstraints();
 		gbc_QuatreJoueurs.insets = new Insets(0, 0, 5, 5);
 		gbc_QuatreJoueurs.gridx = 2;
-		gbc_QuatreJoueurs.gridy = 6;
+		gbc_QuatreJoueurs.gridy = 7;
 		this.add(QuatreJoueurs, gbc_QuatreJoueurs);
 		QuatreJoueurs.addActionListener(ActionChoixJoueurs);
 		
@@ -100,15 +106,14 @@ public class AffichageFenetreAccueil extends JPanel {
 		GridBagConstraints gbc_BoutonRegles = new GridBagConstraints();
 		gbc_BoutonRegles.insets = new Insets(0, 0, 0, 5);
 		gbc_BoutonRegles.gridx = 1;
-		gbc_BoutonRegles.gridy = 8;
+		gbc_BoutonRegles.gridy = 9;
 		this.add(BoutonRegles, gbc_BoutonRegles);
 		BoutonRegles.addActionListener(ActionRegles);
 		
 		btnJouer.setBounds(50, 243, 117, 29);
 		GridBagConstraints gbc_btnJouer = new GridBagConstraints();
-		gbc_btnJouer.insets = new Insets(0, 0, 0, 5);
 		gbc_btnJouer.gridx = 3;
-		gbc_btnJouer.gridy = 8;
+		gbc_btnJouer.gridy = 9;
 		this.add(btnJouer, gbc_btnJouer);
 
 	}
