@@ -1,6 +1,10 @@
 import java.awt.EventQueue;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.ContainerListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -10,9 +14,14 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.SpringLayout;
 
 public class Affichage {
 
@@ -20,14 +29,17 @@ public class Affichage {
 	
 	//On définit notre application
 	JFrame FenetreJeu = new JFrame("Projet Kingdomino" );
+	JPanel Panel = new JPanel();
 	
 	//On définit les différentes pages de notre application
 	AffichageFenetreJeu PageJeu = new AffichageFenetreJeu();
 	AffichageFenetreAccueil PageAccueil = new AffichageFenetreAccueil();
-	JLayeredPane layeredPane = new JLayeredPane();
 	JPanel pane = new JPanel();
-	CardLayout PlusieursPages = new CardLayout(0, 0);
+	JPanel pan = new JPanel();
 
+	JPanel pa = new JPanel();
+	CardLayout PlusieursPages = new CardLayout(0, 0);
+	GridBagLayout recadrage = new GridBagLayout();
 	String[] listeIndice = {"Accueil", "Principal"};
 	//int indice = 0;
 
@@ -79,9 +91,31 @@ public class Affichage {
 		}/*/
 		
 		FenetreJeu.getContentPane().add(PageAccueil,listeIndice[0]);
-		FenetreJeu.getContentPane().add(PageJeu,listeIndice[1]);
+		FenetreJeu.getContentPane().add(Panel,listeIndice[1]);
 		
+		Panel.setLayout(recadrage);
+		Panel.setBackground(Color.RED);
+		Panel.add(PageJeu);
+        Panel.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                resizePreview(PageJeu, Panel);
+            }
+        });
+		//Panel.add(pan);
+		
+		//Panel.add(pa);
+
 	}
+	
+	   private static void resizePreview(JPanel innerPanel, JPanel container) {
+	        int w = container.getWidth();
+	        int h = container.getHeight();
+	        int size =  Math.min(w, h);
+	        innerPanel.setPreferredSize(new Dimension(size, size));
+	        container.revalidate();
+	    }
+	   
 	//Définition de l'action au moment du choix sur le bouton de selection des terrains
 	public ActionListener ConfigJoueurs = new ActionListener() {
 		@Override
@@ -134,18 +168,6 @@ public class Affichage {
 	        }
 		}
 	};
-		
-	
-	
-	public ActionListener ChangerDePage = new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			layeredPane.removeAll();
-			layeredPane.add(((JPanel) e.getSource()).getParent());
-			layeredPane.repaint();
-			layeredPane.revalidate();
-		}
-	};
 	
 	public int getnbjoueurs (){
 		return PageAccueil.nbjoueurs;
@@ -161,5 +183,8 @@ public class Affichage {
 	};*/
 
 }
+
+
+
 
 	
