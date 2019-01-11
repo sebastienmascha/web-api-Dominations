@@ -91,11 +91,9 @@ public class AffichageFenetreJeu extends JPanel {
 			this.add(EcranEst);
 			
 			this.add(Centre);
-				Centre.setLayout(new BoxLayout(Centre, BoxLayout.X_AXIS));
+				Centre.setLayout(new GridLayout(1,3,0,0));
 				Centre.add(btnPioche);
-				btnRetournerAuMenu.setBounds(281, 45, 163, 29);
-				Centre.add(btnRetournerAuMenu);
-				Centre.add(scrollBar);
+
 				
 			this.add(EcranOuest);
 			
@@ -113,6 +111,8 @@ public class AffichageFenetreJeu extends JPanel {
 				*/
 				
 			this.add(SudEst);
+			Centre.add(btnRetournerAuMenu);
+			//btnRetournerAuMenu.setBounds(281, 45, 163, 29);
         }
 	
 	public ActionListener ChangerTerrain = new ActionListener() {
