@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 
 public class Regles {
-	
+	// VARIABLES SCORE
 	public static int N;
 	public static int C;
+	public static ArrayList<Tuile> listTuile;
+	
 	
 	public static boolean placementTuile(Tuile tuile, Terrain terrain, int posx, int posy) {
 		if (isTuileVide(posx,posy,terrain)) {
@@ -45,11 +47,15 @@ public class Regles {
 	
 	// SCORE CODE GENERAL
 	public static int score(Terrain terrain) {
-		int i = 0;
-		int j =0;
-		while (i <= 8) {
-			while (j <= 8) {
-				terrain.terrain[i][j]
+		int i = 0; // il faudra mettre un Affichage.getPosxRoyaume()
+		int j =0;  // Pareil
+		while (i <= 8) { // Aussi
+			while (j <= 8) { // Aussi
+				if (!(Regles.isTuileVide(i, j, terrain))){
+					listTuile.add(terrain.terrain[i][j]);
+					recursive(listTuile, N,C, terrain);
+					terrain.Score += C*N;
+				}
 			}
 			i++;
 		}
