@@ -1,6 +1,28 @@
 import java.awt.EventQueue;
 
 public class Principal {
+	
+	
+	static Jeu jeu1 = new Jeu();
+	
+	public static void initialisation() {
+		jeu1.setNbJoueurs(2);
+		jeu1.setChoixDomiTour(1,0,2,3);
+		jeu1.initialisationpartie();
+		jeu1.preparationtour();
+		jeu1.tourjoueur();
+		
+	}
+	
+	
+	
+/*	
+	jeu1.setChoixDomiTour(2,0);
+	jeu1.tourjoueur();
+	
+	  jeu1.nbjoueurs=window.getnbjoueurs();
+	
+	*/
 
 	public static void main(String[] args) {
 
@@ -39,27 +61,34 @@ public class Principal {
 		*/
 
 		// creation d'une partie
-		Jeu jeu1 = new Jeu();
+		
 		System.out.println("\n_____________Nouvelle Partie_____________\n");
 
-
-		/*
-		 * // Test de l'interface graphique
-		 * 
-		 * EventQueue.invokeLater(new Runnable() { public void run() { Affichage window
-		 * = new Affichage(); window.FenetreJeu.setVisible(true);
-		 * jeu1.nbjoueurs=window.getnbjoueurs();
-		 * 
-		 * } });
-		 */
-		jeu1.setNbJoueurs(2);
-		jeu1.preparation();
-		jeu1.premiertour();
+		initialisation();
+		
+		  // Test de l'interface graphique
+		  /*
+		  EventQueue.invokeLater(new Runnable() { public void run() { Affichage window
+		  = new Affichage(); window.FenetreJeu.setVisible(true);
+		
+		  
+		  } });*/
+		  
+		  
+	
+		
 		/*
 		System.out.println("\nAfficher liste dominostour :");
 		System.out.println(jeu1.dominostour);
 		*/
+		  
+	
+			
+			
+			
 
 	}
+	
+	
 
 }

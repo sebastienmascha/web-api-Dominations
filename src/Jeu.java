@@ -10,6 +10,7 @@ public class Jeu {
 	public ArrayList<Integer> choixdomitour = new ArrayList<Integer>();
 	public Tuile[][] pioche = new Tuile[48][2];
 	public Tuile[][] dominostour = new Tuile[4][2];
+	public Tuile[][] dominostourpreselect = new Tuile[4][2];
 	public Joueur[][] joueurs = new Joueur[4][2];
 	public Joueur[][] ordrejoueurs = new Joueur[4][2];
 
@@ -18,6 +19,7 @@ public class Jeu {
 
 	public void initialisationpartie() {
 
+		// initialiser la pioche
 		pioche = reconstruirepioche(Tuile.tuiles);
 
 		supprimerdominosinitial();
@@ -31,8 +33,8 @@ public class Jeu {
 		System.out.println("Le nombre de rois a ete correctement defini, nbrois= " + nbrois + ".");
 
 		creerJoueurs();
-		
-		//System.out.println("\nVoici les couleurs actives: ");
+
+		// System.out.println("\nVoici les couleurs actives: ");
 		// afficherMonoListe(joueurs);
 
 	}
@@ -49,31 +51,89 @@ public class Jeu {
 
 		dominostour = reconstruirepioche(dominostour);
 		dominostour = trierdominostour(dominostour);
+		dominostourpreselect=dominostour;
 
 		// System.out.println("\nListe dominotours apres tri :");
-		// afficherDoubleListe(dominostour);
+		 afficherDoubleListe(dominostour);
 		Collections.shuffle(ordrecouleurs);
-		System.out.println(ordrecouleurs);
+		System.out.println("\n" + ordrecouleurs + "\n");
 
-		for (int j = 0; j <= this.nbrois - 1; j++) {
-			switch (ordrecouleurs.get(j)) {
-			case "rose":
-				ordrejoueurs[j] = joueurs[0];
-				break;
-			case "jaune":
-				ordrejoueurs[j] = joueurs[1];
-				break;
-			case "vert":
-				ordrejoueurs[j] = joueurs[2];
-				break;
-			case "bleu":
-				ordrejoueurs[j] = joueurs[3];
-				break;
+		attribuerCouleursAJoueurs();
 
-			}
-		}
 		// afficherDoubleListeJoueur(joueurs);
 		// afficherDoubleListeJoueur(ordrejoueurs);
+
+	}
+
+	public void preselection() {
+
+		if (nbjoueurs == 2) {
+
+			for (int j = 0; j <= this.nbrois - 1; j++) {
+
+				System.out.println("C'est a " + ordrejoueurs[j][0].numjoueur + " de selectionner un domino");
+				try {
+
+					int binary = 0;
+
+					if (ordrejoueurs[j][0].getPremiereSelection()) {
+						binary = 0;
+						ordrejoueurs[j][0].setPremiereSelection(false);
+					} else {
+						binary = 1;
+					}
+		
+					ordrejoueurs[j][binary].setPreSelection(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)]);
+							
+					supprimerdomino(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)], dominostourpreselect);
+
+
+				} catch (Exception e) {
+					System.out.println("Le domino a dejà ete selectionne ! Descriptif erreur: \n" + e);
+				}
+
+			}
+
+			// reset
+			ordrejoueurs[0][0].setPremiereSelection(true);
+			ordrejoueurs[1][0].setPremiereSelection(true);
+			ordrejoueurs[0][1].setPremiereSelection(true);
+			ordrejoueurs[1][1].setPremiereSelection(true);
+
+			System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0 : \n"
+					+ joueurs[0][0].terrain1.terrain[2][3]);
+			System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0, roi 2 : \n"
+					+ joueurs[0][1].terrain1.terrain[2][3]);
+			System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0 : \n"
+					+ joueurs[1][0].terrain1.terrain[2][3]);
+			System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0, roi 2: \n"
+					+ joueurs[1][1].terrain1.terrain[2][3]);
+
+		} else {
+			for (int j = 0; j <= this.nbrois - 1; j++) {
+				System.out.println("C'est a " + ordrejoueurs[j][0].numjoueur + " de jouer");
+
+				try {
+					ordrejoueurs[j][0].setPreSelection(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)]);
+					
+					supprimerdomino(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)], dominostourpreselect);
+				} catch (Exception e) {
+					System.out.println("Le domino a dejà ete selectionne ! Descriptif erreur: \n" + e);
+				}
+			}
+
+			System.out.println("\nAffichage de la tuile en position 2,3 sur le terrain du joueur 0 : \n"
+					+ joueurs[0][0].terrain1.terrain[2][3]);
+			System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0, roi 2 : \n"
+					+ joueurs[1][0].terrain1.terrain[2][3]);
+			System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0 : \n"
+					+ joueurs[2][0].terrain1.terrain[2][3]);
+			System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0, roi 2: \n"
+					+ joueurs[3][0].terrain1.terrain[2][3]);
+
+		}
+		
+		
 
 	}
 
@@ -89,13 +149,15 @@ public class Jeu {
 				try {
 
 					int binary = 0;
-
+					// on verifie si c'est bien la premiere fois que le joueur ayant ce roi a place
+					// une tuile
 					if (ordrejoueurs[j][0].getPremiereSelection()) {
 						binary = 0;
 						ordrejoueurs[j][0].setPremiereSelection(false);
 					} else {
 						binary = 1;
 					}
+					// essayer ici la verif de placement
 					ordrejoueurs[j][binary].terrain1.remplirTerrain(
 							dominostour[this.choixdomitour.get(0)][this.choixdomitour.get(1)],
 							this.choixdomitour.get(2), this.choixdomitour.get(3));
@@ -109,6 +171,7 @@ public class Jeu {
 
 			}
 
+			// reset
 			ordrejoueurs[0][0].setPremiereSelection(true);
 			ordrejoueurs[1][0].setPremiereSelection(true);
 			ordrejoueurs[0][1].setPremiereSelection(true);
@@ -207,7 +270,6 @@ public class Jeu {
 
 	private void creerJoueurs() {
 		for (int j = 0; j <= this.nbjoueurs - 1; j++) {
-			int randomNum1 = ThreadLocalRandom.current().nextInt(0, couleurs.size());
 
 			if (nbjoueurs == 2) {
 
@@ -222,6 +284,28 @@ public class Jeu {
 
 			}
 		}
+	}
+
+	private void attribuerCouleursAJoueurs() {
+
+		for (int j = 0; j <= this.nbrois - 1; j++) {
+			switch (this.ordrecouleurs.get(j)) {
+			case "rose":
+				this.ordrejoueurs[j] = this.joueurs[0];
+				break;
+			case "jaune":
+				this.ordrejoueurs[j] = this.joueurs[1];
+				break;
+			case "vert":
+				this.ordrejoueurs[j] = this.joueurs[2];
+				break;
+			case "bleu":
+				this.ordrejoueurs[j] = this.joueurs[3];
+				break;
+
+			}
+		}
+
 	}
 
 	// suppression des trous dans une liste apres avoir supprimer des dominos

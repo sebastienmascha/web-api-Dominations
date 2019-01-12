@@ -5,6 +5,7 @@ public class Joueur {
 	String couleur;
 	int numjoueur;
 	boolean premiereselection=true;
+	Tuile activetuile;
 	
 	
 	public Joueur(int numjoueur, String couleur) {
@@ -31,6 +32,10 @@ public class Joueur {
 	public void setPremiereSelection(boolean premiereselection) {
 		this.premiereselection=premiereselection;
 		
+	}
+	
+	public void setPreSelection(Tuile tuile) {
+		this.activetuile=tuile;
 	}
 
 }
