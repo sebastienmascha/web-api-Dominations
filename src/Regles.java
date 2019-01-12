@@ -3,7 +3,9 @@ import java.util.ArrayList;
 public class Regles {
 	// VARIABLES SCORE
 	public static int N;
-	public static int C;
+	public static int C = 0;
+	public static ArrayList<Integer> listTuilePositionX = new ArrayList<Integer>();
+	public static ArrayList<Integer> listTuilePositionY = new ArrayList<Integer>();
 	public static ArrayList<Tuile> listTuile;
 	
 	
@@ -21,23 +23,44 @@ public class Regles {
 	}
 
 	public static boolean isTuileVide(int posx, int posy, Terrain terrain) {
-		return terrain.terrain[posx][posy] == null;
+		try {
+			return terrain.terrain[posx][posy] == null;
+		}catch(Exception e) {
+			return true;
+		}
 	}
 	
 	public static boolean isTuileDroiteVide(int posx, int posy, Terrain terrain) {
-		return terrain.terrain[posx+1][posy] == null;
+		try {
+			return terrain.terrain[posx+1][posy] == null;
+		}catch(Exception e) {
+			return true;
+		}
 	}
 	
 	public static boolean isTuileGaucheVide(int posx, int posy, Terrain terrain) {
-		return terrain.terrain[posx-1][posy] == null;
+		try {
+			return terrain.terrain[posx-1][posy] == null;
+		}catch(Exception e) {
+			return true;
+		}
+		
 	}
 	
 	public static boolean isTuileHautVide(int posx, int posy, Terrain terrain) {
-		return terrain.terrain[posx][posy+1] == null;
+		try {
+			return terrain.terrain[posx][posy-1] == null;
+		}catch(Exception e) {
+			return true;
+		}
 	}
 	
 	public static boolean isTuileBasVide(int posx, int posy, Terrain terrain) {
-		return terrain.terrain[posx][posy-1] == null;
+		try {
+			return terrain.terrain[posx][posy+1] == null;
+		}catch(Exception e) {
+			return true;
+		}
 	}
 
 	// FIN DE PARTIE : PLUS DE DOMINO
@@ -52,24 +75,31 @@ public class Regles {
 		while (i <= 8) { // Aussi
 			while (j <= 8) { // Aussi
 				if (!(Regles.isTuileVide(i, j, terrain))){
-					listTuile.add(terrain.terrain[i][j]);
-					recursive(listTuile, N,C, terrain);
+					listTuilePositionX.add(i);
+					listTuilePositionY.add(j);
+					recursive(listTuilePositionX, listTuilePositionY, N,C, terrain);
 					terrain.Score += C*N;
 				}
+				j++;
 			}
 			i++;
 		}
-		return 1;
+		return C;
 	}
 	
-	public static void recursive(ArrayList<Tuile> listTuile, int N, int C, Terrain terrain) {
-		if (listTuile.size() != 0) {
-			for (int i = 0; i <= listTuile.size() - 1; i++) {
+	public static void recursive(ArrayList<Integer> listTuilePositionX, ArrayList<Integer> listTuilePositionY, int N, int C, Terrain terrain) {
+		
+		if (listTuilePositionX.size() != 0) {
+			for (int i = 0; i <= listTuilePositionX.size() - 1; i++) {
 				N += 1;
-				C += listTuile.get(i).getnbcouronne();
-				ArrayList<Tuile> tuilesVoisines = terrain.getTuilesVoisines(listTuile.get(i), terrain);
-				listTuile.remove(i);
-				recursive(tuilesVoisines,N,C,terrain);
+				C += terrain.terrain[listTuilePositionX.get(i)][listTuilePositionY.get(i)].getnbcouronne();
+				ArrayList<Integer> tuilesVoisinesPositionX = terrain.getTuilesVoisinesPositionX(listTuilePositionX.get(i),listTuilePositionY.get(i), terrain);
+				ArrayList<Integer> tuilesVoisinesPositionY = terrain.getTuilesVoisinesPositionY(listTuilePositionX.get(i),listTuilePositionY.get(i), terrain);
+				//ArrayList<Tuile> tuilesVoisines = terrain.getTuilesVoisines(listTuilePositionX.get(i),listTuilePositionY.get(i),terrain);
+				//listTuile.remove(i);
+				listTuilePositionX.remove(i);
+				listTuilePositionY.remove(i);
+				recursive(tuilesVoisinesPositionX,tuilesVoisinesPositionX,N,C,terrain);
 			}
 		}
 	}
