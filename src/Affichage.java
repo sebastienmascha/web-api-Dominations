@@ -2,6 +2,7 @@ import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.File;
@@ -17,7 +18,7 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-public class Affichage {
+public class Affichage implements ActionListener {
 
 	int nbjoueurs = 0;
 	String NombreDeJoueursString = String.valueOf(nbjoueurs);
@@ -42,10 +43,7 @@ public class Affichage {
 	public Tuile[][] dominostour = new Tuile[4][2];
 
 	public Affichage() {
-		Initialisation();
-	}
-
-	public void Initialisation() {
+		
 		FenetreJeu.setIconImage(new ImageIcon("//Users/lebens/Desktop/Dominations/images/ISEP.png").getImage());
 		FenetreJeu.setBounds(100, 100, 450, 300);
 		FenetreJeu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,7 +64,13 @@ public class Affichage {
 				resizePreview(PageJeu, Panel);
 			}
 		});
-
+		
+		PageAccueil.QuatreJoueurs.addActionListener((ActionListener) this);
+		PageAccueil.DeuxJoueurs.addActionListener((ActionListener) this);
+		PageAccueil.TroisJoueurs.addActionListener((ActionListener) this);
+		PageJeu.btnRetournerAuMenu.addActionListener((ActionListener) this);
+		PageAccueil.btnJouer.addActionListener((ActionListener) this);
+		
 	}
 
 	private static void resizePreview(JPanel innerPanel, JPanel container) {
@@ -90,7 +94,7 @@ public class Affichage {
 		Object source = e.getSource();
 		
 		if (source==PageAccueil.QuatreJoueurs || source==PageAccueil.TroisJoueurs || source==PageAccueil.DeuxJoueurs) {
-			// PageAccueil.lblNombreDeJoueurs.setText("Vous êtes " + ((JButton) source).getText());
+			PageAccueil.lblNombreDeJoueurs.setText("Vous êtes " + ((JRadioButton) source).getText());
 			PageAccueil.DeuxJoueurs.setSelected(false);
 			PageAccueil.TroisJoueurs.setSelected(false);
 			PageAccueil.QuatreJoueurs.setSelected(false);
@@ -133,6 +137,8 @@ public class Affichage {
 			}
 		}
 	}
+	
+	
 
 }
 
