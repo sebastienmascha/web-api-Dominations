@@ -19,7 +19,6 @@ import javax.swing.JTextPane;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
-
 public class AffichageFenetreAccueil extends JPanel {
 	
 	
@@ -109,7 +108,6 @@ public class AffichageFenetreAccueil extends JPanel {
 
 	}
 	
-
 	
 	public ActionListener ActionRegles = new ActionListener() {
 	   	@Override
@@ -118,6 +116,7 @@ public class AffichageFenetreAccueil extends JPanel {
 	   		JFrame FenetreRegles = new JFrame("Règles du jeu");
 	   		FenetreRegles.setVisible(true);
 	   		FenetreRegles.setSize(400, 400);
+	   		
 	   		JPanel pan = new JPanel();
 	   		JLabel label = new JLabel("mdrrr");
 	   		FenetreRegles.getContentPane().add(pan);

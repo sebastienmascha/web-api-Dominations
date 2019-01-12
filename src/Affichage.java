@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,20 +8,26 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JSeparator;
 
 public class Affichage implements ActionListener {
 
 	int nbjoueurs = 0;
+	int nbrois = 0;
 	String NombreDeJoueursString = String.valueOf(nbjoueurs);
 	JLabel lblNombreDeJoueurs = new JLabel("Nombre de joueurs :" + nbjoueurs + ", veuillez choisir ...");
 
@@ -29,6 +36,7 @@ public class Affichage implements ActionListener {
 
 	AffichageFenetreJeu PageJeu = new AffichageFenetreJeu();
 	AffichageFenetreAccueil PageAccueil = new AffichageFenetreAccueil();
+	
 	JPanel pane = new JPanel();
 	JPanel pan = new JPanel();
 
@@ -41,6 +49,16 @@ public class Affichage implements ActionListener {
 	int ValeurSelection = 0;
 
 	public Tuile[][] dominostour = new Tuile[4][2];
+	
+	private ArrayList<JButton> ListTour1 = new ArrayList<>();
+	private ArrayList<JButton> ListTour2 = new ArrayList<>();
+	private final JSeparator separator = new JSeparator();
+	private final JSeparator separator1 = new JSeparator();
+	private final JSeparator separator2 = new JSeparator();
+	private final JSeparator separator3 = new JSeparator();
+	private final JSeparator separator4 = new JSeparator();
+	private final JSeparator separator5 = new JSeparator();
+
 
 	public Affichage() {
 		
@@ -70,7 +88,7 @@ public class Affichage implements ActionListener {
 		PageAccueil.TroisJoueurs.addActionListener((ActionListener) this);
 		PageJeu.btnRetournerAuMenu.addActionListener((ActionListener) this);
 		PageAccueil.btnJouer.addActionListener((ActionListener) this);
-		
+		PageJeu.btnPioche.addActionListener((ActionListener) this);
 	}
 
 	private static void resizePreview(JPanel innerPanel, JPanel container) {
@@ -87,6 +105,9 @@ public class Affichage implements ActionListener {
 
 	public void setDominosTour(Tuile[][] dominostour) {
 		this.dominostour = dominostour;
+	}
+	public void setnbrois(int n) {
+		this.nbrois = n;
 	}
 
 
@@ -129,13 +150,93 @@ public class Affichage implements ActionListener {
 				System.out.println(dominostour[i][0]);
 				System.out.println(dominostour[i][1]);
 			}
-			for (int i=0; i<nbjoueurs; i++) { 
-				AffichageBoutonTuile NouvelleTuile1 = new AffichageBoutonTuile(dominostour[i][0]);
-				AffichageBoutonTuile NouvelleTuile2 = new AffichageBoutonTuile(dominostour[i][1]);
-				PageJeu.Milieu.add(NouvelleTuile1); 
-				PageJeu.Milieu.add(NouvelleTuile2); 
+					
+			for (int i=0; i<6; i++) {
+				PageJeu.Centre.add(new JLabel());
 			}
+			
+			for (int i=0; i<nbrois; i++) { 
+				PageJeu.Centre.add(new PanelRoi());
+				JButton NouvelleTuile1 = new JButton();
+				JButton NouvelleTuile2 = new JButton();
+				
+
+				//AffichageBoutonTuile NouvelleTuile1 = new AffichageBoutonTuile(dominostour[i][0]);
+				//AffichageBoutonTuile NouvelleTuile2 = new AffichageBoutonTuile(dominostour[i][1]);
+				PageJeu.Centre.add(NouvelleTuile1); 
+				PageJeu.Centre.add(NouvelleTuile2); 
+				
+				ListTour1.add(NouvelleTuile1);
+				ListTour1.add(NouvelleTuile2);
+			}
+			
+			separator.setBackground(new Color(102, 0, 51));
+			separator1.setBackground(new Color(102, 0, 51));
+			separator2.setBackground(new Color(102, 0, 51));
+			separator3.setBackground(new Color(102, 0, 51));
+			separator4.setBackground(new Color(102, 0, 51));
+			separator5.setBackground(new Color(102, 0, 51));
+
+			
+			PageJeu.Centre.add(separator);
+			PageJeu.Centre.add(separator1);
+			PageJeu.Centre.add(separator2);
+			PageJeu.Centre.add(separator3);
+			PageJeu.Centre.add(separator4);
+			PageJeu.Centre.add(separator5);
+
+
+			for (int i=0; i<24-(6*nbrois); i++) {
+				PageJeu.Centre.add(new JLabel());
+			}
+			
+			for (int i=0; i<nbrois; i++) { 
+				PageJeu.Centre.add(new PanelRoi());
+				JButton NouvelleTuile1 = new JButton();
+				JButton NouvelleTuile2 = new JButton();
+				
+
+				//AffichageBoutonTuile NouvelleTuile1 = new AffichageBoutonTuile(dominostour[i][0]);
+				//AffichageBoutonTuile NouvelleTuile2 = new AffichageBoutonTuile(dominostour[i][1]);
+				PageJeu.Centre.add(NouvelleTuile1); 
+				PageJeu.Centre.add(NouvelleTuile2); 
+				
+				ListTour2.add(NouvelleTuile1);
+				ListTour2.add(NouvelleTuile2);
+			}
+			
+
 		}
+		
+		if (source==PageJeu.btnPioche) {
+			for (int k = 0; k < ListTour1.size()/2; k++) {
+					System.out.println(k);
+					
+					JButton jButton1 = ListTour1.get(2*k);
+					JButton jButton2 = ListTour1.get(2*k+1);
+		
+					AffichageBoutonTuile afficheurBoutonTuile = new AffichageBoutonTuile();
+					
+					afficheurBoutonTuile.display(dominostour[k][0], String.valueOf(dominostour[k][0].getnumdomi())+ " " + String.valueOf(dominostour[k][0].getnumtuile()), jButton1);
+					afficheurBoutonTuile.display(dominostour[k][1], String.valueOf(dominostour[k][1].getnumdomi())+ " " + String.valueOf(dominostour[k][1].getnumtuile()), jButton2);
+
+			}
+				
+				//jButton.setText(String.valueOf(jButton.getWidth()));
+
+				/*
+				jButton.setOpaque(false);
+				jButton.setContentAreaFilled(false);
+				jButton.setBorderPainted(false); 
+				jButton.setFocusPainted(false);
+				jButton.setHorizontalAlignment(SwingConstants.CENTER);
+				jButton.setHorizontalTextPosition(SwingConstants.CENTER);
+				*/
+				
+			
+		
+		}
+		
 	}
 	
 	
@@ -149,7 +250,7 @@ class Cote extends JPanel {
 	public void paintComponent(Graphics g) {
 		// x1, y1, width, height, arcWidth, arcHeight
 		try {
-			File chemin = new File("//Users/lebens/Desktop/Dominations/images/dom.jpg");
+			File chemin = new File("//Users/lebens/Desktop/Dominations/images/Wallpaper.jpg");
 			Image img = ImageIO.read(chemin);
 			// g.drawImage(img, 0, 0, this);
 			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
@@ -158,4 +259,30 @@ class Cote extends JPanel {
 		}
 	}
 
+}
+
+class PanelRoi extends JPanel {
+	private final JLabel lblNewLabel1 = new JLabel();
+	private final JLabel lblNewLabel2 = new JLabel();
+	private final JLabel lblNewLabel3 = new JLabel();
+	private final JLabel lblNewLabel4 = new JLabel();
+	private final JLabel lblNewLabel5 = new JLabel();
+	private final JLabel lblNewLabel6 = new JLabel();
+	private final JLabel lblNewLabel7 = new JLabel();
+	private final JLabel lblNewLabel8 = new JLabel();
+	JButton Roibtn = new JButton();
+
+
+	public PanelRoi() {
+		setLayout(new GridLayout(3,3,0,0));
+		this.add(lblNewLabel1);
+		this.add(lblNewLabel2);
+		this.add(lblNewLabel3);
+		this.add(lblNewLabel4);
+		this.add(Roibtn);
+		this.add(lblNewLabel5);
+		this.add(lblNewLabel6);
+		this.add(lblNewLabel7);
+		this.add(lblNewLabel8);
+	}
 }

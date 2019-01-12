@@ -199,4 +199,10 @@ public class Jeu {
 		this.nbjoueurs = n;
 	}
 
+	public int getnbrois() {
+		
+		return nbrois;
+		
+	}
+
 }

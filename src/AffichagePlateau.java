@@ -4,6 +4,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -21,11 +22,11 @@ public class AffichagePlateau extends Carre {
 	JPanel PlanCentral = new JPanel();
 	JLabel Nom = new JLabel();
 	BorderLayout Lay = new BorderLayout(0, 0);
-	ImageIcon Bulle = new ImageIcon("//Users/lebens/Desktop/Dominations/images/bulle.jpg");
+	ImageIcon IMG = new ImageIcon("//Users/lebens/Desktop/Dominations/images/mer1.png");
 	JButton C = new JButton(Bulle);
-	GridLayout Layout = new GridLayout(9, 9, 0, 0);
+	GridLayout Layout = new GridLayout(9, 9, 0, 4);
 	List<JButton> ListeBoutons = new ArrayList<JButton>();
-	String[] MaListe = {"Mon Zero", "Mon premier", "Mon second", "Mon troisième", "Mon quatrième", "Mon cinquième", "Mon sixième", "Mon septième", "Mon huitième", "Mon neuvième"};
+
 	public  AffichagePlateau(String nom, Color couleur){
 		
 		this.setBackground(couleur);
@@ -46,16 +47,31 @@ public class AffichagePlateau extends Carre {
 			PlanCentral.setBorder(new LineBorder(new Color(128, 128, 128), 1, true));
 			PlanCentral.setBackground(couleur);
 			PlanCentral.setLayout(Layout);
-	        for (int i = 0; i < 9 * 9; i++) {
+	        for (int i = 0; i < 40; i++) {
 	            int ligne = i / 9;
 	            int colonne = i % 9;
 	            JButton gb = CreerBoutonOrganise(ligne, colonne);
 	            ListeBoutons.add(gb);
 	            PlanCentral.add(gb);
-	        }		
+	        }	
+	        
+	        JButton BtnChateau = new JButton();
+            BtnChateau.setIcon(new ImageIcon("//Users/lebens/Desktop/Dominations/images/chateau.png"));
+            BtnChateau.setRolloverIcon(new ImageIcon("//Users/lebens/Desktop/Dominations/images/champs.png"));
+
+	        ListeBoutons.add(BtnChateau);
+	        PlanCentral.add(BtnChateau);
+	        
+	        for (int i = 41; i < 81; i++) {
+	            int ligne = i / 9;
+	            int colonne = i % 9;
+	            JButton gb = CreerBoutonOrganise(ligne, colonne);
+	            ListeBoutons.add(gb);
+	            PlanCentral.add(gb);
+	        }
 	}
 	
-    private JButton getBoutton(int x, int y) {
+    public JButton getBoutton(int x, int y) {
         int index = x * 9 + y;
         return ListeBoutons.get(index);
     }
@@ -70,22 +86,12 @@ public class AffichagePlateau extends Carre {
 	                System.out.println("[" + x + "][" + y + "]"
 	                    + " enclenché sur le terrain " + ((JButton) e.getSource()).getParent());
 	                ((JButton) e.getSource()).setText("Cliqué !");
-	                ((JButton) e.getSource()).setIcon(Bulle);
+	                Image newimg = IMG.getImage().getScaledInstance( ((JButton)e.getSource()).getWidth(), ((JButton)e.getSource()).getHeight(),  java.awt.Image.SCALE_SMOOTH ) ;
+	                ((JButton) e.getSource()).setIcon(new ImageIcon(newimg));
 	            }
 	        });
 	        return b;
 	    }
-	
-	/**
-	public void paintComponent(Graphics g){
-		try {
-	        Image img = ImageIO.read(new File ("//Users/lebens/Desktop/Dominations/images/Wallpaper.jpg"));
-	        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	/*/	
         
 }
 
@@ -108,7 +114,6 @@ class Carre extends JPanel {
 }
 
 class BoutonsPlateau extends JButton {
-	AffichagePanelDeJeu4 a = new AffichagePanelDeJeu4();
 	public BoutonsPlateau(String Titre, String img, String imgflottante) {
 		super(Titre);
 		//this.add(a);

@@ -14,34 +14,31 @@ import javax.imageio.ImageIO;
 import java.awt.Container;
 import java.awt.BorderLayout;
 import javax.swing.JScrollBar;
+import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.JLabel;
+import javax.swing.JSeparator;
 
 public class AffichageFenetreJeu extends JPanel {
 	
 	JScrollBar scrollBar = new JScrollBar();
 	JButton btnPioche = new JButton("Pioche");
 	
-	//Définition des différents écrans  (effet de panels qui tournent)
 	AffichagePlateau EcranSud = new AffichagePlateau("Seb", Color.GREEN);
 	AffichagePlateau EcranNord = new AffichagePlateau("Tristan", Color.BLUE);
 	AffichagePlateau EcranEst = new AffichagePlateau("Amine", Color.YELLOW);
-	AffichagePlateau EcranOuest = new AffichagePlateau("Mme Chaine", Color.RED);
+	AffichagePlateau EcranOuest = new AffichagePlateau("Hugo", Color.RED);
 	
-	//Définition des dossiers qui contiennent tous les terrains
-	CardLayout PlusieursTerrainsSud = new CardLayout(0, 0);
-	CardLayout PlusieursTerrainsNord = new CardLayout(0, 0);
-	
-	//Définition des panels inutilisés
 	AffichagePanelDeJeu NordOuest = new AffichagePanelDeJeu();
 	AffichagePanelDeJeu2 NordEst = new AffichagePanelDeJeu2();
 	JPanel Centre = new JPanel();
-	JPanel Milieu = new JPanel();
 	AffichagePanelDeJeu3 SudOuest = new AffichagePanelDeJeu3();
 	AffichagePanelDeJeu4 SudEst = new AffichagePanelDeJeu4();
 
-	//Définition du bouton de selection des terrains
-	String[] IndiceTerrain = {"Choix", "Terrain pour le 1er joueur", "Terrain pour le 2ème joueur", "Terrain pour le 3ème joueur", "Terrain pour le 4ème joueur"};
+	//String[] IndiceTerrain = {"Choix", "Terrain pour le 1er joueur", "Terrain pour le 2ème joueur", "Terrain pour le 3ème joueur", "Terrain pour le 4ème joueur"};
 	 
-	//Définition du bouton pour le retour au menu
 	JButton btnRetournerAuMenu = new JButton("Retourner au menu");
 
 	public AffichageFenetreJeu() {
@@ -58,8 +55,7 @@ public class AffichageFenetreJeu extends JPanel {
 			this.add(EcranEst);
 			
 			this.add(Centre);
-			Centre.add(Milieu, BorderLayout.CENTER);
-				Milieu.setLayout(new GridBagLayout());
+			Centre.setLayout(new GridLayout(6, 6, 0, 0));
 				
 			this.add(EcranOuest);
 			
@@ -73,27 +69,6 @@ public class AffichageFenetreJeu extends JPanel {
 			//btnRetournerAuMenu.setBounds(281, 45, 163, 29);
         }
 	
-	public ActionListener ChangerTerrain = new ActionListener() {
-		@Override
-		public void actionPerformed (ActionEvent e){ 
-			String NomEcran = ((JPanel) e.getSource()).getName();
-			switch (NomEcran) {
-				case "EcranSud" :
-					
-					break;
-				case "EcranOuest" :
-
-					break;
-				case "EcranNord" :
-
-					break;
-				case "EcranEst" :
-
-					break;
-			}				
-			((Container) e.getSource()).removeAll();
-		}
-	};
 
 	
 }
@@ -169,5 +144,3 @@ class AffichagePanelDeJeu4 extends JPanel {
 		      }
 		  }          
 }
-
-
