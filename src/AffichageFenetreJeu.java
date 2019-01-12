@@ -1,6 +1,5 @@
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -9,33 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-
-import javax.swing.DefaultComboBoxModel;
 import javax.imageio.ImageIO;
-import javax.swing.AbstractButton;
-import javax.swing.BoxLayout;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.UIManager;
-//import org.eclipse.wb.swing.FocusTraversalOnArray;
-import java.awt.Component;
 import java.awt.Container;
-
-import javax.swing.border.MatteBorder;
 import java.awt.BorderLayout;
 import javax.swing.JScrollBar;
-import java.awt.FlowLayout;
 
 public class AffichageFenetreJeu extends JPanel {
 	
@@ -52,18 +30,11 @@ public class AffichageFenetreJeu extends JPanel {
 	CardLayout PlusieursTerrainsSud = new CardLayout(0, 0);
 	CardLayout PlusieursTerrainsNord = new CardLayout(0, 0);
 	
-	/**
-	//Définitions des 4 terrains sur l'ecran du Nord
-	AffichagePlateau T1 = new AffichagePlateau();
-	JPanel T2 = new JPanel();
-	AffichagePanelDeJeu T3 = new AffichagePanelDeJeu();
-	AffichagePlateau T4 = new AffichagePlateau();
-	*/
-	
 	//Définition des panels inutilisés
 	AffichagePanelDeJeu NordOuest = new AffichagePanelDeJeu();
-	JPanel NordEst = new JPanel();
+	AffichagePanelDeJeu2 NordEst = new AffichagePanelDeJeu2();
 	JPanel Centre = new JPanel();
+	JPanel Milieu = new JPanel();
 	AffichagePanelDeJeu3 SudOuest = new AffichagePanelDeJeu3();
 	AffichagePanelDeJeu4 SudEst = new AffichagePanelDeJeu4();
 
@@ -73,16 +44,12 @@ public class AffichageFenetreJeu extends JPanel {
 	//Définition du bouton pour le retour au menu
 	JButton btnRetournerAuMenu = new JButton("Retourner au menu");
 
-	//Définition de la 1ère et 2ème zone de texte
-	JLabel lblPlateau = new JLabel();
-	JLabel lbl = new JLabel();
-	JPanel test =new JPanel();
-
 	public AffichageFenetreJeu() {
 			setLayout(new GridLayout(3, 4, 0, 0));
 			
 			this.add(NordOuest);
-			NordOuest.setLayout(new GridBagLayout());
+				NordOuest.setLayout(new GridBagLayout());
+				NordOuest.add(btnPioche);
 			
 			this.add(EcranNord);
 						
@@ -91,27 +58,18 @@ public class AffichageFenetreJeu extends JPanel {
 			this.add(EcranEst);
 			
 			this.add(Centre);
-				Centre.setLayout(new GridLayout(1,3,0,0));
-				Centre.add(btnPioche);
-
+			Centre.add(Milieu, BorderLayout.CENTER);
+				Milieu.setLayout(new GridBagLayout());
 				
 			this.add(EcranOuest);
 			
 			this.add(SudOuest);
 			
 			this.add(EcranSud);
-				/**
-				test.setLayout(PlusieursTerrainsSud);
-				test.add(T1,IndiceTerrain[1]);
-				test.add(T2,IndiceTerrain[2]);
-				test.add(T3,IndiceTerrain[3]);
-				test.add(T4,IndiceTerrain[4]);
-				test.setBorder(new MatteBorder(5, 4, 4, 5, (Color) Color.ORANGE));
-				//test.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{T1, T2, T3, T4}));
-				*/
 				
 			this.add(SudEst);
-			Centre.add(btnRetournerAuMenu);
+			SudEst.setLayout(new GridLayout(3,3,0,0));
+			SudEst.add(btnRetournerAuMenu);
 			//btnRetournerAuMenu.setBounds(281, 45, 163, 29);
         }
 	
@@ -138,21 +96,78 @@ public class AffichageFenetreJeu extends JPanel {
 	};
 
 	
-	/**
-	 protected void paintComponent(Graphics g){
-	    //x1, y1, width, height, arcWidth, arcHeight
-	    try {
-	    	File chemin = new File ("//Users/lebens/Desktop/Dominations/images/--SE.jpg");
-	        Image img = ImageIO.read(chemin);
-	        //g.drawImage(img, 0, 0, this);
-	        g.drawImage(img, SudEst.getX(), SudEst.getY(), SudEst.getWidth(), SudEst.getHeight(), SudEst);
-	      } catch (IOException e) {
-	        e.printStackTrace();
-	      }
-	  }  
-	  */ 
 }
 
+class AffichagePanelDeJeu extends JPanel {
 
+	public AffichagePanelDeJeu() {
+	
+	}
+	public void paintComponent(Graphics g){
+		    //x1, y1, width, height, arcWidth, arcHeight
+		    try {
+		    	File chemin = new File ("//Users/lebens/Desktop/Dominations/images/--NO.jpg");
+		        Image img = ImageIO.read(chemin);
+		        //g.drawImage(img, 0, 0, this);
+		        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+		      } catch (IOException e) {
+		        e.printStackTrace();
+		      }
+		  }          
+}
+
+class AffichagePanelDeJeu2 extends JPanel {
+	
+	public AffichagePanelDeJeu2() {
+	
+	}
+	public void paintComponent(Graphics g){
+		    //x1, y1, width, height, arcWidth, arcHeight
+		    try {
+		    	File chemin = new File ("//Users/lebens/Desktop/Dominations/images/--NE.jpeg");
+		        Image img = ImageIO.read(chemin);
+		        //g.drawImage(img, 0, 0, this);
+		        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+		      } catch (IOException e) {
+		        e.printStackTrace();
+		      }
+		  }          
+}
+
+class AffichagePanelDeJeu3 extends JPanel {
+	
+	public AffichagePanelDeJeu3() {
+	
+	}
+	public void paintComponent(Graphics g){
+		    //x1, y1, width, height, arcWidth, arcHeight
+		    try {
+		    	File chemin = new File ("//Users/lebens/Desktop/Dominations/images/--SO.jpeg");
+		        Image img = ImageIO.read(chemin);
+		        //g.drawImage(img, 0, 0, this);
+		        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+		      } catch (IOException e) {
+		        e.printStackTrace();
+		      }
+		  }          
+}
+
+class AffichagePanelDeJeu4 extends JPanel {	
+
+	public AffichagePanelDeJeu4() {
+	
+	}
+	public void paintComponent(Graphics g){
+		    //x1, y1, width, height, arcWidth, arcHeight
+		    try {
+		    	File chemin = new File ("//Users/lebens/Desktop/Dominations/images/--SE.jpg");
+		        Image img = ImageIO.read(chemin);
+		        //g.drawImage(img, 0, 0, this);
+		        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+		      } catch (IOException e) {
+		        e.printStackTrace();
+		      }
+		  }          
+}
 
 

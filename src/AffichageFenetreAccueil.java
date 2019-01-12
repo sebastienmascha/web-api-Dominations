@@ -3,13 +3,11 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,25 +18,21 @@ import javax.swing.JButton;
 import javax.swing.JTextPane;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.UIManager;
-import javax.swing.border.EtchedBorder;
+
 
 public class AffichageFenetreAccueil extends JPanel {
 	
 	
-	int nbjoueurs=0;
+	
+
 	JRadioButton DeuxJoueurs = new JRadioButton("2 joueurs");
 	JRadioButton TroisJoueurs = new JRadioButton("3 joueurs");
 	JRadioButton QuatreJoueurs = new JRadioButton("4 joueurs");
+	
 	JToggleButton BoutonRegles = new JToggleButton("Règles du jeu");
 	JButton btnJouer = new JButton("Jouer !");
-	JLabel lblNombreDeJoueurs = new JLabel("Nombre de joueurs :" + nbjoueurs + ", veuillez choisir ...");
+	JLabel lblNombreDeJoueurs = new JLabel();
 	JLabel lblKingdomino = new JLabel("KingDomino");
-	String NombreDeJoueursString = String.valueOf(nbjoueurs);
 	
 	GridBagLayout Layout = new GridBagLayout();
 	
@@ -75,7 +69,6 @@ public class AffichageFenetreAccueil extends JPanel {
 		gbc_DeuxJoueurs.gridy = 5;
 		this.add(DeuxJoueurs, gbc_DeuxJoueurs);
 		
-		DeuxJoueurs.addActionListener(ActionChoixJoueurs);
 		
 		TroisJoueurs.setForeground(Color.WHITE);
 		TroisJoueurs.setSelected(false);
@@ -87,7 +80,6 @@ public class AffichageFenetreAccueil extends JPanel {
 		gbc_TroisJoueurs.gridx = 2;
 		gbc_TroisJoueurs.gridy = 6;
 		this.add(TroisJoueurs, gbc_TroisJoueurs);
-		TroisJoueurs.addActionListener(ActionChoixJoueurs);
 		
 		QuatreJoueurs.setForeground(Color.WHITE);
 		QuatreJoueurs.setSelected(false);
@@ -99,7 +91,6 @@ public class AffichageFenetreAccueil extends JPanel {
 		gbc_QuatreJoueurs.gridx = 2;
 		gbc_QuatreJoueurs.gridy = 7;
 		this.add(QuatreJoueurs, gbc_QuatreJoueurs);
-		QuatreJoueurs.addActionListener(ActionChoixJoueurs);
 		
 		BoutonRegles.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		BoutonRegles.setBounds(312, 243, 132, 29);
@@ -118,37 +109,7 @@ public class AffichageFenetreAccueil extends JPanel {
 
 	}
 	
-	public void Actionner() {
-		
-		if (DeuxJoueurs.isSelected()) {
-			TroisJoueurs.setSelected(false);
-			QuatreJoueurs.setSelected(false);
-		}
-		
-		if (TroisJoueurs.isSelected()) {
-			DeuxJoueurs.setSelected(false);
-			QuatreJoueurs.setSelected(false);
-		}
-		
-		if (QuatreJoueurs.isSelected()) {
-			TroisJoueurs.setSelected(false);
-			DeuxJoueurs.setSelected(false);
-		}
-	}
-	
-	public ActionListener ActionChoixJoueurs = new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-		   	Object source=e.getSource();
-		   	NombreDeJoueursString=((JRadioButton) source).getText();
-			lblNombreDeJoueurs.setText("Vous êtes " + NombreDeJoueursString);
-			DeuxJoueurs.setSelected(false);
-			TroisJoueurs.setSelected(false);
-			QuatreJoueurs.setSelected(false);
-			((JRadioButton) source).setSelected(true);
-			
-		}
-	};
+
 	
 	public ActionListener ActionRegles = new ActionListener() {
 	   	@Override
@@ -168,6 +129,8 @@ public class AffichageFenetreAccueil extends JPanel {
 			pan.add(wewe);
 	   }
 	};
+	
+
 	
 	public void paintComponent(Graphics g){
 

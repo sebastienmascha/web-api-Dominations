@@ -177,10 +177,13 @@ public class Jeu {
 
 	// echange de place 2 dominos en fonction de leur indice dans la liste
 	public void echanger(int i, int j, Tuile[][] dominostour2) {
-		Tuile val = dominostour2[i][0];
+		Tuile val1 = dominostour2[i][0];
+		Tuile val2 = dominostour2[i][1];
 
 		dominostour2[i][0] = dominostour2[j][0];
-		dominostour2[j][0] = val;
+		dominostour2[j][0] = val1;
+		dominostour2[i][1] = dominostour2[j][1];
+		dominostour2[j][1] = val2;
 
 	}
 

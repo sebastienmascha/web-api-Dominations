@@ -3,26 +3,18 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 
 public class AffichagePlateau extends Carre {
 	
@@ -113,4 +105,26 @@ class Carre extends JPanel {
         int s = (w < h ? w : h);
         return new Dimension(s, s);
     }
+}
+
+class BoutonsPlateau extends JButton {
+	AffichagePanelDeJeu4 a = new AffichagePanelDeJeu4();
+	public BoutonsPlateau(String Titre, String img, String imgflottante) {
+		super(Titre);
+		//this.add(a);
+		setForeground(Color.WHITE);
+        
+        setOpaque(false);
+        setContentAreaFilled(false); // On met à false pour empêcher le composant de peindre l'intérieur du JButton.
+        setBorderPainted(true); // De même, on ne veut pas afficher les bordures.
+        setFocusPainted(false); // On n'affiche pas l'effet de focus.
+         
+        setHorizontalAlignment(SwingConstants.CENTER);
+        setHorizontalTextPosition(SwingConstants.CENTER);
+          
+        setIcon(new ImageIcon(img));
+        setRolloverIcon(new ImageIcon(imgflottante));
+        //Rajouter la main survolante
+	}
+
 }
