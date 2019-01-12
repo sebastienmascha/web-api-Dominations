@@ -62,7 +62,7 @@ public class Affichage implements ActionListener {
 
 	public Affichage() {
 		
-		FenetreJeu.setIconImage(new ImageIcon("//Users/lebens/Desktop/Dominations/images/ISEP.png").getImage());
+		FenetreJeu.setIconImage(new ImageIcon(this.getClass().getResource("/chateau.png")).getImage());
 		FenetreJeu.setBounds(100, 100, 450, 300);
 		FenetreJeu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		FenetreJeu.getContentPane().setLayout(PlusieursPages);
@@ -250,8 +250,7 @@ class Cote extends JPanel {
 	public void paintComponent(Graphics g) {
 		// x1, y1, width, height, arcWidth, arcHeight
 		try {
-			File chemin = new File("//Users/lebens/Desktop/Dominations/images/Wallpaper.jpg");
-			Image img = ImageIO.read(chemin);
+			Image img = ImageIO.read(this.getClass().getResource("/Wallpaper.jpg"));
 			// g.drawImage(img, 0, 0, this);
 			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 		} catch (IOException e) {

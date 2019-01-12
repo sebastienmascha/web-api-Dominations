@@ -81,8 +81,7 @@ class AffichagePanelDeJeu extends JPanel {
 	public void paintComponent(Graphics g){
 		    //x1, y1, width, height, arcWidth, arcHeight
 		    try {
-		    	File chemin = new File ("//Users/lebens/Desktop/Dominations/images/--NO.jpg");
-		        Image img = ImageIO.read(chemin);
+		        Image img = ImageIO.read(this.getClass().getResource("--NO.jpg"));
 		        //g.drawImage(img, 0, 0, this);
 		        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 		      } catch (IOException e) {
@@ -99,8 +98,8 @@ class AffichagePanelDeJeu2 extends JPanel {
 	public void paintComponent(Graphics g){
 		    //x1, y1, width, height, arcWidth, arcHeight
 		    try {
-		    	File chemin = new File ("//Users/lebens/Desktop/Dominations/images/--NE.jpeg");
-		        Image img = ImageIO.read(chemin);
+		    	
+		        Image img = ImageIO.read(this.getClass().getResource("--NE.jpeg"));
 		        //g.drawImage(img, 0, 0, this);
 		        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 		      } catch (IOException e) {
@@ -117,8 +116,7 @@ class AffichagePanelDeJeu3 extends JPanel {
 	public void paintComponent(Graphics g){
 		    //x1, y1, width, height, arcWidth, arcHeight
 		    try {
-		    	File chemin = new File ("//Users/lebens/Desktop/Dominations/images/--SO.jpeg");
-		        Image img = ImageIO.read(chemin);
+		        Image img = ImageIO.read(this.getClass().getResource("--SO.jpeg"));
 		        //g.drawImage(img, 0, 0, this);
 		        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 		      } catch (IOException e) {
@@ -135,8 +133,7 @@ class AffichagePanelDeJeu4 extends JPanel {
 	public void paintComponent(Graphics g){
 		    //x1, y1, width, height, arcWidth, arcHeight
 		    try {
-		    	File chemin = new File ("//Users/lebens/Desktop/Dominations/images/--SE.jpg");
-		        Image img = ImageIO.read(chemin);
+		        Image img = ImageIO.read(this.getClass().getResource("--SE.jpg"));
 		        //g.drawImage(img, 0, 0, this);
 		        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 		      } catch (IOException e) {

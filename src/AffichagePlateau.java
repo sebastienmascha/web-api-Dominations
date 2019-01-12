@@ -23,7 +23,8 @@ public class AffichagePlateau extends Carre {
 	JLabel Nom = new JLabel();
 	BorderLayout Lay = new BorderLayout(0, 0);
 	ImageIcon IMG = new ImageIcon("//Users/lebens/Desktop/Dominations/images/mer1.png");
-	JButton C = new JButton(Bulle);
+	//JButton C = new JButton(Bulle);
+	JButton C = new JButton();
 	GridLayout Layout = new GridLayout(9, 9, 0, 4);
 	List<JButton> ListeBoutons = new ArrayList<JButton>();
 

@@ -28,7 +28,7 @@ public class AffichageFenetreAccueil extends JPanel {
 	JRadioButton TroisJoueurs = new JRadioButton("3 joueurs");
 	JRadioButton QuatreJoueurs = new JRadioButton("4 joueurs");
 	
-	JToggleButton BoutonRegles = new JToggleButton("Règles du jeu");
+	JToggleButton BoutonRegles = new JToggleButton("Regles du jeu");
 	JButton btnJouer = new JButton("Jouer !");
 	JLabel lblNombreDeJoueurs = new JLabel();
 	JLabel lblKingdomino = new JLabel("KingDomino");
@@ -113,7 +113,7 @@ public class AffichageFenetreAccueil extends JPanel {
 	   	@Override
 		public void actionPerformed(ActionEvent e) {
 			//frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	   		JFrame FenetreRegles = new JFrame("Règles du jeu");
+	   		JFrame FenetreRegles = new JFrame("Regles du jeu");
 	   		FenetreRegles.setVisible(true);
 	   		FenetreRegles.setSize(400, 400);
 	   		
@@ -134,7 +134,7 @@ public class AffichageFenetreAccueil extends JPanel {
 	public void paintComponent(Graphics g){
 
 		try {
-	        Image img = ImageIO.read(new File ("//Users/lebens/Desktop/Dominations/images/mine.jpg"));
+	        Image img = ImageIO.read(this.getClass().getResource("/mine.jpg"));
 	        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 		} catch (IOException e) {
 			e.printStackTrace();
