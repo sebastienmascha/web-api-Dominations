@@ -51,10 +51,10 @@ public class Jeu {
 
 		dominostour = reconstruirepioche(dominostour);
 		dominostour = trierdominostour(dominostour);
-		dominostourpreselect=dominostour;
+		dominostourpreselect = dominostour;
 
 		// System.out.println("\nListe dominotours apres tri :");
-		 afficherDoubleListe(dominostour);
+		afficherDoubleListe(dominostour);
 		Collections.shuffle(ordrecouleurs);
 		System.out.println("\n" + ordrecouleurs + "\n");
 
@@ -82,11 +82,12 @@ public class Jeu {
 					} else {
 						binary = 1;
 					}
-		
-					ordrejoueurs[j][binary].setPreSelection(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)]);
-							
-					supprimerdomino(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)], dominostourpreselect);
 
+					ordrejoueurs[j][binary].setPreSelection(
+							dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)]);
+
+					supprimerdomino(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)],
+							dominostourpreselect);
 
 				} catch (Exception e) {
 					System.out.println("Le domino a dej� ete selectionne ! Descriptif erreur: \n" + e);
@@ -114,9 +115,11 @@ public class Jeu {
 				System.out.println("C'est a " + ordrejoueurs[j][0].numjoueur + " de jouer");
 
 				try {
-					ordrejoueurs[j][0].setPreSelection(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)]);
-					
-					supprimerdomino(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)], dominostourpreselect);
+					ordrejoueurs[j][0].setPreSelection(
+							dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)]);
+
+					supprimerdomino(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)],
+							dominostourpreselect);
 				} catch (Exception e) {
 					System.out.println("Le domino a dej� ete selectionne ! Descriptif erreur: \n" + e);
 				}
@@ -132,8 +135,6 @@ public class Jeu {
 					+ joueurs[3][0].terrain1.terrain[2][3]);
 
 		}
-		
-		
 
 	}
 
@@ -206,8 +207,9 @@ public class Jeu {
 					+ joueurs[1][0].terrain1.terrain[2][3]);
 			System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0 : \n"
 					+ joueurs[2][0].terrain1.terrain[2][3]);
-			System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0, roi 2: \n"
-					+ joueurs[3][0].terrain1.terrain[2][3]);
+			// System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du
+			// joueur 0, roi 2: \n"
+			// + joueurs[3][0].terrain1.terrain[2][3]);
 
 		}
 
@@ -447,9 +449,9 @@ public class Jeu {
 	}
 
 	public int getnbrois() {
-		
+
 		return nbrois;
-		
+
 	}
 
 }

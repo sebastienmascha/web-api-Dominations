@@ -10,8 +10,8 @@ public class Principal {
 	
 
 	public static void initialisation() {
-		jeu1.setNbJoueurs(2);
-		jeu1.setChoixDomiTour(1,0,2,3);
+		jeu1.setNbJoueurs(window.getnbjoueurs());
+		//jeu1.setChoixDomiTour(1,0,2,3);
 		jeu1.initialisationpartie();
 		jeu1.preparationtour();
 		
