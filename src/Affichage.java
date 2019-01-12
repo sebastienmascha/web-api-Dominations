@@ -1,163 +1,287 @@
-import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ContainerListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
-
 import java.awt.CardLayout;
-import javax.swing.JLayeredPane;
+import java.awt.Color;
+import java.awt.Dimension;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JSeparator;
 
-public class Affichage {
+public class Affichage implements ActionListener {
 
-	//public static void main(String[] args) {}
-	
-	//On définit notre application
-	JFrame FenetreJeu = new JFrame("Projet Kingdomino" );
-	
-	//On définit les différentes pages de notre application
+	int nbjoueurs = 0;
+	int nbrois = 0;
+	String NombreDeJoueursString = String.valueOf(nbjoueurs);
+	JLabel lblNombreDeJoueurs = new JLabel("Nombre de joueurs :" + nbjoueurs + ", veuillez choisir ...");
+
+	JFrame FenetreJeu = new JFrame("Projet Kingdomino");
+	Cote Panel = new Cote();
+
 	AffichageFenetreJeu PageJeu = new AffichageFenetreJeu();
 	AffichageFenetreAccueil PageAccueil = new AffichageFenetreAccueil();
-	JLayeredPane layeredPane = new JLayeredPane();
+	
 	JPanel pane = new JPanel();
-	CardLayout PlusieursPages = new CardLayout(0, 0);
+	JPanel pan = new JPanel();
 
-	String[] listeIndice = {"Accueil", "Principal"};
-	//int indice = 0;
+	JPanel pa = new JPanel();
+	CardLayout PlusieursPages = new CardLayout(0, 0);
+	GridBagLayout recadrage = new GridBagLayout();
+	String[] listeIndice = { "Accueil", "Principal" };
 
 	JComboBox<String> SelectionDefilante = new JComboBox<String>();
 	int ValeurSelection = 0;
 
+	public Tuile[][] dominostour = new Tuile[4][2];
+	
+	private ArrayList<JButton> ListTour1 = new ArrayList<>();
+	private ArrayList<JButton> ListTour2 = new ArrayList<>();
+	private final JSeparator separator = new JSeparator();
+	private final JSeparator separator1 = new JSeparator();
+	private final JSeparator separator2 = new JSeparator();
+	private final JSeparator separator3 = new JSeparator();
+	private final JSeparator separator4 = new JSeparator();
+	private final JSeparator separator5 = new JSeparator();
+
 
 	public Affichage() {
-		Initialisation();
-	}
-
-	public void Initialisation() {
-		FenetreJeu.setIconImage(new ImageIcon ("//Users/lebens/Desktop/Dominations/images/ISEP.png").getImage());
+		
+		FenetreJeu.setIconImage(new ImageIcon(this.getClass().getResource("/chateau.png")).getImage());
 		FenetreJeu.setBounds(100, 100, 450, 300);
 		FenetreJeu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		FenetreJeu.getContentPane().setLayout(PlusieursPages);
-		//FenetreJeu.getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
-		//FenetreJeu.getContentPane().add(layeredPane);
-		//FenetreJeu.getContentPane().add(pane);
-		//pane.setLayout(new BoxLayout(pane, BoxLayout.X_AXIS));
-		//pane.add(PageAccueil);
+
+		FenetreJeu.getContentPane().add(PageAccueil, listeIndice[0]);
+		FenetreJeu.getContentPane().add(Panel, listeIndice[1]);
 		
-			PageAccueil.btnJouer.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					PlusieursPages.show(FenetreJeu.getContentPane(), listeIndice[1]);
-				}
-			});
-			
-			PageJeu.btnRetournerAuMenu.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					PlusieursPages.show(FenetreJeu.getContentPane(), listeIndice[0]);
-				}
-			});
-			
-			SelectionDefilante.setModel(new DefaultComboBoxModel<String>(new String[] {"Choissisez votre Terrain...", "Terrain 1", "Terrain 2", "Terrain 3", "Terrain 4"}));		
-			SelectionDefilante.addActionListener(ConfigJoueurs);
-		PageJeu.Centre.add(SelectionDefilante);
-		//SelectionDefilante.addItemListener();
+		SelectionDefilante.setModel(new DefaultComboBoxModel<String>(
+				new String[] { "Choissisez votre Terrain...", "Terrain 1", "Terrain 2", "Terrain 3", "Terrain 4" }));
+		PageJeu.SudOuest.add(SelectionDefilante);
+
+		Panel.setLayout(recadrage);
+		Panel.add(PageJeu);
+		Panel.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				resizePreview(PageJeu, Panel);
+			}
+		});
 		
-		/**
-		else if (Page
-		Accueil.TroisJoueurs.isSelected()) {
-		SelectionDefilante.setModel(new DefaultComboBoxModel(new String[] {"Choissisez votre Terrain...", "Terrain 1", "Terrain 2", "Terrain 3"}));
+		PageAccueil.QuatreJoueurs.addActionListener((ActionListener) this);
+		PageAccueil.DeuxJoueurs.addActionListener((ActionListener) this);
+		PageAccueil.TroisJoueurs.addActionListener((ActionListener) this);
+		PageJeu.btnRetournerAuMenu.addActionListener((ActionListener) this);
+		PageAccueil.btnJouer.addActionListener((ActionListener) this);
+		PageJeu.btnPioche.addActionListener((ActionListener) this);
+	}
+
+	private static void resizePreview(JPanel innerPanel, JPanel container) {
+		int w = container.getWidth();
+		int h = container.getHeight();
+		int size = Math.min(w, h);
+		innerPanel.setPreferredSize(new Dimension(size, size));
+		container.revalidate();
+	}
+
+	public int getnbjoueurs() {
+		return nbjoueurs;
+	}
+
+	public void setDominosTour(Tuile[][] dominostour) {
+		this.dominostour = dominostour;
+	}
+	public void setnbrois(int n) {
+		this.nbrois = n;
+	}
+
+
+	public void actionPerformed(ActionEvent e) {
+		Object source = e.getSource();
+		
+		if (source==PageAccueil.QuatreJoueurs || source==PageAccueil.TroisJoueurs || source==PageAccueil.DeuxJoueurs) {
+			PageAccueil.lblNombreDeJoueurs.setText("Vous êtes " + ((JRadioButton) source).getText());
+			PageAccueil.DeuxJoueurs.setSelected(false);
+			PageAccueil.TroisJoueurs.setSelected(false);
+			PageAccueil.QuatreJoueurs.setSelected(false);
+			((JRadioButton) source).setSelected(true);
+
+			switch (((JRadioButton) source).getText()) {
+			case "2 joueurs":
+				nbjoueurs = 2;
+				break;
+			case "3 joueurs":
+				nbjoueurs = 3;
+				break;
+			case "4 joueurs":
+				nbjoueurs = 4;
+				break;
+			}
+			System.out.println(nbjoueurs);
+			lblNombreDeJoueurs.setText("Nombre de joueurs :" + nbjoueurs + ", veuillez choisir ...");
 		}
-		else if (PageAccueil.QuatreJoueurs.isSelected()) {
-		SelectionDefilante.setModel(new DefaultComboBoxModel(new String[] {"Choissisez votre Terrain...", "Terrain 1", "Terrain 2", "Terrain 3","Terrain 4"}));
-		}/*/
 		
-		FenetreJeu.getContentPane().add(PageAccueil,listeIndice[0]);
-		FenetreJeu.getContentPane().add(PageJeu,listeIndice[1]);
+		
+		if (source==PageJeu.btnRetournerAuMenu) {
+			PlusieursPages.show(FenetreJeu.getContentPane(), listeIndice[0]);
+		}
+		
+		if (source==PageAccueil.btnJouer) {
+			Principal.lancerDebut();
+			PlusieursPages.show(FenetreJeu.getContentPane(), listeIndice[1]);
+			System.out.println("__Liste dominostour dans affichage__");
+			for (int i = 0; i <= nbjoueurs - 1; i++) {
+				System.out.println("____");
+				System.out.println(dominostour[i][0]);
+				System.out.println(dominostour[i][1]);
+			}
+					
+			for (int i=0; i<6; i++) {
+				PageJeu.Centre.add(new JLabel());
+			}
+			
+			for (int i=0; i<nbrois; i++) { 
+				PageJeu.Centre.add(new PanelRoi());
+				JButton NouvelleTuile1 = new JButton();
+				JButton NouvelleTuile2 = new JButton();
+				
+
+				//AffichageBoutonTuile NouvelleTuile1 = new AffichageBoutonTuile(dominostour[i][0]);
+				//AffichageBoutonTuile NouvelleTuile2 = new AffichageBoutonTuile(dominostour[i][1]);
+				PageJeu.Centre.add(NouvelleTuile1); 
+				PageJeu.Centre.add(NouvelleTuile2); 
+				
+				ListTour1.add(NouvelleTuile1);
+				ListTour1.add(NouvelleTuile2);
+			}
+			
+			separator.setBackground(new Color(102, 0, 51));
+			separator1.setBackground(new Color(102, 0, 51));
+			separator2.setBackground(new Color(102, 0, 51));
+			separator3.setBackground(new Color(102, 0, 51));
+			separator4.setBackground(new Color(102, 0, 51));
+			separator5.setBackground(new Color(102, 0, 51));
+
+			
+			PageJeu.Centre.add(separator);
+			PageJeu.Centre.add(separator1);
+			PageJeu.Centre.add(separator2);
+			PageJeu.Centre.add(separator3);
+			PageJeu.Centre.add(separator4);
+			PageJeu.Centre.add(separator5);
+
+
+			for (int i=0; i<24-(6*nbrois); i++) {
+				PageJeu.Centre.add(new JLabel());
+			}
+			
+			for (int i=0; i<nbrois; i++) { 
+				PageJeu.Centre.add(new PanelRoi());
+				JButton NouvelleTuile1 = new JButton();
+				JButton NouvelleTuile2 = new JButton();
+				
+
+				//AffichageBoutonTuile NouvelleTuile1 = new AffichageBoutonTuile(dominostour[i][0]);
+				//AffichageBoutonTuile NouvelleTuile2 = new AffichageBoutonTuile(dominostour[i][1]);
+				PageJeu.Centre.add(NouvelleTuile1); 
+				PageJeu.Centre.add(NouvelleTuile2); 
+				
+				ListTour2.add(NouvelleTuile1);
+				ListTour2.add(NouvelleTuile2);
+			}
+			
+
+		}
+		
+		if (source==PageJeu.btnPioche) {
+			for (int k = 0; k < ListTour1.size()/2; k++) {
+					System.out.println(k);
+					
+					JButton jButton1 = ListTour1.get(2*k);
+					JButton jButton2 = ListTour1.get(2*k+1);
+		
+					AffichageBoutonTuile afficheurBoutonTuile = new AffichageBoutonTuile();
+					
+					afficheurBoutonTuile.display(dominostour[k][0], String.valueOf(dominostour[k][0].getnumdomi())+ " " + String.valueOf(dominostour[k][0].getnumtuile()), jButton1);
+					afficheurBoutonTuile.display(dominostour[k][1], String.valueOf(dominostour[k][1].getnumdomi())+ " " + String.valueOf(dominostour[k][1].getnumtuile()), jButton2);
+
+			}
+				
+				//jButton.setText(String.valueOf(jButton.getWidth()));
+
+				/*
+				jButton.setOpaque(false);
+				jButton.setContentAreaFilled(false);
+				jButton.setBorderPainted(false); 
+				jButton.setFocusPainted(false);
+				jButton.setHorizontalAlignment(SwingConstants.CENTER);
+				jButton.setHorizontalTextPosition(SwingConstants.CENTER);
+				*/
+				
+			
+		
+		}
 		
 	}
-	//Définition de l'action au moment du choix sur le bouton de selection des terrains
-	public ActionListener ConfigJoueurs = new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-		
-	        //Pour afficher le Terrain de Jeu correspondant au Joueur dans l'EcranSud
-	        String s = (String) SelectionDefilante.getSelectedItem();
-            switch (s) {
-                case "Terrain 1":
-                    ValeurSelection = 1;
-                    break;
-                case "Terrain 2":
-                    ValeurSelection = 2; 
-                    break;
-                case "Terrain 3":
-                    ValeurSelection = 3;
-                    break;   
-                case "Terrain 4":
-                	ValeurSelection = 4;
-                	break;
-            }
-            
-            PageJeu.lbl.setText("Vous êtes sur le " + ((JComboBox) e.getSource()).getItemAt(ValeurSelection));
-            PageJeu.lblPlateau.setText("Plateau du joueur #" + ValeurSelection);
-            PageJeu.PlusieursTerrainsSud.show(PageJeu.test, PageJeu.IndiceTerrain[ValeurSelection]);
-            
-			//Pour afficher les choix possibles selon le nombre de joueurs
-	        switch (PageAccueil.NombreDeJoueursString) {
-	        	case "2 joueurs":
-	        		SelectionDefilante.removeAllItems();
-	        		SelectionDefilante.addItem("Choissisez votre Terrain...");
-	        		SelectionDefilante.addItem("Terrain 1");
-	        		SelectionDefilante.addItem("Terrain 2");
-	        		break;
-	        	case "3 joueurs":
-	        		SelectionDefilante.removeAllItems();
-	        		SelectionDefilante.addItem("Choissisez votre Terrain...");
-	        		SelectionDefilante.addItem("Terrain 1");
-	        		SelectionDefilante.addItem("Terrain 2");
-	        		SelectionDefilante.addItem("Terrain 3");
-	        		break;
-	        	case "4 joueurs":
-	        		SelectionDefilante.removeAllItems();
-	        		SelectionDefilante.addItem("Choissisez votre Terrain...");
-	        		SelectionDefilante.addItem("Terrain 1");
-	        		SelectionDefilante.addItem("Terrain 2");
-	        		SelectionDefilante.addItem("Terrain 3");
-	        		SelectionDefilante.addItem("Terrain 4");
-	        		break;
-	        }
-		}
-	};
-		
 	
 	
-	public ActionListener ChangerDePage = new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			layeredPane.removeAll();
-			layeredPane.add(((JPanel) e.getSource()).getParent());
-			layeredPane.repaint();
-			layeredPane.revalidate();
-		}
-	};
-	
-
-            /**
-	public ActionListener ChangerPage = new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-	        if(++indice > 2)
-	            indice = 0;
-			PlusieursPages.show(FenetreJeu, listContent[indice]);
-		}
-	};*/
 
 }
 
-	
+class Cote extends JPanel {
+	public Cote() {
+	}
+
+	public void paintComponent(Graphics g) {
+		// x1, y1, width, height, arcWidth, arcHeight
+		try {
+			Image img = ImageIO.read(this.getClass().getResource("/Wallpaper.jpg"));
+			// g.drawImage(img, 0, 0, this);
+			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+}
+
+class PanelRoi extends JPanel {
+	private final JLabel lblNewLabel1 = new JLabel();
+	private final JLabel lblNewLabel2 = new JLabel();
+	private final JLabel lblNewLabel3 = new JLabel();
+	private final JLabel lblNewLabel4 = new JLabel();
+	private final JLabel lblNewLabel5 = new JLabel();
+	private final JLabel lblNewLabel6 = new JLabel();
+	private final JLabel lblNewLabel7 = new JLabel();
+	private final JLabel lblNewLabel8 = new JLabel();
+	JButton Roibtn = new JButton();
+
+
+	public PanelRoi() {
+		setLayout(new GridLayout(3,3,0,0));
+		this.add(lblNewLabel1);
+		this.add(lblNewLabel2);
+		this.add(lblNewLabel3);
+		this.add(lblNewLabel4);
+		this.add(Roibtn);
+		this.add(lblNewLabel5);
+		this.add(lblNewLabel6);
+		this.add(lblNewLabel7);
+		this.add(lblNewLabel8);
+	}
+}

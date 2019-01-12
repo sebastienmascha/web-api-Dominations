@@ -3,13 +3,11 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -23,21 +21,24 @@ import java.awt.Insets;
 
 public class AffichageFenetreAccueil extends JPanel {
 	
-	Jeu jeu1 = new Jeu();
 	
+	
+
 	JRadioButton DeuxJoueurs = new JRadioButton("2 joueurs");
 	JRadioButton TroisJoueurs = new JRadioButton("3 joueurs");
 	JRadioButton QuatreJoueurs = new JRadioButton("4 joueurs");
-	JToggleButton BoutonRegles = new JToggleButton("Règles du jeu");
+	
+	JToggleButton BoutonRegles = new JToggleButton("Regles du jeu");
 	JButton btnJouer = new JButton("Jouer !");
-	JLabel lblNombreDeJoueurs = new JLabel("Nombre de joueurs :" + jeu1.nbjoueurs + ", veuillez choisir ...");
+	JLabel lblNombreDeJoueurs = new JLabel();
 	JLabel lblKingdomino = new JLabel("KingDomino");
-	String NombreDeJoueursString ="0";
+	
+	GridBagLayout Layout = new GridBagLayout();
 	
 	public AffichageFenetreAccueil() {
 
 		//BorderLayout.CENTER
-		this.setLayout(new GridBagLayout());
+		this.setLayout(Layout);
 		
 		lblKingdomino.setForeground(Color.WHITE);
 		lblKingdomino.setFont(new Font("Comic Sans MS", Font.ITALIC, 20));
@@ -64,10 +65,9 @@ public class AffichageFenetreAccueil extends JPanel {
 		GridBagConstraints gbc_DeuxJoueurs = new GridBagConstraints();
 		gbc_DeuxJoueurs.insets = new Insets(0, 0, 5, 5);
 		gbc_DeuxJoueurs.gridx = 2;
-		gbc_DeuxJoueurs.gridy = 4;
+		gbc_DeuxJoueurs.gridy = 5;
 		this.add(DeuxJoueurs, gbc_DeuxJoueurs);
 		
-		DeuxJoueurs.addActionListener(ActionChoixJoueurs);
 		
 		TroisJoueurs.setForeground(Color.WHITE);
 		TroisJoueurs.setSelected(false);
@@ -77,9 +77,8 @@ public class AffichageFenetreAccueil extends JPanel {
 		GridBagConstraints gbc_TroisJoueurs = new GridBagConstraints();
 		gbc_TroisJoueurs.insets = new Insets(0, 0, 5, 5);
 		gbc_TroisJoueurs.gridx = 2;
-		gbc_TroisJoueurs.gridy = 5;
+		gbc_TroisJoueurs.gridy = 6;
 		this.add(TroisJoueurs, gbc_TroisJoueurs);
-		TroisJoueurs.addActionListener(ActionChoixJoueurs);
 		
 		QuatreJoueurs.setForeground(Color.WHITE);
 		QuatreJoueurs.setSelected(false);
@@ -89,67 +88,35 @@ public class AffichageFenetreAccueil extends JPanel {
 		GridBagConstraints gbc_QuatreJoueurs = new GridBagConstraints();
 		gbc_QuatreJoueurs.insets = new Insets(0, 0, 5, 5);
 		gbc_QuatreJoueurs.gridx = 2;
-		gbc_QuatreJoueurs.gridy = 6;
+		gbc_QuatreJoueurs.gridy = 7;
 		this.add(QuatreJoueurs, gbc_QuatreJoueurs);
-		QuatreJoueurs.addActionListener(ActionChoixJoueurs);
 		
 		BoutonRegles.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		BoutonRegles.setBounds(312, 243, 132, 29);
 		GridBagConstraints gbc_BoutonRegles = new GridBagConstraints();
 		gbc_BoutonRegles.insets = new Insets(0, 0, 0, 5);
 		gbc_BoutonRegles.gridx = 1;
-		gbc_BoutonRegles.gridy = 8;
+		gbc_BoutonRegles.gridy = 9;
 		this.add(BoutonRegles, gbc_BoutonRegles);
 		BoutonRegles.addActionListener(ActionRegles);
 		
 		btnJouer.setBounds(50, 243, 117, 29);
 		GridBagConstraints gbc_btnJouer = new GridBagConstraints();
-		gbc_btnJouer.insets = new Insets(0, 0, 0, 5);
 		gbc_btnJouer.gridx = 3;
-		gbc_btnJouer.gridy = 8;
+		gbc_btnJouer.gridy = 9;
 		this.add(btnJouer, gbc_btnJouer);
 
 	}
 	
-	public void Actionner() {
-		
-		if (DeuxJoueurs.isSelected()) {
-			TroisJoueurs.setSelected(false);
-			QuatreJoueurs.setSelected(false);
-		}
-		
-		if (TroisJoueurs.isSelected()) {
-			DeuxJoueurs.setSelected(false);
-			QuatreJoueurs.setSelected(false);
-		}
-		
-		if (QuatreJoueurs.isSelected()) {
-			TroisJoueurs.setSelected(false);
-			DeuxJoueurs.setSelected(false);
-		}
-	}
-	
-	public ActionListener ActionChoixJoueurs = new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-		   	Object source=e.getSource();
-		   	NombreDeJoueursString=((JRadioButton) source).getText();
-			lblNombreDeJoueurs.setText("Vous êtes " + NombreDeJoueursString);
-			DeuxJoueurs.setSelected(false);
-			TroisJoueurs.setSelected(false);
-			QuatreJoueurs.setSelected(false);
-			((JRadioButton) source).setSelected(true);
-			
-		}
-	};
 	
 	public ActionListener ActionRegles = new ActionListener() {
 	   	@Override
 		public void actionPerformed(ActionEvent e) {
 			//frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	   		JFrame FenetreRegles = new JFrame("Règles du jeu");
+	   		JFrame FenetreRegles = new JFrame("Regles du jeu");
 	   		FenetreRegles.setVisible(true);
 	   		FenetreRegles.setSize(400, 400);
+	   		
 	   		JPanel pan = new JPanel();
 	   		JLabel label = new JLabel("mdrrr");
 	   		FenetreRegles.getContentPane().add(pan);
@@ -162,10 +129,12 @@ public class AffichageFenetreAccueil extends JPanel {
 	   }
 	};
 	
+
+	
 	public void paintComponent(Graphics g){
 
 		try {
-	        Image img = ImageIO.read(new File ("//Users/lebens/Desktop/Dominations/images/mine.jpg"));
+	        Image img = ImageIO.read(this.getClass().getResource("/mine.jpg"));
 	        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 		} catch (IOException e) {
 			e.printStackTrace();

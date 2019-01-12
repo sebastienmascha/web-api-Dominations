@@ -89,7 +89,7 @@ public class Jeu {
 
 
 				} catch (Exception e) {
-					System.out.println("Le domino a dejà ete selectionne ! Descriptif erreur: \n" + e);
+					System.out.println("Le domino a dejï¿½ ete selectionne ! Descriptif erreur: \n" + e);
 				}
 
 			}
@@ -118,7 +118,7 @@ public class Jeu {
 					
 					supprimerdomino(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)], dominostourpreselect);
 				} catch (Exception e) {
-					System.out.println("Le domino a dejà ete selectionne ! Descriptif erreur: \n" + e);
+					System.out.println("Le domino a dejï¿½ ete selectionne ! Descriptif erreur: \n" + e);
 				}
 			}
 
@@ -166,7 +166,7 @@ public class Jeu {
 					// suppression
 
 				} catch (Exception e) {
-					System.out.println("Le domino a dejà ete selectionne ! Descriptif erreur: \n" + e);
+					System.out.println("Le domino a dejï¿½ ete selectionne ! Descriptif erreur: \n" + e);
 				}
 
 			}
@@ -196,7 +196,7 @@ public class Jeu {
 							this.choixdomitour.get(2), this.choixdomitour.get(3));
 					supprimerdomino(dominostour[this.choixdomitour.get(0)][this.choixdomitour.get(1)], dominostour);
 				} catch (Exception e) {
-					System.out.println("Le domino a dejà ete selectionne ! Descriptif erreur: \n" + e);
+					System.out.println("Le domino a dejï¿½ ete selectionne ! Descriptif erreur: \n" + e);
 				}
 			}
 
@@ -444,6 +444,12 @@ public class Jeu {
 
 	public int getNumTour() {
 		return this.numtour;
+	}
+
+	public int getnbrois() {
+		
+		return nbrois;
+		
 	}
 
 }
