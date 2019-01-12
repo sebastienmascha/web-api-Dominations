@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class Terrain {
     private List<Domino> listeDomino;
     private int tourJoueur = 1;
+    public int Score;
     
     Tuile terrain[][] = new Tuile[9][9];
     
@@ -41,6 +42,36 @@ public class Terrain {
         this.tourJoueur = tourJoueur;
     }
     
+    public ArrayList<Integer> getPositionTuile(Tuile tuile, Terrain terrain) {
+    	ArrayList<Integer> positionTuile = new ArrayList<Integer>();
+    	int i = 0;
+		int j =0;
+		while (i <= 8) {
+			while (j <= 8) {
+				if (!(Regles.isTuileVide(i, j, terrain))) {
+					if (terrain.terrain[i][j].getnumdomi() == tuile.getnumdomi()) {
+						if (terrain.terrain[i][j].getnumtuile() == tuile.getnumtuile()) {
+							positionTuile.add(i);
+							positionTuile.add(j);
+						}
+					}
+				}
+				j++;
+			}
+			i++;
+		}
+        return positionTuile;
+    }
+
+    public ArrayList<Tuile> getTuilesVoisines(Tuile tuile, Terrain terrain) {
+    	ArrayList<Tuile> tuilesVoisines = new ArrayList<Tuile>();
+    	int i = 0;
+		int j =0;
+		if (Regles.isTuileDroiteVide(getPositionTuile(tuile, terrain).get(0),getPositionTuile(tuile, terrain).get(1), terrain)) {
+			//tuilesVoisines.add(tuile)
+		}
+        return tuilesVoisines;
+    }
     
 
 	
