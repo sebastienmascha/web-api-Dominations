@@ -1,13 +1,19 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Jeu {
 
-	public int nbjoueurs, nbrois;
+	public int nbjoueurs, nbrois, numtour;
+	public ArrayList<Integer> choixdomitour = new ArrayList<Integer>();
 	public Tuile[][] pioche = new Tuile[48][2];
 	public Tuile[][] dominostour = new Tuile[4][2];
+	public Joueur[] joueurs = new Joueur[4];
 
-	public void preparation() {
+	public List<String> couleurs = Arrays.asList("rose", "jaune", "vert", "bleu");
+
+	public void initialisationpartie() {
 
 		pioche = reconstruirepioche(Tuile.tuiles);
 
@@ -21,9 +27,15 @@ public class Jeu {
 		definirnbrois();
 		System.out.println("Le nombre de rois a ete correctement defini, nbrois= " + nbrois + ".");
 
+		creerJoueurs();
+		System.out.println("\nVoici les couleurs actives: ");
+
+
+		afficherMonoListe(joueurs);
+
 	}
 
-	public void premiertour() {
+	public void preparationtour() {
 
 		System.out.println("\n_____________Premier tour_____________\n");
 		int lginitpioche = pioche.length;
@@ -34,15 +46,37 @@ public class Jeu {
 		System.out.println("Longueur pioche: " + pioche.length + " (avant: " + lginitpioche + ")");
 
 		dominostour = reconstruirepioche(dominostour);
+		
+		afficherDoubleListe(dominostour);
 		dominostour = trierdominostour(dominostour);
 
 		System.out.println("\nListe dominotours apres tri :");
-		afficherListe(dominostour);
+		afficherDoubleListe(dominostour);
+		
+		
 
 	}
 
-	public void tourdejeu() {
+	public void tourjoueur() {
 
+		this.numtour += 1;
+		
+		for (int j = 0; j <= this.nbjoueurs - 1; j++) {
+
+			if (nbjoueurs == 2) {
+				
+				joueurs[j].terrain1.remplirTerrain(dominostour[this.choixdomitour.get(0)][this.choixdomitour.get(1)], 2, 3);
+				joueurs[j].terrain2.remplirTerrain(dominostour[this.choixdomitour.get(0)][this.choixdomitour.get(1)], 2, 3);
+
+			} else {
+				joueurs[j].terrain1.remplirTerrain(dominostour[this.choixdomitour.get(0)][this.choixdomitour.get(1)], 2, 3);
+
+			}
+		}
+
+		
+		joueurs[0].terrain1.remplirTerrain(dominostour[this.choixdomitour.get(0)][this.choixdomitour.get(1)], 2, 3);
+		System.out.println("\nAffichage de la tuile en position 2,3 sur le terrain 1 du joueur 0 : \n"+joueurs[0].terrain1.terrain[2][3]);
 	}
 
 	// ____________________________________________________________________
@@ -98,6 +132,20 @@ public class Jeu {
 
 		}
 
+	}
+	
+	private void creerJoueurs() {
+		for (int j = 0; j <= this.nbjoueurs - 1; j++) {
+
+			if (nbjoueurs == 2) {
+
+				joueurs[j] = new Joueur(couleurs.get(j), 2);
+
+			} else {
+				joueurs[j] = new Joueur(couleurs.get(j), 1);
+
+			}
+		}
 	}
 
 	// suppression des trous dans une liste apres avoir supprimer des dominos
@@ -177,23 +225,51 @@ public class Jeu {
 
 	// echange de place 2 dominos en fonction de leur indice dans la liste
 	public void echanger(int i, int j, Tuile[][] dominostour2) {
-		Tuile val = dominostour2[i][0];
+		Tuile val1 = dominostour2[i][0];
+		Tuile val2 = dominostour2[i][1];
 
 		dominostour2[i][0] = dominostour2[j][0];
-		dominostour2[j][0] = val;
+		dominostour2[j][0] = val1;
+		dominostour2[i][1] = dominostour2[j][1];
+		dominostour2[j][1] = val2;
 
 	}
 
 	// DEBUG permet l'affichage d'une liste
-	public void afficherListe(Tuile liste[][]) {
+	public void afficherDoubleListe(Tuile liste[][]) {
 		for (int i = 0; i <= liste.length - 1; i++) {
 			System.out.println("____");
 			System.out.println(liste[i][0]);
+			System.out.println("__");
+			System.out.println(liste[i][1]);
 		}
+	}
+
+	public void afficherMonoListe(Joueur liste[]) {
+		for (int i = 0; i <= nbjoueurs - 1; i++) {
+			System.out.println("____");
+
+			System.out.println(liste[i].couleur);
+
+		}
+	}
+	
+	public void verif() {
+		
+		
 	}
 
 	public void setNbJoueurs(int n) {
 		this.nbjoueurs = n;
+	}
+
+	public void setChoixDomiTour(int numdomi, int numtuile) {
+		this.choixdomitour.add(numdomi);
+		this.choixdomitour.add(numtuile);
+	}
+
+	public int getNumTour() {
+		return this.numtour;
 	}
 
 }
