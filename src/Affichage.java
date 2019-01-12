@@ -142,7 +142,7 @@ public class Affichage implements ActionListener {
 		}
 		
 		if (source==PageAccueil.btnJouer) {
-			Principal.lancerDebut();
+			Principal.initialisation();
 			PlusieursPages.show(FenetreJeu.getContentPane(), listeIndice[1]);
 			System.out.println("__Liste dominostour dans affichage__");
 			for (int i = 0; i <= nbjoueurs - 1; i++) {

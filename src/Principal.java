@@ -8,20 +8,16 @@ public class Principal {
 	
 	static Jeu jeu1 = new Jeu();
 	
-	public static void lancerDebut(){
-		jeu1.setNbJoueurs(window.nbjoueurs);
-		jeu1.preparation();
-		jeu1.premiertour();
-		window.setDominosTour(jeu1.dominostour);
-		window.setnbrois(jeu1.getnbrois());
-		
-	}
-	
+
 	public static void initialisation() {
 		jeu1.setNbJoueurs(2);
 		jeu1.setChoixDomiTour(1,0,2,3);
 		jeu1.initialisationpartie();
 		jeu1.preparationtour();
+		
+		window.setDominosTour(jeu1.dominostour);
+		window.setnbrois(jeu1.getnbrois());
+		
 		jeu1.tourjoueur();
 		
 	}
