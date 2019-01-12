@@ -77,34 +77,70 @@ public class Regles {
 				if (!(Regles.isTuileVide(i, j, terrain))){
 					listTuilePositionX.add(i);
 					listTuilePositionY.add(j);
-					recursive(listTuilePositionX, listTuilePositionY, N,C, terrain);
-					terrain.Score += C*N;
+					recursive(listTuilePositionX, listTuilePositionY, terrain);
+					terrain.setScore(C*N);
+					C=0;
+					N=0;
+					
 				}
 				j++;
 			}
 			i++;
 		}
-		return C;
+		return terrain.Score;
 	}
 	
-	public static void recursive(ArrayList<Integer> listTuilePositionX, ArrayList<Integer> listTuilePositionY, int N, int C, Terrain terrain) {
-		
+	public static void recursive(ArrayList<Integer> listTuilePositionX, ArrayList<Integer> listTuilePositionY, Terrain terrain) {
+		ArrayList<Integer> histolistTuilePositionX = new ArrayList<Integer>();
+		ArrayList<Integer> histolistTuilePositionY = new ArrayList<Integer>();
 		if (listTuilePositionX.size() != 0) {
-			for (int i = 0; i <= listTuilePositionX.size() - 1; i++) {
-				N += 1;
-				C += terrain.terrain[listTuilePositionX.get(i)][listTuilePositionY.get(i)].getnbcouronne();
-				ArrayList<Integer> tuilesVoisinesPositionX = terrain.getTuilesVoisinesPositionX(listTuilePositionX.get(i),listTuilePositionY.get(i), terrain);
-				ArrayList<Integer> tuilesVoisinesPositionY = terrain.getTuilesVoisinesPositionY(listTuilePositionX.get(i),listTuilePositionY.get(i), terrain);
-				//ArrayList<Tuile> tuilesVoisines = terrain.getTuilesVoisines(listTuilePositionX.get(i),listTuilePositionY.get(i),terrain);
-				//listTuile.remove(i);
-				listTuilePositionX.remove(i);
-				listTuilePositionY.remove(i);
-				recursive(tuilesVoisinesPositionX,tuilesVoisinesPositionX,N,C,terrain);
+			while (listTuilePositionX.size() == 0) {
+				histolistTuilePositionX.add(0);
+				histolistTuilePositionY.add(0);
+				int j1 = 0; 
+				int j2 =0;  
+				while (0 <= histolistTuilePositionX.size()) { 
+					while (j2 <= histolistTuilePositionX.size()) { 
+						if (!(Regles.isTuileVide(j1, j2, terrain))){
+							N += 1;
+							C += terrain.terrain[listTuilePositionX.get(j1)][listTuilePositionY.get(j2)].getnbcouronne();
+							ArrayList<Integer> tuilesVoisinesPositionX = terrain.getTuilesVoisinesPositionX(listTuilePositionX.get(0),listTuilePositionY.get(0), terrain);
+							ArrayList<Integer> tuilesVoisinesPositionY = terrain.getTuilesVoisinesPositionY(listTuilePositionX.get(0),listTuilePositionY.get(0), terrain);
+							//ArrayList<Tuile> tuilesVoisines = terrain.getTuilesVoisines(listTuilePositionX.get(i),listTuilePositionY.get(i),terrain);
+							//listTuile.remove(i);
+							listTuilePositionX.remove(0);
+							listTuilePositionY.remove(0);
+							recursive(tuilesVoisinesPositionX,tuilesVoisinesPositionX,terrain);
+						}
+						j2++;
+					}
+					j1++;
+				}
 			}
 		}
 	}
+	// TESTS
+	/*
+	System.out.println("\nListe dominotours apres tri :");
+	afficherListe(dominostour);
+	System.out.println("----------------------------------------------------------");
+	System.out.println(dominostour[3][0]);
+	System.out.println("---------------------------------------");
+	Terrain terrain1 = new Terrain();
+	terrain1.remplirTerrain(dominostour[3][0], 0, 0);
+	terrain1.remplirTerrain(dominostour[3][0], 0, 1);
+	terrain1.remplirTerrain(dominostour[3][0], 1, 0);
+	terrain1.remplirTerrain(dominostour[3][0], 1, 1);
+	//System.out.println("\n"+terrain1.getTuilesVoisinesPositionX(2, 3, terrain1));
+	System.out.println("\n"+terrain1.getTuilesVoisinesPositionX(0, 0, terrain1));
+	System.out.println("\n"+terrain1.getTuilesVoisinesPositionX(0, 0, terrain1));
+	System.out.println("\n"+Regles.score(terrain1));
 	
-	// SCORE CODE GENERAL
+	*/
+	
+	
+	
+	
 	
 	// REGLES ADDITIONNELLES BONUS
 	// Empire du milieu

@@ -40,6 +40,10 @@ public class Terrain {
         this.tourJoueur = tourJoueur;
     }
     
+    public void setScore(int score) {
+        this.Score = score;
+    }
+    
     /*public ArrayList<Integer> getPositionTuile(Tuile tuile, Terrain terrain) {
     	ArrayList<Integer> positionTuile = new ArrayList<Integer>();
     	int i = 0;
