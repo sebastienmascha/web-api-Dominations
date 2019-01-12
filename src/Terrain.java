@@ -17,13 +17,11 @@ public class Terrain {
         //listeDomino = new ArrayList<Domino>();
     }
     
-    
 
 	
 	public void remplirTerrain(Tuile tuile, int posx, int posy) {
 
 		terrain[posx][posy] = tuile;
-
 	}
 	
 	
@@ -42,7 +40,11 @@ public class Terrain {
         this.tourJoueur = tourJoueur;
     }
     
-    public ArrayList<Integer> getPositionTuile(Tuile tuile, Terrain terrain) {
+    public void setScore(int score) {
+        this.Score = score;
+    }
+    
+    /*public ArrayList<Integer> getPositionTuile(Tuile tuile, Terrain terrain) {
     	ArrayList<Integer> positionTuile = new ArrayList<Integer>();
     	int i = 0;
 		int j =0;
@@ -61,16 +63,74 @@ public class Terrain {
 			i++;
 		}
         return positionTuile;
-    }
-
-    public ArrayList<Tuile> getTuilesVoisines(Tuile tuile, Terrain terrain) {
-    	ArrayList<Tuile> tuilesVoisines = new ArrayList<Tuile>();
+    }*/
+/*
+    public ArrayList<Integer> getTuilesVoisinesPosition(Tuile tuile, Terrain terrain) {
+    	ArrayList<Integer> tuilesVoisinesPosition = new ArrayList<Tuile>();
     	int i = 0;
 		int j =0;
 		if (Regles.isTuileDroiteVide(getPositionTuile(tuile, terrain).get(0),getPositionTuile(tuile, terrain).get(1), terrain)) {
 			//tuilesVoisines.add(tuile)
 		}
         return tuilesVoisines;
+    }
+    */
+    
+    public ArrayList<Integer> getTuilesVoisinesPositionX(int posx, int posy, Terrain terrain) {
+    	ArrayList<Integer> TuilesVoisinesPositionX = new ArrayList<Integer>();
+    	String typeTuile = terrain.terrain[posx][posy].gettype();
+    	int i = 0;
+		int j =0;
+		if (!(Regles.isTuileDroiteVide(posx, posy, terrain))) {
+			if (terrain.terrain[posx+1][posy].gettype() == typeTuile) {
+				TuilesVoisinesPositionX.add(posx+1);
+			}
+		}
+		if (!(Regles.isTuileGaucheVide(posx, posy, terrain))) {
+			if (terrain.terrain[posx-1][posy].gettype() == typeTuile) {
+				TuilesVoisinesPositionX.add(posx-1);
+			}
+		}
+		if (!(Regles.isTuileHautVide(posx, posy, terrain))) {
+			if (terrain.terrain[posx][posy-1].gettype() == typeTuile) {
+				TuilesVoisinesPositionX.add(posx);
+			}
+		}
+		if (!(Regles.isTuileBasVide(posx, posy, terrain))) {
+			if (terrain.terrain[posx][posy+1].gettype() == typeTuile) {
+				TuilesVoisinesPositionX.add(posx);
+			}
+		}
+		
+		
+        return TuilesVoisinesPositionX;
+    }
+    public ArrayList<Integer> getTuilesVoisinesPositionY(int posx, int posy, Terrain terrain) {
+    	ArrayList<Integer> TuilesVoisinesPositionY = new ArrayList<Integer>();
+    	String typeTuile = terrain.terrain[posx][posy].gettype();
+    	int i = 0;
+		int j =0;
+		if (!(Regles.isTuileDroiteVide(posx, posy, terrain))) {
+			if (terrain.terrain[posx+1][posy].gettype() == typeTuile) {
+				TuilesVoisinesPositionY.add(posy);
+			}
+		}
+		if (!(Regles.isTuileGaucheVide(posx, posy, terrain))) {
+			if (terrain.terrain[posx-1][posy].gettype() == typeTuile) {
+				TuilesVoisinesPositionY.add(posy);
+			}
+		}
+		if (!(Regles.isTuileHautVide(posx, posy, terrain))) {
+			if (terrain.terrain[posx][posy-1].gettype() == typeTuile) {
+				TuilesVoisinesPositionY.add(posy-1);
+			}
+		}
+		if (!(Regles.isTuileBasVide(posx, posy, terrain))) {
+			if (terrain.terrain[posx][posy+1].gettype() == typeTuile) {
+				TuilesVoisinesPositionY.add(posy+1);
+			}
+		}
+        return TuilesVoisinesPositionY;
     }
     
 
