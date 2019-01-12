@@ -6,12 +6,12 @@ import java.io.File;
 
 
 
-/* Fonctions � faire:
+/* Fonctions e faire:
  * 
  * affichageTerrain(Terrain terrain)
  * 
  * pour cela il faut parcourir le tableau terrain et
- * afficher en ASCII les attributs de chaque tuile pr�sente dans le tableau.
+ * afficher en ASCII les attributs de chaque tuile presente dans le tableau.
  * 
  */
 

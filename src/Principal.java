@@ -32,10 +32,10 @@ public class Principal {
 				"Voici la longueur de la liste des dominos extraits du csv : " + Domino.listedetouslesDominos.size());
 
 		Domino.creationListeDominos();
-		System.out.println("La liste dominos a correctement �t� creee.");
+		System.out.println("La liste dominos a correctement ete creee.");
 
 		Tuile.remplirlistetuile(Domino.dominos);
-		System.out.println("La liste tuiles a �t� remplie � partir de la liste dominos.");
+		System.out.println("La liste tuiles a ete remplie e partir de la liste dominos.");
 
 	
 		window.FenetreJeu.setVisible(true);

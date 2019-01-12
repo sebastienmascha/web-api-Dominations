@@ -90,7 +90,7 @@ public class Jeu {
 							dominostourpreselect);
 
 				} catch (Exception e) {
-					System.out.println("Le domino a dej� ete selectionne ! Descriptif erreur: \n" + e);
+					System.out.println("Le domino a deje ete selectionne ! Descriptif erreur: \n" + e);
 				}
 
 			}
@@ -121,7 +121,7 @@ public class Jeu {
 					supprimerdomino(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)],
 							dominostourpreselect);
 				} catch (Exception e) {
-					System.out.println("Le domino a dej� ete selectionne ! Descriptif erreur: \n" + e);
+					System.out.println("Le domino a deje ete selectionne ! Descriptif erreur: \n" + e);
 				}
 			}
 
@@ -167,7 +167,7 @@ public class Jeu {
 					// suppression
 
 				} catch (Exception e) {
-					System.out.println("Le domino a dej� ete selectionne ! Descriptif erreur: \n" + e);
+					System.out.println("Le domino a deje ete selectionne ! Descriptif erreur: \n" + e);
 				}
 
 			}
@@ -197,7 +197,7 @@ public class Jeu {
 							this.choixdomitour.get(2), this.choixdomitour.get(3));
 					supprimerdomino(dominostour[this.choixdomitour.get(0)][this.choixdomitour.get(1)], dominostour);
 				} catch (Exception e) {
-					System.out.println("Le domino a dej� ete selectionne ! Descriptif erreur: \n" + e);
+					System.out.println("Le domino a deje ete selectionne ! Descriptif erreur: \n" + e);
 				}
 			}
 
@@ -333,7 +333,7 @@ public class Jeu {
 		}
 
 		return piochetemporairecoupee;
-		// on utilise un return comme �a on peut l'utiliser dans piocherdominos
+		// on utilise un return comme ea on peut l'utiliser dans piocherdominos
 
 	}
 

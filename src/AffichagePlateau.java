@@ -22,7 +22,7 @@ public class AffichagePlateau extends Carre {
 	JPanel PlanCentral = new JPanel();
 	JLabel Nom = new JLabel();
 	BorderLayout Lay = new BorderLayout(0, 0);
-	ImageIcon IMG = new ImageIcon("//Users/lebens/Desktop/Dominations/images/mer1.png");
+	ImageIcon IMG = new ImageIcon(this.getClass().getResource("/mer1.png"));
 	//JButton C = new JButton(Bulle);
 	JButton C = new JButton();
 	GridLayout Layout = new GridLayout(9, 9, 0, 4);
@@ -57,8 +57,8 @@ public class AffichagePlateau extends Carre {
 	        }	
 	        
 	        JButton BtnChateau = new JButton();
-            BtnChateau.setIcon(new ImageIcon("//Users/lebens/Desktop/Dominations/images/chateau.png"));
-            BtnChateau.setRolloverIcon(new ImageIcon("//Users/lebens/Desktop/Dominations/images/champs.png"));
+            BtnChateau.setIcon(new ImageIcon(this.getClass().getResource("/chateau.png")));
+            BtnChateau.setRolloverIcon(new ImageIcon(this.getClass().getResource("/champs.png")));
 
 	        ListeBoutons.add(BtnChateau);
 	        PlanCentral.add(BtnChateau);
@@ -79,7 +79,7 @@ public class AffichagePlateau extends Carre {
 	
 	
 	public JButton CreerBoutonOrganise(int x, int y) {
-	     final BoutonsPlateau b = new BoutonsPlateau("[" + x + "][" + y + "]","//Users/lebens/Desktop/Dominations/images/A.jpg" ,"//Users/lebens/Desktop/Dominations/images/montagne.jpg");
+	     final BoutonsPlateau b = new BoutonsPlateau("[" + x + "][" + y + "]",this.getClass().getResource("/A.jpg").toString() ,this.getClass().getResource("/montagne.png").toString());
 	     b.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
