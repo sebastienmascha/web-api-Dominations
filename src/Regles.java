@@ -4,10 +4,15 @@ public class Regles {
 	// VARIABLES SCORE
 	public static int N;
 	public static int C = 0;
+	
+	static ArrayList<Tuile> ZonesTuiles = new ArrayList<Tuile>();
+	
+	/*
 	public static ArrayList<Integer> listTuilePositionX = new ArrayList<Integer>();
 	public static ArrayList<Integer> listTuilePositionY = new ArrayList<Integer>();
-	public static ArrayList<Tuile> listTuile;
-	
+	public static ArrayList<Integer> histolistTuilePositionX = new ArrayList<Integer>();
+	public static ArrayList<Integer> histolistTuilePositionY = new ArrayList<Integer>();
+	*/
 	
 	public static boolean placementTuile(Tuile tuile, Terrain terrain, int posx, int posy) {
 		if (isTuileVide(posx,posy,terrain)) {
@@ -18,7 +23,7 @@ public class Regles {
 		return false;
 	}
 
-	public static boolean isTile(int posx, int posy, Terrain terrain) {
+	public static boolean isTuile(int posx, int posy, Terrain terrain) {
 		return terrain.terrain[posx][posy] == null;
 	}
 
@@ -68,6 +73,72 @@ public class Regles {
 		return taillePioche < nbrois;
 	}
 	
+	
+	
+	
+	
+	// rechercher une zone (un ensemble de mêmes tuiles)
+	public static void rechercheZone(int x, int y, Terrain terrain) {
+		
+		if(terrain.terrain[x][y]!=null) {
+			ZonesTuiles.add((Tuile) terrain.terrain[x][y]);
+			terrain.terrain[x][y]= null; // pour indiquer que la tuile a déjà été compté
+			
+			
+			if (terrain.terrain[x + 1][y]!=null && ((Tuile) terrain.terrain[x + 1][y]).gettype() == ((Tuile) terrain.terrain[x][y]).gettype() && (x + 1 != 10)) {
+
+				scoreZone(x + 1, y, terrain);
+
+			}
+
+			if (terrain.terrain[x - 1][y]!=null && (((Tuile) terrain.terrain[x - 1][y]).gettype() == ((Tuile) terrain.terrain[x][y]).gettype()) && (x - 1 != -1)) {
+				scoreZone(x - 1, y, terrain);
+
+			}
+
+			if (terrain.terrain[x][y + 1]!=null && ((Tuile) terrain.terrain[x][y + 1]).gettype() == ((Tuile) terrain.terrain[x][y]).gettype() && (y + 1 != 10)) {
+				scoreZone(x, y + 1, terrain);
+
+			}
+
+			if (terrain.terrain[x][y - 1]!=null && ((Tuile) terrain.terrain[x][y - 1]).gettype() == ((Tuile) terrain.terrain[x][y]).gettype() && (y - 1 != -1)) {
+				scoreZone(x, y - 1, terrain);
+
+			}
+		}
+		
+		
+		
+        
+	}
+	
+	
+	public static void scoreZone(int x, int y, Terrain terrain) {
+		rechercheZone(x, y, terrain); // on trouve la zone
+		int nbCouronnes = 0;
+		for (int i = 0; i < ZonesTuiles.size(); i++) {
+			nbCouronnes += ZonesTuiles.get(i).getnbcouronne();
+		} // on calcule le nb de couronnes dans la zone
+		terrain.Score += (ZonesTuiles.size() * nbCouronnes);
+		ZonesTuiles = new ArrayList<Tuile>(); // on initialise la zone à liste vide
+	}
+
+	// exécuter cette fonction pour calculer le nb de points total du plateau
+	public static int scorePlateau(Terrain terrain) {
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				scoreZone(j, i, terrain); // on compte 
+			}
+		}
+		return terrain.Score;
+
+	}
+	
+	
+	
+	
+	
+	/*
 	// SCORE CODE GENERAL
 	public static int score(Terrain terrain) {
 		int i = 0; // il faudra mettre un Affichage.getPosxRoyaume()
@@ -91,36 +162,38 @@ public class Regles {
 	}
 	
 	public static void recursive(ArrayList<Integer> listTuilePositionX, ArrayList<Integer> listTuilePositionY, Terrain terrain) {
-		ArrayList<Integer> histolistTuilePositionX = new ArrayList<Integer>();
-		ArrayList<Integer> histolistTuilePositionY = new ArrayList<Integer>();
-		if (listTuilePositionX.size() != 0) {
-			while (listTuilePositionX.size() == 0) {
-				histolistTuilePositionX.add(0);
-				histolistTuilePositionY.add(0);
-				int j1 = 0; 
-				int j2 =0;  
-				while (0 <= histolistTuilePositionX.size()) { 
-					while (j2 <= histolistTuilePositionX.size()) { 
-						if (!(Regles.isTuileVide(j1, j2, terrain))){
-							N += 1;
-							C += terrain.terrain[listTuilePositionX.get(j1)][listTuilePositionY.get(j2)].getnbcouronne();
-							ArrayList<Integer> tuilesVoisinesPositionX = terrain.getTuilesVoisinesPositionX(listTuilePositionX.get(0),listTuilePositionY.get(0), terrain);
-							ArrayList<Integer> tuilesVoisinesPositionY = terrain.getTuilesVoisinesPositionY(listTuilePositionX.get(0),listTuilePositionY.get(0), terrain);
-							//ArrayList<Tuile> tuilesVoisines = terrain.getTuilesVoisines(listTuilePositionX.get(i),listTuilePositionY.get(i),terrain);
-							//listTuile.remove(i);
-							listTuilePositionX.remove(0);
-							listTuilePositionY.remove(0);
-							recursive(tuilesVoisinesPositionX,tuilesVoisinesPositionX,terrain);
+		
+		while (listTuilePositionX.size() != 0) {
+			histolistTuilePositionX.add(listTuilePositionX.get(0));
+			histolistTuilePositionY.add(listTuilePositionY.get(0));
+			N += 1;
+			C += terrain.terrain[listTuilePositionX.get(0)][listTuilePositionY.get(0)].getnbcouronne();
+			ArrayList<Integer> tuilesVoisinesPositionX = terrain.getTuilesVoisinesPositionX(listTuilePositionX.get(0),listTuilePositionY.get(0), terrain);
+			ArrayList<Integer> tuilesVoisinesPositionY = terrain.getTuilesVoisinesPositionY(listTuilePositionX.get(0),listTuilePositionY.get(0), terrain);
+			int j1=0;
+			int j2=0;
+			while (j1 <= tuilesVoisinesPositionX.size()-1) { 
+				while (j2 <= histolistTuilePositionY.size()-1) { 
+					if (histolistTuilePositionX.get(j2) == tuilesVoisinesPositionX.get(j1)){
+						if (histolistTuilePositionY.get(j2) == tuilesVoisinesPositionY.get(j1)){
+							tuilesVoisinesPositionX.remove(j1);
+							tuilesVoisinesPositionY.remove(j1);
+						}else {
+							j2++;
 						}
+					}else {
 						j2++;
 					}
-					j1++;
 				}
+				j1++;
 			}
+			listTuilePositionX.remove(0);
+			listTuilePositionY.remove(0);
+			recursive(tuilesVoisinesPositionX,tuilesVoisinesPositionY,terrain);
 		}
 	}
 	// TESTS
-	/*
+	
 	System.out.println("\nListe dominotours apres tri :");
 	afficherListe(dominostour);
 	System.out.println("----------------------------------------------------------");
