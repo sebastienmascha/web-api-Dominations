@@ -6,7 +6,8 @@ public class Regles {
 	public static int C = 0;
 	
 	public static boolean memeZone = true;
-	static ArrayList<Tuile> ZonesTuiles = new ArrayList<Tuile>();
+	public static ArrayList<Tuile> ZonesTuiles = new ArrayList<Tuile>();
+	public static int compteur = 0;
 	
 	/*
 	public static ArrayList<Integer> listTuilePositionX = new ArrayList<Integer>();
@@ -23,9 +24,54 @@ public class Regles {
 		}
 		return false;
 	}
-
-	public static boolean isTuile(int posx, int posy, Terrain terrain) {
-		return terrain.terrain[posx][posy] == null;
+	
+	// ROYAUME 5x5
+	public static boolean isPlacementValide(int x, int y, Terrain terrain) {
+		boolean isPlacementValide = true;
+		if (x < getLimiteRoyaume(terrain).get(0)) {
+			isPlacementValide = false;
+		}
+		if (x > getLimiteRoyaume(terrain).get(1)) {
+			isPlacementValide = false;
+		}
+		if (y < getLimiteRoyaume(terrain).get(2)) {
+			isPlacementValide = false;
+		}
+		if (y > getLimiteRoyaume(terrain).get(3)) {
+			isPlacementValide = false;
+		}
+		return isPlacementValide;
+	}
+	// ROYAUME 5x5
+	public static ArrayList<Integer>  getLimiteRoyaume(Terrain terrain) {
+		ArrayList<Integer>  milieuRoyaume = new ArrayList<Integer>(); 
+		int minX = 0;
+		int maxX = 8;
+		int minY = 0;
+		int maxY = 8;
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				if (terrain.terrain[i][j]!=null) {
+					if (4+i<maxX) {
+						maxX = 4+i;
+					}
+					if (i-4>minX) {
+						minX = i-4;
+					}
+					if (4+j<maxY) {
+						maxY = 4+i;
+					}
+					if (j-4>minY) {
+						minY = i-4;
+					}
+				}
+			}
+		}
+		milieuRoyaume.add(minX);
+		milieuRoyaume.add(maxX);
+		milieuRoyaume.add(minY);
+		milieuRoyaume.add(maxY);
+		return milieuRoyaume;
 	}
 
 	public static boolean isTuileVide(int posx, int posy, Terrain terrain) {
@@ -112,9 +158,12 @@ public class Regles {
 	
 	
 	public static void scoreZone(int x, int y, Terrain terrain) {
+		compteur += 1;
 		rechercheZone(x, y, terrain); // recursivité pour délimiter la zone
-		if (memeZone) {
-			memeZone = false;
+		compteur -= 1;
+		if (compteur < 1) {
+			System.out.println("Affichage :");
+			System.out.println(ZonesTuiles);
 			int nbCourrones = 0;
 			for (int i = 0; i < ZonesTuiles.size(); i++) { // calcul du nb de courronne par zone
 				nbCourrones += ZonesTuiles.get(i).getnbcouronne();
@@ -128,9 +177,11 @@ public class Regles {
 	public static int scorePlateau(Terrain terrain) {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				scoreZone(j, i, terrain); // on compte 
-				ZonesTuiles = new ArrayList<Tuile>(); // on initialise la zone à liste vide
-				memeZone = true;
+				if (terrain.terrain[i][j]!=null) {
+					scoreZone(i, j, terrain); // on compte 
+					ZonesTuiles = new ArrayList<Tuile>(); // on initialise la zone à liste vide
+					compteur = 0;
+				}
 			}
 		}
 		return terrain.Score;
