@@ -26,6 +26,9 @@ import javax.swing.JSeparator;
 
 public class Affichage implements ActionListener {
 
+	int numdomitour=0;
+	int numtuiletour=0;
+	
 	int nbjoueurs = 0;
 	int nbrois = 0;
 	String NombreDeJoueursString = String.valueOf(nbjoueurs);
@@ -50,8 +53,10 @@ public class Affichage implements ActionListener {
 
 	public Tuile[][] dominostour = new Tuile[4][2];
 	
-	private ArrayList<JButton> ListTour1 = new ArrayList<>();
-	private ArrayList<JButton> ListTour2 = new ArrayList<>();
+	public ArrayList<JButton> ListTour1 = new ArrayList<>();
+	public ArrayList<JButton> ListTour2 = new ArrayList<>();
+	
+	
 	private final JSeparator separator = new JSeparator();
 	private final JSeparator separator1 = new JSeparator();
 	private final JSeparator separator2 = new JSeparator();
@@ -106,11 +111,18 @@ public class Affichage implements ActionListener {
 	public void setDominosTour(Tuile[][] dominostour) {
 		this.dominostour = dominostour;
 	}
+	
 	public void setnbrois(int n) {
 		this.nbrois = n;
 	}
 
-
+	public ActionListener AjoutDominoTerrain = new ActionListener () {
+		public void actionPerformed(ActionEvent e) {
+			Object source = e.getSource();
+			
+		}	
+	};
+	
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		
@@ -214,11 +226,32 @@ public class Affichage implements ActionListener {
 					
 					JButton jButton1 = ListTour1.get(2*k);
 					JButton jButton2 = ListTour1.get(2*k+1);
-		
+					
+					int Tristan1 = dominostour[k][0].getnumdomi();
+					int Tristan2 = dominostour[k][1].getnumdomi();
+					
+
+
 					AffichageBoutonTuile afficheurBoutonTuile = new AffichageBoutonTuile();
 					
-					afficheurBoutonTuile.display(dominostour[k][0], String.valueOf(dominostour[k][0].getnumdomi())+ " " + String.valueOf(dominostour[k][0].getnumtuile()), jButton1);
-					afficheurBoutonTuile.display(dominostour[k][1], String.valueOf(dominostour[k][1].getnumdomi())+ " " + String.valueOf(dominostour[k][1].getnumtuile()), jButton2);
+					afficheurBoutonTuile.display(dominostour[k][0], /* String.valueOf(dominostour[k][0].getnumdomi())+ " " + String.valueOf(dominostour[k][0].getnumtuile()),*/ jButton1);
+					afficheurBoutonTuile.display(dominostour[k][1], /* String.valueOf(dominostour[k][1].getnumdomi())+ " " + String.valueOf(dominostour[k][1].getnumtuile()),*/ jButton2);
+					
+					jButton1.addActionListener(new ActionListener () {
+						public void actionPerformed(ActionEvent e) {
+							Object source = e.getSource();
+							setNumDomiTour(Tristan1);
+							setNumTuileTour(0);
+							
+							
+						}});
+					
+					jButton2.addActionListener(new ActionListener () {
+						public void actionPerformed(ActionEvent e) {
+							Object source = e.getSource();
+							setNumDomiTour(Tristan2);
+							setNumTuileTour(1);
+						}});
 
 			}
 				
@@ -238,6 +271,19 @@ public class Affichage implements ActionListener {
 		}
 		
 	}
+	
+	public void setNumDomiTour(int num){
+		this.numdomitour=num;
+		
+	}
+	public void setNumTuileTour(int num){
+		this.numtuiletour=num;
+		
+	}
+	
+
+	
+	
 	
 	
 

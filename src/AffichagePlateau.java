@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -19,13 +20,17 @@ import javax.swing.SwingConstants;
 
 public class AffichagePlateau extends Carre {
 	
+	public int posx; 
+	public int posy; 
+	Tuile terrain[][]= new Tuile[9][9];
+	
 	JPanel PlanCentral = new JPanel();
 	JLabel Nom = new JLabel();
 	BorderLayout Lay = new BorderLayout(0, 0);
 	ImageIcon IMG = new ImageIcon(this.getClass().getResource("/mer1.png"));
 	//JButton C = new JButton(Bulle);
 	JButton C = new JButton();
-	GridLayout Layout = new GridLayout(9, 9, 0, 4);
+	GridLayout Layout = new GridLayout(9, 9, 0, 0);
 	List<JButton> ListeBoutons = new ArrayList<JButton>();
 
 	public  AffichagePlateau(String nom, Color couleur){
@@ -75,11 +80,37 @@ public class AffichagePlateau extends Carre {
     public JButton getBoutton(int x, int y) {
         int index = x * 9 + y;
         return ListeBoutons.get(index);
+        
+    }
+    
+    public void lireTerrain(Tuile[][] terrain) {
+    	for (int i = 0; i <= terrain.length - 1; i++) {
+    		for (int j = 0; j <= terrain.length - 1; j++) {
+    			if (terrain[i][j]==null) {
+    				//if vide alors rien afficher sinon utiliser fonction changerboutton
+    			}
+    			else {
+    				changeBoutton(i,j,terrain[i][j].gettype(),terrain[i][j].getnbcouronne());
+    			}
+    			
+    		}
+    		
+    		
+    	}
+    	
+    }
+    
+    public void setTerrain(Tuile[][] terrain) {
+    	this.terrain=terrain;
+    }
+    
+    public void changeBoutton(int x , int y, String type,int nbcour) {
+    	getBoutton(x,y).setIcon(new ImageIcon(this.getClass().getResource("/"+type+nbcour+".png")));
     }
 	
 	
 	public JButton CreerBoutonOrganise(int x, int y) {
-	     final BoutonsPlateau b = new BoutonsPlateau("[" + x + "][" + y + "]",this.getClass().getResource("/A.jpg").toString() ,this.getClass().getResource("/montagne.png").toString());
+	     final BoutonsPlateau b = new BoutonsPlateau("[" + x + "][" + y + "]",this.getClass().getResource("/A.jpg"), this.getClass().getResource("/montagne.png"));
 	     b.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
@@ -89,6 +120,8 @@ public class AffichagePlateau extends Carre {
 	                ((JButton) e.getSource()).setText("Cliqué !");
 	                Image newimg = IMG.getImage().getScaledInstance( ((JButton)e.getSource()).getWidth(), ((JButton)e.getSource()).getHeight(),  java.awt.Image.SCALE_SMOOTH ) ;
 	                ((JButton) e.getSource()).setIcon(new ImageIcon(newimg));
+	                posx=x;
+	                posy=y;
 	            }
 	        });
 	        return b;
@@ -115,7 +148,7 @@ class Carre extends JPanel {
 }
 
 class BoutonsPlateau extends JButton {
-	public BoutonsPlateau(String Titre, String img, String imgflottante) {
+	public BoutonsPlateau(String Titre, URL img, URL imgflottante) {
 		super(Titre);
 		//this.add(a);
 		setForeground(Color.WHITE);

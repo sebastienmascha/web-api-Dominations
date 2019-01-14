@@ -20,6 +20,8 @@ public class Principal {
 		
 		jeu1.tourjoueur();
 		
+		//jeu1.setChoixDomiTour(window.numdomitour,window.numtuiletour,window.PageJeu.)
+		
 	}
 	
 
