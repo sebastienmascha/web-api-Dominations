@@ -244,6 +244,7 @@ public class Affichage implements ActionListener {
 							setNumTuileTour(0);
 							
 							
+							
 						}});
 					
 					jButton2.addActionListener(new ActionListener () {
@@ -274,10 +275,12 @@ public class Affichage implements ActionListener {
 	
 	public void setNumDomiTour(int num){
 		this.numdomitour=num;
+		System.out.println("Num domi clique: "+this.numdomitour);
 		
 	}
 	public void setNumTuileTour(int num){
 		this.numtuiletour=num;
+		System.out.println("Num tuile clique: "+this.numtuiletour);
 		
 	}
 	

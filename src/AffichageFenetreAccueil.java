@@ -134,7 +134,7 @@ public class AffichageFenetreAccueil extends JPanel {
 	public void paintComponent(Graphics g){
 
 		try {
-	        Image img = ImageIO.read(this.getClass().getResource("/mine.jpg"));
+	        Image img = ImageIO.read(this.getClass().getResource("/Mine0.jpg"));
 	        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 		} catch (IOException e) {
 			e.printStackTrace();
