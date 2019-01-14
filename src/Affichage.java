@@ -30,6 +30,7 @@ public class Affichage implements ActionListener {
 	// vers Jeu
 	int numdomitour = 0;
 	int numtuiletour = 0;
+	Tuile choixtuiletour;
 	Joueur joueurencours;
 
 	// provenant de Jeu
@@ -235,7 +236,7 @@ public class Affichage implements ActionListener {
 		if (source == PageJeu.btnPioche) {
 			if (compteurpioche == 0) {
 
-				System.out.println("C'est a " + ordrejoueurs[this.compteurjoueur][0].getNomJoueur() + " de jouer");
+				
 
 				for (int k = 0; k < ListTour1.size() / 2; k++) {
 
@@ -244,6 +245,9 @@ public class Affichage implements ActionListener {
 
 					int numdomituile1 = dominostour[k][0].getnumdomi();
 					int numdomituile2 = dominostour[k][1].getnumdomi();
+					
+					Tuile tuile1 = dominostour[k][0];
+					Tuile tuile2 = dominostour[k][1];
 
 					AffichageBoutonTuile afficheurBoutonTuile = new AffichageBoutonTuile();
 
@@ -261,28 +265,33 @@ public class Affichage implements ActionListener {
 					jButton1.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							Object source = e.getSource();
-							compteurjoueur += 1;
+							
 							if (compteurjoueur < ordrejoueurs.length) {
 								setJoueurEnCours(ordrejoueurs[compteurjoueur][0]);
+								
+								/*
 								setNumDomiTour(numdomituile1);
 								setNumTuileTour(0);
+								*/
+								
+								setChoixTuileTour(tuile1);
+								
 								Principal.preselection();
+								compteurjoueur += 1;
+								
 
-								if (compteurjoueur == ordrejoueurs.length-1) {
+								if (compteurjoueur == ordrejoueurs.length) {
 									System.out.println("Il faut piocher à nouveau");
 								} else {
 
-									// suivant
+									System.out.println("C'est a " + ordrejoueurs[compteurjoueur][0].getNomJoueur() + " de jouer");
 
-									setJoueurEnCours(ordrejoueurs[compteurjoueur][0]);
-									System.out.println(
-											"C'est a " + ordrejoueurs[compteurjoueur][0].getNomJoueur() + " de jouer");
 									
 
 								}
 
 							} else {
-								System.out.println("Il faut piocher à nouveau");
+								System.out.println("Il faut piocher à nouveau 2");
 							}
 
 						}
@@ -339,6 +348,11 @@ public class Affichage implements ActionListener {
 		System.out.println("Num tuile clique: " + this.numtuiletour);
 
 	}
+	
+	public void setChoixTuileTour(Tuile tuile) {
+		this.choixtuiletour = tuile;
+
+	}
 
 	public void setOrdreJoueurs(Joueur[][] ordrejoueurs) {
 		this.ordrejoueurs = ordrejoueurs;
@@ -350,6 +364,10 @@ public class Affichage implements ActionListener {
 
 	public Joueur getJoueurEnCours() {
 		return this.joueurencours;
+	}
+	
+	public Tuile getChoixTuileTour() {
+		return this.choixtuiletour;
 	}
 
 }

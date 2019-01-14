@@ -14,12 +14,13 @@ public class Jeu {
 	public Joueur[][] joueurs = new Joueur[4][2];
 	public Joueur[][] ordrejoueurs = new Joueur[4][2];
 
-	public List<String> couleurs = Arrays.asList("rose", "jaune", "vert", "bleu");
+	public List<String> couleurs = Arrays.asList("RED", "YELLOW", "GREEN", "BLUE");
 	public ArrayList<String> ordrecouleurs = new ArrayList<String>();
 
 	// provenant de affichage
 	Joueur joueurencours;
 	public ArrayList<Integer> choixdomitour = new ArrayList<Integer>();
+	Tuile choixtuiletour;
 
 	public void setJoueurEnCours(Joueur joueur) {
 		this.joueurencours = joueur;
@@ -123,10 +124,13 @@ public class Jeu {
 		} else {
 
 			try {
-				this.joueurencours
-						.setPreSelection(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)]);
-
-				//supprimerdomino(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)],dominostourpreselect);
+				System.out.println("\nTuile cliquee : "+this.choixtuiletour);
+				
+				this.joueurencours.setPreSelection(this.choixtuiletour);
+				//.setPreSelection(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)]);
+				supprimerdomino(this.choixtuiletour,dominostour);
+				
+				
 			} catch (Exception e) {
 				System.out.println("Le domino a deje ete selectionne ! Descriptif erreur: \n" + e);
 			}
@@ -136,7 +140,7 @@ public class Jeu {
 				System.out.println("________");
 				System.out.println(dominostourpreselect[j][0]);
 				System.out.println("_");
-				System.out.println(dominostourpreselect[j][0]);
+				System.out.println(dominostourpreselect[j][1]);
 			}
 
 			
@@ -310,16 +314,16 @@ public class Jeu {
 
 		for (int j = 0; j <= this.nbrois - 1; j++) {
 			switch (this.ordrecouleurs.get(j)) {
-			case "rose":
+			case "RED":
 				this.ordrejoueurs[j] = this.joueurs[0];
 				break;
-			case "jaune":
+			case "YELLOW":
 				this.ordrejoueurs[j] = this.joueurs[1];
 				break;
-			case "vert":
+			case "GREEN":
 				this.ordrejoueurs[j] = this.joueurs[2];
 				break;
-			case "bleu":
+			case "BLUE":
 				this.ordrejoueurs[j] = this.joueurs[3];
 				break;
 
@@ -446,6 +450,38 @@ public class Jeu {
 
 		}
 	}
+	
+	
+	/*
+	public Tuile getActiveDominostourFromNumber(ArrayList<Integer> choixdomitour,Tuile[][] dominostour) {
+		
+		for (int i = 0; i <= dominostour.length - 1; i++) {
+			if (dominostour[i][0].getnumdomi()==choixdomitour.get(0)) {
+				System.out.println(dominostour[i][0]+"\n"+dominostour[i][0].getnumdomi()+" = "+choixdomitour.get(0)+" pour le tour "+i+"\n");
+				if (dominostour[i][0].getnumtuile()==choixdomitour.get(1)) {
+					System.out.println(dominostour[i][0]+"\n"+dominostour[i][0].getnumdomi()+" = "+choixdomitour.get(0)+ " pour le tour "+i+"\n");
+					return dominostour[i][0];
+				}
+				else {
+					if (dominostour[i][1].getnumtuile()==choixdomitour.get(1)) {
+						System.out.println(dominostour[i][1]+"\n"+dominostour[i][1].getnumdomi()+" = "+choixdomitour.get(0)+ " pour le tour "+i+"\n");
+						return dominostour[i][1];
+					}
+					
+				}
+			}
+			else {
+				System.out.println("Rien "+i);
+			}
+		}
+		System.out.println("Rien du tout");
+		return null;
+		
+		
+	}
+	
+	
+	*/
 
 	public void verif() {
 
@@ -454,8 +490,9 @@ public class Jeu {
 	public void setNbJoueurs(int n) {
 		this.nbjoueurs = n;
 	}
-
+/*
 	public void setChoixDomiTour(int numdomi, int numtuile, int posx, int posy) {
+		this.choixdomitour=new ArrayList<Integer>();
 		this.choixdomitour.add(numdomi);
 		this.choixdomitour.add(numtuile);
 		this.choixdomitour.add(posx);
@@ -463,8 +500,13 @@ public class Jeu {
 	}
 
 	public void setChoixDomiPreselect(int numdomi, int numtuile) {
+		this.choixdomitour=new ArrayList<Integer>();
 		this.choixdomitour.add(numdomi);
 		this.choixdomitour.add(numtuile);
+	}
+	*/
+	public void setChoixTuilePreselect(Tuile tuile) {
+		this.choixtuiletour=tuile;
 	}
 
 	public int getNumTour() {
