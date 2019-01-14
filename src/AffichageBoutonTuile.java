@@ -13,12 +13,12 @@ public class AffichageBoutonTuile extends JButton {
 
 	}
 
-	public void setimage(ImageIcon img, JButton T) {
+	public void display(Tuile Tuile, JButton T) {
+
+		ImageIcon img = new ImageIcon(this.getClass().getResource("/"+Tuile.gettype()+Tuile.getnbcouronne()+".png"));
 		Image newimg = img.getImage().getScaledInstance(T.getWidth(), T.getHeight(), java.awt.Image.SCALE_SMOOTH);
 		T.setIcon(new ImageIcon(newimg));
-	}
-
-	public void display(Tuile Tuile, String titre, JButton T) {
+		
 		// super(titre);
 
 		// super("Domino : " + Tuile.getnumdomi() + "Tuile : " + Tuile.getnumtuile());
@@ -29,10 +29,11 @@ public class AffichageBoutonTuile extends JButton {
 		 * setHorizontalTextPosition(SwingConstants.CENTER);
 		 */
 		// setRolloverIcon(Tuile.nbCouronne); il faut creer cette méthode
+		/*
 		switch (Tuile.gettype()) {
 		case "Mer":
 			if (Tuile.getnbcouronne() == 0) {
-				ImageIcon img = new ImageIcon(this.getClass().getResource("mer.png"));
+				ImageIcon img = new ImageIcon(this.getClass().getResource("mer0.png"));
 				setimage(img, T);
 			} else if (Tuile.getnbcouronne() == 1) {
 				ImageIcon img = new ImageIcon(this.getClass().getResource("mer1.png"));
@@ -44,7 +45,7 @@ public class AffichageBoutonTuile extends JButton {
 			break;
 		case "Montagne":
 			if (Tuile.getnbcouronne() == 0) {
-				ImageIcon img = new ImageIcon(this.getClass().getResource("montagne.png"));
+				ImageIcon img = new ImageIcon(this.getClass().getResource("montagne0.png"));
 				setimage(img, T);
 			} else if (Tuile.getnbcouronne() == 1) {
 				ImageIcon img = new ImageIcon(this.getClass().getResource("montagne1.png"));
@@ -59,7 +60,7 @@ public class AffichageBoutonTuile extends JButton {
 			break;
 		case "Mine":
 			if (Tuile.getnbcouronne() == 0) {
-				ImageIcon img = new ImageIcon(this.getClass().getResource("mine.png"));
+				ImageIcon img = new ImageIcon(this.getClass().getResource("mine0.png"));
 				setimage(img, T);
 			} else if (Tuile.getnbcouronne() == 1) {
 				ImageIcon img = new ImageIcon(this.getClass().getResource("mine1.png"));
@@ -71,7 +72,7 @@ public class AffichageBoutonTuile extends JButton {
 			break;
 		case "Prairie":
 			if (Tuile.getnbcouronne() == 0) {
-				ImageIcon img = new ImageIcon(this.getClass().getResource("prairie.png"));
+				ImageIcon img = new ImageIcon(this.getClass().getResource("prairie0.png"));
 				setimage(img, T);
 			} else if (Tuile.getnbcouronne() == 1) {
 				ImageIcon img = new ImageIcon(this.getClass().getResource("prairie1.png"));
@@ -83,7 +84,7 @@ public class AffichageBoutonTuile extends JButton {
 			break;
 		case "Foret":
 			if (Tuile.getnbcouronne() == 0) {
-				ImageIcon img = new ImageIcon(this.getClass().getResource("foret.png"));
+				ImageIcon img = new ImageIcon(this.getClass().getResource("foret0.png"));
 				setimage(img, T);
 			} else if (Tuile.getnbcouronne() == 1) {
 				ImageIcon img = new ImageIcon(this.getClass().getResource("foret1.png"));
@@ -95,7 +96,7 @@ public class AffichageBoutonTuile extends JButton {
 			break;
 		case "Champs":
 			if (Tuile.getnbcouronne() == 0) {
-				ImageIcon img = new ImageIcon(this.getClass().getResource("champs.png"));
+				ImageIcon img = new ImageIcon(this.getClass().getResource("champs0.png"));
 				setimage(img, T);
 			} else if (Tuile.getnbcouronne() == 1) {
 				ImageIcon img = new ImageIcon(this.getClass().getResource("champs1.png"));
@@ -106,6 +107,7 @@ public class AffichageBoutonTuile extends JButton {
 			}
 			break;
 		}
+		*/
 	}
 
 }
