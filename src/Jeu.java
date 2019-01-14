@@ -7,7 +7,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Jeu {
 
 	public int nbjoueurs, nbrois, numtour;
-	public ArrayList<Integer> choixdomitour = new ArrayList<Integer>();
+
 	public Tuile[][] pioche = new Tuile[48][2];
 	public Tuile[][] dominostour = new Tuile[4][2];
 	public Tuile[][] dominostourpreselect = new Tuile[4][2];
@@ -16,6 +16,18 @@ public class Jeu {
 
 	public List<String> couleurs = Arrays.asList("rose", "jaune", "vert", "bleu");
 	public ArrayList<String> ordrecouleurs = new ArrayList<String>();
+
+	// provenant de affichage
+	Joueur joueurencours;
+	public ArrayList<Integer> choixdomitour = new ArrayList<Integer>();
+
+	public void setJoueurEnCours(Joueur joueur) {
+		this.joueurencours = joueur;
+	}
+
+	public Joueur[][] getOrdreJoueurs() {
+		return this.ordrejoueurs;
+	}
 
 	public void initialisationpartie() {
 
@@ -69,30 +81,28 @@ public class Jeu {
 
 		if (nbjoueurs == 2) {
 
-			for (int j = 0; j <= this.nbrois - 1; j++) {
+			try {
+/*
+				int binary = 0;
 
-				System.out.println("C'est a " + ordrejoueurs[j][0].numjoueur + " de selectionner un domino");
-				try {
-
-					int binary = 0;
-
-					if (ordrejoueurs[j][0].getPremiereSelection()) {
-						binary = 0;
-						ordrejoueurs[j][0].setPremiereSelection(false);
-					} else {
-						binary = 1;
-					}
-
-					ordrejoueurs[j][binary].setPreSelection(
-							dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)]);
-
-					supprimerdomino(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)],
-							dominostourpreselect);
-
-				} catch (Exception e) {
-					System.out.println("Le domino a deje ete selectionne ! Descriptif erreur: \n" + e);
+				if (ordrejoueurs[j][0].getPremiereSelection()) {
+					binary = 0;
+					ordrejoueurs[j][0].setPremiereSelection(false);
+				} else {
+					binary = 1;
 				}
 
+				ordrejoueurs[j][binary]
+						.setPreSelection(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)]);
+*/
+				this.joueurencours
+						.setPreSelection(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)]);
+
+				supprimerdomino(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)],
+						dominostourpreselect);
+
+			} catch (Exception e) {
+				System.out.println("Le domino a deje ete selectionne ! Descriptif erreur: \n" + e);
 			}
 
 			// reset
@@ -111,20 +121,26 @@ public class Jeu {
 					+ joueurs[1][1].terrain1.terrain[2][3]);
 
 		} else {
-			for (int j = 0; j <= this.nbrois - 1; j++) {
-				System.out.println("C'est a " + ordrejoueurs[j][0].numjoueur + " de jouer");
 
-				try {
-					ordrejoueurs[j][0].setPreSelection(
-							dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)]);
+			try {
+				this.joueurencours
+						.setPreSelection(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)]);
 
-					supprimerdomino(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)],
-							dominostourpreselect);
-				} catch (Exception e) {
-					System.out.println("Le domino a deje ete selectionne ! Descriptif erreur: \n" + e);
-				}
+				//supprimerdomino(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)],dominostourpreselect);
+			} catch (Exception e) {
+				System.out.println("Le domino a deje ete selectionne ! Descriptif erreur: \n" + e);
 			}
 
+			System.out.println("\nAffichage de la liste de tuiles dominostourpreselect :\n");
+			for (int j = 0; j <= this.dominostourpreselect.length - 1; j++) {
+				System.out.println("________");
+				System.out.println(dominostourpreselect[j][0]);
+				System.out.println("_");
+				System.out.println(dominostourpreselect[j][0]);
+			}
+
+			
+			/*
 			System.out.println("\nAffichage de la tuile en position 2,3 sur le terrain du joueur 0 : \n"
 					+ joueurs[0][0].terrain1.terrain[2][3]);
 			System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0, roi 2 : \n"
@@ -133,6 +149,8 @@ public class Jeu {
 					+ joueurs[2][0].terrain1.terrain[2][3]);
 			System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0, roi 2: \n"
 					+ joueurs[3][0].terrain1.terrain[2][3]);
+					
+					*/
 
 		}
 
@@ -442,6 +460,11 @@ public class Jeu {
 		this.choixdomitour.add(numtuile);
 		this.choixdomitour.add(posx);
 		this.choixdomitour.add(posy);
+	}
+
+	public void setChoixDomiPreselect(int numdomi, int numtuile) {
+		this.choixdomitour.add(numdomi);
+		this.choixdomitour.add(numtuile);
 	}
 
 	public int getNumTour() {

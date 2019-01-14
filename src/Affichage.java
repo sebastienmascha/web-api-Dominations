@@ -9,6 +9,7 @@ import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,11 +27,19 @@ import javax.swing.JSeparator;
 
 public class Affichage implements ActionListener {
 
-	int numdomitour=0;
-	int numtuiletour=0;
-	
+	// vers Jeu
+	int numdomitour = 0;
+	int numtuiletour = 0;
+	Joueur joueurencours;
+
+	// provenant de Jeu
 	int nbjoueurs = 0;
 	int nbrois = 0;
+	public Joueur[][] ordrejoueurs = new Joueur[4][2];
+
+	int compteurpioche = 0;
+	public int compteurjoueur = 0;
+
 	String NombreDeJoueursString = String.valueOf(nbjoueurs);
 	JLabel lblNombreDeJoueurs = new JLabel("Nombre de joueurs :" + nbjoueurs + ", veuillez choisir ...");
 
@@ -39,7 +48,7 @@ public class Affichage implements ActionListener {
 
 	AffichageFenetreJeu PageJeu = new AffichageFenetreJeu();
 	AffichageFenetreAccueil PageAccueil = new AffichageFenetreAccueil();
-	
+
 	JPanel pane = new JPanel();
 	JPanel pan = new JPanel();
 
@@ -52,11 +61,10 @@ public class Affichage implements ActionListener {
 	int ValeurSelection = 0;
 
 	public Tuile[][] dominostour = new Tuile[4][2];
-	
+
 	public ArrayList<JButton> ListTour1 = new ArrayList<>();
 	public ArrayList<JButton> ListTour2 = new ArrayList<>();
-	
-	
+
 	private final JSeparator separator = new JSeparator();
 	private final JSeparator separator1 = new JSeparator();
 	private final JSeparator separator2 = new JSeparator();
@@ -64,9 +72,8 @@ public class Affichage implements ActionListener {
 	private final JSeparator separator4 = new JSeparator();
 	private final JSeparator separator5 = new JSeparator();
 
-
 	public Affichage() {
-		
+
 		FenetreJeu.setIconImage(new ImageIcon(this.getClass().getResource("/chateau.png")).getImage());
 		FenetreJeu.setBounds(100, 100, 450, 300);
 		FenetreJeu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,7 +81,7 @@ public class Affichage implements ActionListener {
 
 		FenetreJeu.getContentPane().add(PageAccueil, listeIndice[0]);
 		FenetreJeu.getContentPane().add(Panel, listeIndice[1]);
-		
+
 		SelectionDefilante.setModel(new DefaultComboBoxModel<String>(
 				new String[] { "Choissisez votre Terrain...", "Terrain 1", "Terrain 2", "Terrain 3", "Terrain 4" }));
 		PageJeu.SudOuest.add(SelectionDefilante);
@@ -87,7 +94,7 @@ public class Affichage implements ActionListener {
 				resizePreview(PageJeu, Panel);
 			}
 		});
-		
+
 		PageAccueil.QuatreJoueurs.addActionListener((ActionListener) this);
 		PageAccueil.DeuxJoueurs.addActionListener((ActionListener) this);
 		PageAccueil.TroisJoueurs.addActionListener((ActionListener) this);
@@ -111,22 +118,23 @@ public class Affichage implements ActionListener {
 	public void setDominosTour(Tuile[][] dominostour) {
 		this.dominostour = dominostour;
 	}
-	
+
 	public void setnbrois(int n) {
 		this.nbrois = n;
 	}
 
-	public ActionListener AjoutDominoTerrain = new ActionListener () {
+	public ActionListener AjoutDominoTerrain = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			Object source = e.getSource();
-			
-		}	
+
+		}
 	};
-	
+
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
-		
-		if (source==PageAccueil.QuatreJoueurs || source==PageAccueil.TroisJoueurs || source==PageAccueil.DeuxJoueurs) {
+
+		if (source == PageAccueil.QuatreJoueurs || source == PageAccueil.TroisJoueurs
+				|| source == PageAccueil.DeuxJoueurs) {
 			PageAccueil.lblNombreDeJoueurs.setText("Vous Ãªtes " + ((JRadioButton) source).getText());
 			PageAccueil.DeuxJoueurs.setSelected(false);
 			PageAccueil.TroisJoueurs.setSelected(false);
@@ -147,41 +155,47 @@ public class Affichage implements ActionListener {
 			System.out.println(nbjoueurs);
 			lblNombreDeJoueurs.setText("Nombre de joueurs :" + nbjoueurs + ", veuillez choisir ...");
 		}
-		
-		
-		if (source==PageJeu.btnRetournerAuMenu) {
+
+		if (source == PageJeu.btnRetournerAuMenu) {
 			PlusieursPages.show(FenetreJeu.getContentPane(), listeIndice[0]);
 		}
-		
-		if (source==PageAccueil.btnJouer) {
+
+		if (source == PageAccueil.btnJouer) {
+
 			Principal.initialisation();
-			PlusieursPages.show(FenetreJeu.getContentPane(), listeIndice[1]);
-			System.out.println("__Liste dominostour dans affichage__");
-			for (int i = 0; i <= nbjoueurs - 1; i++) {
-				System.out.println("____");
-				System.out.println(dominostour[i][0]);
-				System.out.println(dominostour[i][1]);
+
+			for (int i = 0; i < nbrois; i++) {
+
+				// demande nom des joueurs
+				System.out.println("Entrez le nom du joueur: ");
+				Scanner scanner = new Scanner(System.in);
+				String username = scanner.nextLine();
+				ordrejoueurs[i][0].setNomJoueur(username);
+
 			}
-					
-			for (int i=0; i<6; i++) {
+
+			PlusieursPages.show(FenetreJeu.getContentPane(), listeIndice[1]);
+
+			for (int i = 0; i < 6; i++) {
 				PageJeu.Centre.add(new JLabel());
 			}
-			
-			for (int i=0; i<nbrois; i++) { 
+
+			for (int i = 0; i < nbrois; i++) {
 				PageJeu.Centre.add(new PanelRoi());
 				JButton NouvelleTuile1 = new JButton();
 				JButton NouvelleTuile2 = new JButton();
-				
 
-				//AffichageBoutonTuile NouvelleTuile1 = new AffichageBoutonTuile(dominostour[i][0]);
-				//AffichageBoutonTuile NouvelleTuile2 = new AffichageBoutonTuile(dominostour[i][1]);
-				PageJeu.Centre.add(NouvelleTuile1); 
-				PageJeu.Centre.add(NouvelleTuile2); 
-				
+				// AffichageBoutonTuile NouvelleTuile1 = new
+				// AffichageBoutonTuile(dominostour[i][0]);
+				// AffichageBoutonTuile NouvelleTuile2 = new
+				// AffichageBoutonTuile(dominostour[i][1]);
+				PageJeu.Centre.add(NouvelleTuile1);
+				PageJeu.Centre.add(NouvelleTuile2);
+
 				ListTour1.add(NouvelleTuile1);
 				ListTour1.add(NouvelleTuile2);
 			}
-			
+
 			separator.setBackground(new Color(102, 0, 51));
 			separator1.setBackground(new Color(102, 0, 51));
 			separator2.setBackground(new Color(102, 0, 51));
@@ -189,7 +203,6 @@ public class Affichage implements ActionListener {
 			separator4.setBackground(new Color(102, 0, 51));
 			separator5.setBackground(new Color(102, 0, 51));
 
-			
 			PageJeu.Centre.add(separator);
 			PageJeu.Centre.add(separator1);
 			PageJeu.Centre.add(separator2);
@@ -197,98 +210,147 @@ public class Affichage implements ActionListener {
 			PageJeu.Centre.add(separator4);
 			PageJeu.Centre.add(separator5);
 
-
-			for (int i=0; i<24-(6*nbrois); i++) {
+			for (int i = 0; i < 24 - (6 * nbrois); i++) {
 				PageJeu.Centre.add(new JLabel());
 			}
-			
-			for (int i=0; i<nbrois; i++) { 
+
+			for (int i = 0; i < nbrois; i++) {
 				PageJeu.Centre.add(new PanelRoi());
 				JButton NouvelleTuile1 = new JButton();
 				JButton NouvelleTuile2 = new JButton();
-				
 
-				//AffichageBoutonTuile NouvelleTuile1 = new AffichageBoutonTuile(dominostour[i][0]);
-				//AffichageBoutonTuile NouvelleTuile2 = new AffichageBoutonTuile(dominostour[i][1]);
-				PageJeu.Centre.add(NouvelleTuile1); 
-				PageJeu.Centre.add(NouvelleTuile2); 
-				
+				// AffichageBoutonTuile NouvelleTuile1 = new
+				// AffichageBoutonTuile(dominostour[i][0]);
+				// AffichageBoutonTuile NouvelleTuile2 = new
+				// AffichageBoutonTuile(dominostour[i][1]);
+				PageJeu.Centre.add(NouvelleTuile1);
+				PageJeu.Centre.add(NouvelleTuile2);
+
 				ListTour2.add(NouvelleTuile1);
 				ListTour2.add(NouvelleTuile2);
 			}
-			
 
 		}
-		
-		if (source==PageJeu.btnPioche) {
-			for (int k = 0; k < ListTour1.size()/2; k++) {
-					System.out.println(k);
-					
-					JButton jButton1 = ListTour1.get(2*k);
-					JButton jButton2 = ListTour1.get(2*k+1);
-					
-					int Tristan1 = dominostour[k][0].getnumdomi();
-					int Tristan2 = dominostour[k][1].getnumdomi();
-					
 
+		if (source == PageJeu.btnPioche) {
+			if (compteurpioche == 0) {
+
+				System.out.println("C'est a " + ordrejoueurs[this.compteurjoueur][0].getNomJoueur() + " de jouer");
+
+				for (int k = 0; k < ListTour1.size() / 2; k++) {
+
+					JButton jButton1 = ListTour1.get(2 * k);
+					JButton jButton2 = ListTour1.get(2 * k + 1);
+
+					int numdomituile1 = dominostour[k][0].getnumdomi();
+					int numdomituile2 = dominostour[k][1].getnumdomi();
 
 					AffichageBoutonTuile afficheurBoutonTuile = new AffichageBoutonTuile();
-					
-					afficheurBoutonTuile.display(dominostour[k][0], /* String.valueOf(dominostour[k][0].getnumdomi())+ " " + String.valueOf(dominostour[k][0].getnumtuile()),*/ jButton1);
-					afficheurBoutonTuile.display(dominostour[k][1], /* String.valueOf(dominostour[k][1].getnumdomi())+ " " + String.valueOf(dominostour[k][1].getnumtuile()),*/ jButton2);
-					
-					jButton1.addActionListener(new ActionListener () {
+
+					afficheurBoutonTuile.display(dominostour[k][0],
+							/*
+							 * String.valueOf(dominostour[k][0].getnumdomi())+ " " +
+							 * String.valueOf(dominostour[k][0].getnumtuile()),
+							 */ jButton1);
+					afficheurBoutonTuile.display(dominostour[k][1],
+							/*
+							 * String.valueOf(dominostour[k][1].getnumdomi())+ " " +
+							 * String.valueOf(dominostour[k][1].getnumtuile()),
+							 */ jButton2);
+
+					jButton1.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							Object source = e.getSource();
-							setNumDomiTour(Tristan1);
-							setNumTuileTour(0);
-							
-							
-							
-						}});
-					
-					jButton2.addActionListener(new ActionListener () {
+							compteurjoueur += 1;
+							if (compteurjoueur < ordrejoueurs.length) {
+								setJoueurEnCours(ordrejoueurs[compteurjoueur][0]);
+								setNumDomiTour(numdomituile1);
+								setNumTuileTour(0);
+								Principal.preselection();
+
+								if (compteurjoueur == ordrejoueurs.length-1) {
+									System.out.println("Il faut piocher à nouveau");
+								} else {
+
+									// suivant
+
+									setJoueurEnCours(ordrejoueurs[compteurjoueur][0]);
+									System.out.println(
+											"C'est a " + ordrejoueurs[compteurjoueur][0].getNomJoueur() + " de jouer");
+									
+
+								}
+
+							} else {
+								System.out.println("Il faut piocher à nouveau");
+							}
+
+						}
+					});
+
+					jButton2.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							Object source = e.getSource();
-							setNumDomiTour(Tristan2);
+							setNumDomiTour(numdomituile2);
 							setNumTuileTour(1);
-						}});
+						}
+					});
+
+				}
+				// afficher le nombre de joueurs + preselection
+
+				for (int j = 0; j <= this.nbrois - 1; j++) {
+
+				}
 
 			}
-				
-				//jButton.setText(String.valueOf(jButton.getWidth()));
 
-				/*
-				jButton.setOpaque(false);
-				jButton.setContentAreaFilled(false);
-				jButton.setBorderPainted(false); 
-				jButton.setFocusPainted(false);
-				jButton.setHorizontalAlignment(SwingConstants.CENTER);
-				jButton.setHorizontalTextPosition(SwingConstants.CENTER);
-				*/
-				
-			
-		
+			else if (compteurpioche == 1) {
+
+				// Retour couleur selectionnée
+
+			}
+
+			else if (compteurpioche == 2) {
+
+			}
+
+			// jButton.setText(String.valueOf(jButton.getWidth()));
+
+			/*
+			 * jButton.setOpaque(false); jButton.setContentAreaFilled(false);
+			 * jButton.setBorderPainted(false); jButton.setFocusPainted(false);
+			 * jButton.setHorizontalAlignment(SwingConstants.CENTER);
+			 * jButton.setHorizontalTextPosition(SwingConstants.CENTER);
+			 */
+
 		}
-		
-	}
-	
-	public void setNumDomiTour(int num){
-		this.numdomitour=num;
-		System.out.println("Num domi clique: "+this.numdomitour);
-		
-	}
-	public void setNumTuileTour(int num){
-		this.numtuiletour=num;
-		System.out.println("Num tuile clique: "+this.numtuiletour);
-		
-	}
-	
 
-	
-	
-	
-	
+	}
+
+	public void setNumDomiTour(int num) {
+		this.numdomitour = num;
+		System.out.println("Num domi clique: " + this.numdomitour);
+
+	}
+
+	public void setNumTuileTour(int num) {
+		this.numtuiletour = num;
+		System.out.println("Num tuile clique: " + this.numtuiletour);
+
+	}
+
+	public void setOrdreJoueurs(Joueur[][] ordrejoueurs) {
+		this.ordrejoueurs = ordrejoueurs;
+	}
+
+	public void setJoueurEnCours(Joueur joueur) {
+		this.joueurencours = joueur;
+	}
+
+	public Joueur getJoueurEnCours() {
+		return this.joueurencours;
+	}
 
 }
 
@@ -320,9 +382,8 @@ class PanelRoi extends JPanel {
 	private final JLabel lblNewLabel8 = new JLabel();
 	JButton Roibtn = new JButton();
 
-
 	public PanelRoi() {
-		setLayout(new GridLayout(3,3,0,0));
+		setLayout(new GridLayout(3, 3, 0, 0));
 		this.add(lblNewLabel1);
 		this.add(lblNewLabel2);
 		this.add(lblNewLabel3);

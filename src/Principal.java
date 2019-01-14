@@ -16,13 +16,25 @@ public class Principal {
 		jeu1.preparationtour(); 
 		 
 		window.setDominosTour(jeu1.dominostour); 
-		window.setnbrois(jeu1.getnbrois()); 
+		window.setnbrois(jeu1.getnbrois());
+		window.setOrdreJoueurs(jeu1.getOrdreJoueurs());
+		
 		 
-		jeu1.tourjoueur(); 
+		
 		 
 		//jeu1.setChoixDomiTour(window.numdomitour,window.numtuiletour,window.PageJeu.) 
+		
+		//jeu1.tourjoueur(); 
 		 
 	} 
+	
+	public static void preselection() {
+		jeu1.setChoixDomiPreselect(window.numdomitour, window.numtuiletour);
+		jeu1.setJoueurEnCours(window.getJoueurEnCours());
+		jeu1.preselection();
+	}
+	
+	
 	 
  
 	public static void main(String[] args) { 

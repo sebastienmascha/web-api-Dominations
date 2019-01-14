@@ -4,6 +4,7 @@ public class Joueur {
 	Terrain terrain1;
 	String couleur;
 	int numjoueur;
+	String nomjoueur;
 	boolean premiereselection=true;
 	Tuile activetuile;
 	
@@ -12,6 +13,7 @@ public class Joueur {
 		this.terrain1 = new Terrain();
 		this.couleur=couleur;
 		this.numjoueur=numjoueur;
+		
 		
 	}
 	
@@ -36,6 +38,15 @@ public class Joueur {
 	
 	public void setPreSelection(Tuile tuile) {
 		this.activetuile=tuile;
+	}
+	
+	public void setNomJoueur(String nom) {
+		this.nomjoueur=nom;
+	}
+	
+	public String getNomJoueur() {
+		return this.nomjoueur;
+		
 	}
 
 }
