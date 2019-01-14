@@ -5,6 +5,7 @@ public class Regles {
 	public static int N;
 	public static int C = 0;
 	
+	public static boolean memeZone = true;
 	static ArrayList<Tuile> ZonesTuiles = new ArrayList<Tuile>();
 	
 	/*
@@ -82,52 +83,54 @@ public class Regles {
 		
 		if(terrain.terrain[x][y]!=null) {
 			ZonesTuiles.add((Tuile) terrain.terrain[x][y]);
+			String typeZone = terrain.terrain[x][y].gettype();
 			terrain.terrain[x][y]= null; // pour indiquer que la tuile a déjà été compté
 			
 			
-			if (terrain.terrain[x + 1][y]!=null && ((Tuile) terrain.terrain[x + 1][y]).gettype() == ((Tuile) terrain.terrain[x][y]).gettype() && (x + 1 != 10)) {
+			if ((x + 1 != 10) && terrain.terrain[x + 1][y]!=null && ((Tuile) terrain.terrain[x + 1][y]).gettype() == typeZone) {
 
 				scoreZone(x + 1, y, terrain);
 
 			}
 
-			if (terrain.terrain[x - 1][y]!=null && (((Tuile) terrain.terrain[x - 1][y]).gettype() == ((Tuile) terrain.terrain[x][y]).gettype()) && (x - 1 != -1)) {
+			if (x - 1 != -1 && terrain.terrain[x - 1][y]!=null && ((Tuile) terrain.terrain[x - 1][y]).gettype() == typeZone) {
 				scoreZone(x - 1, y, terrain);
 
 			}
 
-			if (terrain.terrain[x][y + 1]!=null && ((Tuile) terrain.terrain[x][y + 1]).gettype() == ((Tuile) terrain.terrain[x][y]).gettype() && (y + 1 != 10)) {
+			if ((y + 1 != 10)  && terrain.terrain[x][y + 1]!=null && ((Tuile) terrain.terrain[x][y + 1]).gettype() == typeZone) {
 				scoreZone(x, y + 1, terrain);
-
 			}
 
-			if (terrain.terrain[x][y - 1]!=null && ((Tuile) terrain.terrain[x][y - 1]).gettype() == ((Tuile) terrain.terrain[x][y]).gettype() && (y - 1 != -1)) {
+			if ((y - 1 != -1) && terrain.terrain[x][y - 1]!=null && ((Tuile) terrain.terrain[x][y - 1]).gettype() == typeZone){
 				scoreZone(x, y - 1, terrain);
 
 			}
 		}
-		
-		
-		
         
 	}
 	
 	
 	public static void scoreZone(int x, int y, Terrain terrain) {
-		rechercheZone(x, y, terrain); // on trouve la zone
-		int nbCouronnes = 0;
-		for (int i = 0; i < ZonesTuiles.size(); i++) {
-			nbCouronnes += ZonesTuiles.get(i).getnbcouronne();
-		} // on calcule le nb de couronnes dans la zone
-		terrain.Score += (ZonesTuiles.size() * nbCouronnes);
-		ZonesTuiles = new ArrayList<Tuile>(); // on initialise la zone à liste vide
+		rechercheZone(x, y, terrain); // recursivité pour délimiter la zone
+		if (memeZone) {
+			memeZone = false;
+			int nbCourrones = 0;
+			for (int i = 0; i < ZonesTuiles.size(); i++) { // calcul du nb de courronne par zone
+				nbCourrones += ZonesTuiles.get(i).getnbcouronne();
+			} 
+			terrain.Score += (ZonesTuiles.size()*nbCourrones);
+			System.out.println(ZonesTuiles.size()*nbCourrones);
+		}		
 	}
 
-	// exécuter cette fonction pour calculer le nb de points total du plateau
+	// Calcul du score pour un terrain donné
 	public static int scorePlateau(Terrain terrain) {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				scoreZone(j, i, terrain); // on compte 
+				ZonesTuiles = new ArrayList<Tuile>(); // on initialise la zone à liste vide
+				memeZone = true;
 			}
 		}
 		return terrain.Score;
@@ -136,78 +139,26 @@ public class Regles {
 	
 	
 	
-	
-	
-	/*
-	// SCORE CODE GENERAL
-	public static int score(Terrain terrain) {
-		int i = 0; // il faudra mettre un Affichage.getPosxRoyaume()
-		int j =0;  // Pareil
-		while (i <= 8) { // Aussi
-			while (j <= 8) { // Aussi
-				if (!(Regles.isTuileVide(i, j, terrain))){
-					listTuilePositionX.add(i);
-					listTuilePositionY.add(j);
-					recursive(listTuilePositionX, listTuilePositionY, terrain);
-					terrain.setScore(C*N);
-					C=0;
-					N=0;
-					
-				}
-				j++;
-			}
-			i++;
-		}
-		return terrain.Score;
-	}
-	
-	public static void recursive(ArrayList<Integer> listTuilePositionX, ArrayList<Integer> listTuilePositionY, Terrain terrain) {
-		
-		while (listTuilePositionX.size() != 0) {
-			histolistTuilePositionX.add(listTuilePositionX.get(0));
-			histolistTuilePositionY.add(listTuilePositionY.get(0));
-			N += 1;
-			C += terrain.terrain[listTuilePositionX.get(0)][listTuilePositionY.get(0)].getnbcouronne();
-			ArrayList<Integer> tuilesVoisinesPositionX = terrain.getTuilesVoisinesPositionX(listTuilePositionX.get(0),listTuilePositionY.get(0), terrain);
-			ArrayList<Integer> tuilesVoisinesPositionY = terrain.getTuilesVoisinesPositionY(listTuilePositionX.get(0),listTuilePositionY.get(0), terrain);
-			int j1=0;
-			int j2=0;
-			while (j1 <= tuilesVoisinesPositionX.size()-1) { 
-				while (j2 <= histolistTuilePositionY.size()-1) { 
-					if (histolistTuilePositionX.get(j2) == tuilesVoisinesPositionX.get(j1)){
-						if (histolistTuilePositionY.get(j2) == tuilesVoisinesPositionY.get(j1)){
-							tuilesVoisinesPositionX.remove(j1);
-							tuilesVoisinesPositionY.remove(j1);
-						}else {
-							j2++;
-						}
-					}else {
-						j2++;
-					}
-				}
-				j1++;
-			}
-			listTuilePositionX.remove(0);
-			listTuilePositionY.remove(0);
-			recursive(tuilesVoisinesPositionX,tuilesVoisinesPositionY,terrain);
-		}
-	}
 	// TESTS
-	
-	System.out.println("\nListe dominotours apres tri :");
-	afficherListe(dominostour);
+	/*
 	System.out.println("----------------------------------------------------------");
-	System.out.println(dominostour[3][0]);
-	System.out.println("---------------------------------------");
-	Terrain terrain1 = new Terrain();
-	terrain1.remplirTerrain(dominostour[3][0], 0, 0);
-	terrain1.remplirTerrain(dominostour[3][0], 0, 1);
-	terrain1.remplirTerrain(dominostour[3][0], 1, 0);
-	terrain1.remplirTerrain(dominostour[3][0], 1, 1);
-	//System.out.println("\n"+terrain1.getTuilesVoisinesPositionX(2, 3, terrain1));
-	System.out.println("\n"+terrain1.getTuilesVoisinesPositionX(0, 0, terrain1));
-	System.out.println("\n"+terrain1.getTuilesVoisinesPositionX(0, 0, terrain1));
-	System.out.println("\n"+Regles.score(terrain1));
+		System.out.println(dominostour[3][0]);
+		System.out.println(dominostour[2][0]);
+		System.out.println("---------------------------------------");
+		Terrain terrain1 = new Terrain();
+		terrain1.remplirTerrain(dominostour[3][0], 0, 0);
+		terrain1.remplirTerrain(dominostour[3][0], 0, 1);
+		terrain1.remplirTerrain(dominostour[3][0], 1, 0);
+		terrain1.remplirTerrain(dominostour[3][0], 1, 1);
+		terrain1.remplirTerrain(dominostour[3][0], 2, 1);
+		
+		terrain1.remplirTerrain(dominostour[2][0], 3, 3);
+		terrain1.remplirTerrain(dominostour[2][0], 3, 4);
+		terrain1.remplirTerrain(dominostour[2][0], 4, 3);
+		terrain1.remplirTerrain(dominostour[2][0], 4, 4);
+		//System.out.println("\n"+terrain1.getTuilesVoisinesPositionX(2, 3, terrain1));
+		System.out.println("\n"+Regles.scorePlateau(terrain1));
+		System.out.print("------------------------------------");
 	
 	*/
 	
