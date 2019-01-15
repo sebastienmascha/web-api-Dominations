@@ -76,9 +76,9 @@ public class Terrain {
     }
     */
     
-    public ArrayList<Integer> getTuilesVoisinesPositionX(int posx, int posy, Terrain terrain) {
+    public ArrayList<Integer> getTuilesVoisinesPositionX(Tuile tuile, int posx, int posy, Terrain terrain) {
     	ArrayList<Integer> TuilesVoisinesPositionX = new ArrayList<Integer>();
-    	String typeTuile = terrain.terrain[posx][posy].gettype();
+    	String typeTuile = tuile.gettype();
     	int i = 0;
 		int j =0;
 		if (!(Regles.isTuileDroiteVide(posx, posy, terrain))) {
@@ -105,9 +105,9 @@ public class Terrain {
 		
         return TuilesVoisinesPositionX;
     }
-    public ArrayList<Integer> getTuilesVoisinesPositionY(int posx, int posy, Terrain terrain) {
+    public ArrayList<Integer> getTuilesVoisinesPositionY(Tuile tuile, int posx, int posy, Terrain terrain) {
     	ArrayList<Integer> TuilesVoisinesPositionY = new ArrayList<Integer>();
-    	String typeTuile = terrain.terrain[posx][posy].gettype();
+    	String typeTuile = tuile.gettype();
     	int i = 0;
 		int j =0;
 		if (!(Regles.isTuileDroiteVide(posx, posy, terrain))) {

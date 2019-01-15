@@ -379,18 +379,20 @@ public class Affichage implements ActionListener {
 										compteurjoueur += 1;
 
 									} else if (bonchoix == false) {
-										System.out.println("\nCe domino a deja ete selectionne !");
+										System.out.println("\nMauvais Domino ! ");
 									}
 
 									if (compteurjoueur >= nbrois) {
 										System.out.println("Il faut piocher a nouveau");
 										appelDefinitionNouvelOrdre();
+										//setRoiTour(ordrejoueurs[compteurjoueur][0].couleur, tuile1, dominostour);
 										System.out.println(
 												"\nC'est a " + ordrejoueurs[0][0].getNomJoueur() + " de jouer.");
 										compteurclictuile = 1;
 										compteurjoueur = 0;
 									} else {
-
+										
+										
 										System.out.println("\nC'est a " + ordrejoueurs[compteurjoueur][0].getNomJoueur()
 												+ " de jouer");
 
@@ -399,6 +401,8 @@ public class Affichage implements ActionListener {
 								} else {
 									System.out.println("Il faut piocher a nouveau 2");
 									appelDefinitionNouvelOrdre();
+									//pour la suite
+									System.out.println("\nCliquez sur la case du terrain desiree, puis sur la tuile a placer.");
 									System.out.println("\nC'est a " + ordrejoueurs[0][0].getNomJoueur() + " de jouer.");
 									compteurclictuile = 1;
 									compteurjoueur = 0;
@@ -439,7 +443,7 @@ public class Affichage implements ActionListener {
 										compteurjoueur += 1;
 
 									} else if (bonchoix == false) {
-										System.out.println("\nCe domino a deja ete selectionne !");
+										System.out.println("\nMauvais domino");
 									}
 
 									if (compteurjoueur >= nbrois) {
@@ -477,7 +481,7 @@ public class Affichage implements ActionListener {
 									compteurjoueur += 1;
 
 								} else if (bonchoix == false) {
-									System.out.println("\nCe domino a deja ete selectionne !");
+									System.out.println("\nMauvais Domino ! ");
 								}
 
 								if (compteurjoueur >= nbrois) {
@@ -530,7 +534,7 @@ public class Affichage implements ActionListener {
 
 	}
 
-	public void setRoiTour1(String clr, Tuile T) {
+	public void setRoiTour(String clr, Tuile T,Tuile[][] dominostour) {
 		Color Couleur = Color.WHITE;
 		switch (clr) {
 		case "Vert":
@@ -557,6 +561,7 @@ public class Affichage implements ActionListener {
 
 	public void appelDefinitionNouvelOrdre() {
 		// definition nouvel ordre
+		
 		Principal.definirordre();
 
 		System.out.println("Ceci est un nouvel ordre de joueurs :\n");

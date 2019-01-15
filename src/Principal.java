@@ -48,8 +48,13 @@ public class Principal {
 		jeu1.setJoueurEnCours(window.getJoueurEnCours());
 		jeu1.setPositionChoixTuileTour(window.getPosX(),window.getPosY());
 		jeu1.tourjoueur();
+		window.PageJeu.EcranOuest.lireTerrain(jeu1.joueurs[0][0].terrain1.terrain);
+		window.PageJeu.EcranEst.lireTerrain(jeu1.joueurs[2][0].terrain1.terrain);
+		//window.PageJeu.EcranSud.lireTerrain(jeu1.joueurs[3][0].terrain1.terrain);
+		window.PageJeu.EcranNord.lireTerrain(jeu1.joueurs[1][0].terrain1.terrain);
 		window.setBonChoix(jeu1.getBonChoix());
 	}
+
 	
 	
 	 

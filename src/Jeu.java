@@ -238,9 +238,13 @@ public class Jeu {
 		} else {
 
 			try {
-				this.joueurencours.terrain1.remplirTerrain(this.choixtuiletour, this.posx, this.posy);
-				supprimerdomino(this.choixtuiletour, dominostour);
-				this.bonchoix = true;
+				if (Regles.placementTuile(this.joueurencours.terrain1, this.choixtuiletour, this.posx, this.posy)) {
+					this.joueurencours.terrain1.remplirTerrain(this.choixtuiletour, this.posx, this.posy);
+					supprimerdomino(this.choixtuiletour, dominostour);
+					this.bonchoix = true;
+				} else {
+					this.bonchoix = false;
+				}
 			} catch (Exception e) {
 				System.out.println("Le domino a deje ete selectionne ! Descriptif erreur: \n" + e);
 				this.bonchoix = false;
