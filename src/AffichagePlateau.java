@@ -24,6 +24,7 @@ public class AffichagePlateau extends Carre {
 	public int posy; 
 	Tuile terrain[][]= new Tuile[9][9];
 	
+    JButton BtnChateau = new JButton();
 	JPanel PlanCentral = new JPanel();
 	JLabel Nom = new JLabel();
 	BorderLayout Lay = new BorderLayout(0, 0);
@@ -61,9 +62,8 @@ public class AffichagePlateau extends Carre {
 	            PlanCentral.add(gb);
 	        }	
 	        
-	        JButton BtnChateau = new JButton();
-            BtnChateau.setIcon(new ImageIcon(this.getClass().getResource("/chateau.png")));
-            BtnChateau.setRolloverIcon(new ImageIcon(this.getClass().getResource("/Champs2.png")));
+            //BtnChateau.setIcon(new ImageIcon(this.getClass().getResource("/chateau.png")));
+           // BtnChateau.setRolloverIcon(new ImageIcon(this.getClass().getResource("/Champs2.png")));
 
 	        ListeBoutons.add(BtnChateau);
 	        PlanCentral.add(BtnChateau);

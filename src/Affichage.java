@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -24,9 +25,16 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.text.JTextComponent;
 
 public class Affichage implements ActionListener {
 
+	Icon imgIcon = new ImageIcon(this.getClass().getResource("/giphy.gif"));
+	Icon ImgIcon = new ImageIcon(this.getClass().getResource("/Giph.gif"));
+	
 	// vers Jeu
 	int numdomitour = 0;
 	int numtuiletour = 0;
@@ -49,8 +57,8 @@ public class Affichage implements ActionListener {
 	JFrame FenetreJeu = new JFrame("Projet Kingdomino");
 	Cote Panel = new Cote();
 
-	AffichageFenetreJeu PageJeu = new AffichageFenetreJeu();
-	AffichageFenetreAccueil PageAccueil = new AffichageFenetreAccueil();
+	AffichageJeu PageJeu = new AffichageJeu();
+	AffichageAccueil PageAccueil = new AffichageAccueil();
 
 	JPanel pane = new JPanel();
 	JPanel pan = new JPanel();
@@ -67,6 +75,8 @@ public class Affichage implements ActionListener {
 
 	public ArrayList<JButton> ListTour1 = new ArrayList<>();
 	public ArrayList<JButton> ListTour2 = new ArrayList<>();
+	public ArrayList<JButton> List1BoutonRoi = new ArrayList<>();
+	public ArrayList<JButton> List2BoutonRoi = new ArrayList<>();
 
 	private final JSeparator separator = new JSeparator();
 	private final JSeparator separator1 = new JSeparator();
@@ -78,7 +88,7 @@ public class Affichage implements ActionListener {
 	public Affichage() {
 
 		FenetreJeu.setIconImage(new ImageIcon(this.getClass().getResource("/chateau.png")).getImage());
-		FenetreJeu.setBounds(100, 100, 450, 300);
+		FenetreJeu.setBounds(0, 0, 1440, 900);
 		FenetreJeu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		FenetreJeu.getContentPane().setLayout(PlusieursPages);
 
@@ -104,6 +114,13 @@ public class Affichage implements ActionListener {
 		PageJeu.btnRetournerAuMenu.addActionListener((ActionListener) this);
 		PageAccueil.btnJouer.addActionListener((ActionListener) this);
 		PageJeu.btnPioche.addActionListener((ActionListener) this);
+		
+		//PageAccueil.add(PageAccueil.ChampJ1);
+		//PageAccueil.add(PageAccueil.ChampJ2);
+		PageAccueil.ChampJ1.addActionListener((ActionListener) this);
+		PageAccueil.ChampJ2.addActionListener((ActionListener) this);
+		PageAccueil.ChampJ3.addActionListener((ActionListener) this);
+		PageAccueil.ChampJ4.addActionListener((ActionListener) this);
 	}
 
 	private static void resizePreview(JPanel innerPanel, JPanel container) {
@@ -155,6 +172,21 @@ public class Affichage implements ActionListener {
 				nbjoueurs = 4;
 				break;
 			}
+			PageJeu.lblNbreJoueurs.setText("Partie Ã  " + ((JRadioButton) source).getText());
+			/*
+			if (nbjoueurs==3) {
+				PageAccueil.remove(PageAccueil.ChampJ4);
+				PageAccueil.add(PageAccueil.ChampJ3);
+			}
+			else if (nbjoueurs==4) {
+				PageAccueil.add(PageAccueil.ChampJ3);
+				PageAccueil.add(PageAccueil.ChampJ4);
+			}
+			else {
+				PageAccueil.remove(PageAccueil.ChampJ4);
+				PageAccueil.remove(PageAccueil.ChampJ3);
+			}
+			*/
 			System.out.println(nbjoueurs);
 			lblNombreDeJoueurs.setText("Nombre de joueurs :" + nbjoueurs + ", veuillez choisir ...");
 		}
@@ -166,7 +198,39 @@ public class Affichage implements ActionListener {
 		if (source == PageAccueil.btnJouer) {
 
 			Principal.initialisation();
-
+			
+			PageAccueil.ChampJ1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String input = ((JTextComponent) e.getSource()).getText();
+					PageJeu.R=input; //Ouest
+					ordrejoueurs[0][0].setNomJoueur(input);
+				}
+			});
+			
+			PageAccueil.ChampJ2.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String input = ((JTextComponent) e.getSource()).getText();
+					PageJeu.B=input; //Nord
+					ordrejoueurs[0][0].setNomJoueur(input);
+				}
+			});
+			
+			PageAccueil.ChampJ3.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String input = ((JTextComponent) e.getSource()).getText();
+					PageJeu.Y=input; //Est
+					ordrejoueurs[0][0].setNomJoueur(input);
+				}
+			});
+			
+			PageAccueil.ChampJ4.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String input = ((JTextComponent) e.getSource()).getText();
+					PageJeu.V=input; //Sud
+					ordrejoueurs[0][0].setNomJoueur(input);
+				}
+			});
+			/*
 			for (int i = 0; i < nbrois; i++) {
 
 				// demande nom des joueurs
@@ -175,28 +239,33 @@ public class Affichage implements ActionListener {
 				String username = scanner.nextLine();
 				ordrejoueurs[i][0].setNomJoueur(username);
 
-			}
+			}*/
 
 			PlusieursPages.show(FenetreJeu.getContentPane(), listeIndice[1]);
+			
+			ImageIcon ChateauIcone = new ImageIcon(this.getClass().getResource("/chateau.png"));
+			Image ChateauIconeResize = ChateauIcone.getImage().getScaledInstance(PageJeu.EcranSud.BtnChateau.getWidth(), PageJeu.EcranSud.BtnChateau.getHeight(), java.awt.Image.SCALE_SMOOTH);
+	        PageJeu.EcranOuest.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
+	        PageJeu.EcranNord.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
+	        PageJeu.EcranEst.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
+	        PageJeu.EcranSud.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
 
 			for (int i = 0; i < 6; i++) {
 				PageJeu.Centre.add(new JLabel());
 			}
 
 			for (int i = 0; i < nbrois; i++) {
-				PageJeu.Centre.add(new PanelRoi());
+				PanelRoi R = new PanelRoi();
 				JButton NouvelleTuile1 = new JButton();
 				JButton NouvelleTuile2 = new JButton();
 
-				// AffichageBoutonTuile NouvelleTuile1 = new
-				// AffichageBoutonTuile(dominostour[i][0]);
-				// AffichageBoutonTuile NouvelleTuile2 = new
-				// AffichageBoutonTuile(dominostour[i][1]);
+				PageJeu.Centre.add(R);
 				PageJeu.Centre.add(NouvelleTuile1);
 				PageJeu.Centre.add(NouvelleTuile2);
 
 				ListTour1.add(NouvelleTuile1);
 				ListTour1.add(NouvelleTuile2);
+				List1BoutonRoi.add(R.Roibtn);
 			}
 
 			separator.setBackground(new Color(102, 0, 51));
@@ -206,31 +275,72 @@ public class Affichage implements ActionListener {
 			separator4.setBackground(new Color(102, 0, 51));
 			separator5.setBackground(new Color(102, 0, 51));
 
-			PageJeu.Centre.add(separator);
-			PageJeu.Centre.add(separator1);
-			PageJeu.Centre.add(separator2);
-			PageJeu.Centre.add(separator3);
-			PageJeu.Centre.add(separator4);
-			PageJeu.Centre.add(separator5);
-
-			for (int i = 0; i < 24 - (6 * nbrois); i++) {
-				PageJeu.Centre.add(new JLabel());
+			if (nbrois==3) {
+				for (int i=0;i<3;i++) {
+					PageJeu.Centre.add(new JLabel());
+				}
+				PageJeu.Centre.add(separator);
+				PageJeu.Centre.add(separator1);
+				PageJeu.Centre.add(separator2);
+				PageJeu.Centre.add(separator3);
+				PageJeu.Centre.add(separator4);
+				for (int j=0; j<21-(6*nbrois); j++) {
+					PageJeu.Centre.add(new JLabel());
+				}
+			}
+			else {
+				PageJeu.Centre.add(separator);
+				PageJeu.Centre.add(separator1);
+				PageJeu.Centre.add(separator2);
+				PageJeu.Centre.add(separator3);
+				PageJeu.Centre.add(separator4);
+				PageJeu.Centre.add(separator5);
+				for (int i=0; i<24-(6*nbrois); i++) {
+					PageJeu.Centre.add(new JLabel());
+				}
 			}
 
+			
 			for (int i = 0; i < nbrois; i++) {
-				PageJeu.Centre.add(new PanelRoi());
+				PanelRoi R = new PanelRoi();
 				JButton NouvelleTuile1 = new JButton();
 				JButton NouvelleTuile2 = new JButton();
 
-				// AffichageBoutonTuile NouvelleTuile1 = new
-				// AffichageBoutonTuile(dominostour[i][0]);
-				// AffichageBoutonTuile NouvelleTuile2 = new
-				// AffichageBoutonTuile(dominostour[i][1]);
+				PageJeu.Centre.add(R);
 				PageJeu.Centre.add(NouvelleTuile1);
 				PageJeu.Centre.add(NouvelleTuile2);
 
 				ListTour2.add(NouvelleTuile1);
 				ListTour2.add(NouvelleTuile2);
+				List2BoutonRoi.add(R.Roibtn);
+			}
+			
+			switch (String.valueOf(nbjoueurs)) {
+			case "2" :
+				PageJeu.EcranSud.setBackground(new Color(0,0,0,64));
+				PageJeu.EcranSud.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true), new LineBorder(new Color(0,0,0,64), 4, true)));
+				PageJeu.EcranSud.Nom.setBackground(new Color(0,0,0,64));
+				PageJeu.EcranSud.PlanCentral.setBackground(new Color(0,0,0,64));
+				PageJeu.EcranSud.removeAll();
+				JLabel label1 = new JLabel(ImgIcon);
+				PageJeu.EcranSud.add(label1);
+				PageJeu.EcranNord.setBackground(new Color(0,0,0,64));
+				PageJeu.EcranNord.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true), new LineBorder(new Color(0,0,0,64), 4, true)));
+				PageJeu.EcranNord.Nom.setBackground(new Color(0,0,0,64));
+				PageJeu.EcranNord.PlanCentral.setBackground(new Color(0,0,0,64));
+				PageJeu.EcranNord.removeAll();
+				JLabel label = new JLabel(imgIcon);
+				PageJeu.EcranNord.add(label);
+				break;
+			case "3" :
+				PageJeu.EcranNord.setBackground(new Color(0,0,0,64));
+				PageJeu.EcranNord.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true), new LineBorder(new Color(0,0,0,64), 4, true)));
+				PageJeu.EcranNord.Nom.setBackground(new Color(0,0,0,64));
+				PageJeu.EcranNord.PlanCentral.setBackground(new Color(0,0,0,64));
+				PageJeu.EcranNord.removeAll();
+				JLabel label2 = new JLabel(imgIcon);
+				PageJeu.EcranNord.add(label2);
+				break;
 			}
 
 		}
@@ -251,18 +361,9 @@ public class Affichage implements ActionListener {
 					Tuile tuile1 = dominostour[k][0];
 					Tuile tuile2 = dominostour[k][1];
 
-					AffichageBoutonTuile afficheurBoutonTuile = new AffichageBoutonTuile();
 
-					afficheurBoutonTuile.display(dominostour[k][0],
-							/*
-							 * String.valueOf(dominostour[k][0].getnumdomi())+ " " +
-							 * String.valueOf(dominostour[k][0].getnumtuile()),
-							 */ jButton1);
-					afficheurBoutonTuile.display(dominostour[k][1],
-							/*
-							 * String.valueOf(dominostour[k][1].getnumdomi())+ " " +
-							 * String.valueOf(dominostour[k][1].getnumtuile()),
-							 */ jButton2);
+					display(dominostour[k][0], jButton1);
+					display(dominostour[k][1], jButton2);
 
 					jButton1.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -289,7 +390,7 @@ public class Affichage implements ActionListener {
 								
 
 								if (compteurjoueur >= nbrois) {
-									System.out.println("Il faut piocher à nouveau");
+									System.out.println("Il faut piocher ï¿½ nouveau");
 									appelDefinitionNouvelOrdre();
 									System.out.println("\nC'est a " + ordrejoueurs[0][0].getNomJoueur() + " de jouer.");
 									compteurclictuile=1;
@@ -305,7 +406,7 @@ public class Affichage implements ActionListener {
 								}
 
 							} else {
-								System.out.println("Il faut piocher à nouveau 2");
+								System.out.println("Il faut piocher ï¿½ nouveau 2");
 								appelDefinitionNouvelOrdre();
 								System.out.println("\nC'est a " + ordrejoueurs[0][0].getNomJoueur() + " de jouer.");
 								compteurclictuile=1;
@@ -333,7 +434,7 @@ public class Affichage implements ActionListener {
 									
 
 									if (compteurjoueur >= nbrois) {
-										System.out.println("Il faut piocher à nouveau");
+										System.out.println("Il faut piocher ï¿½ nouveau");
 										appelDefinitionNouvelOrdre();
 									} else {
 										
@@ -379,7 +480,7 @@ public class Affichage implements ActionListener {
 								
 
 								if (compteurjoueur >= nbrois) {
-									System.out.println("Il faut piocher à nouveau");
+									System.out.println("Il faut piocher ï¿½ nouveau");
 									appelDefinitionNouvelOrdre();
 									
 									
@@ -394,7 +495,7 @@ public class Affichage implements ActionListener {
 								}
 
 							} else {
-								System.out.println("Il faut piocher à nouveau 2");
+								System.out.println("Il faut piocher ï¿½ nouveau 2");
 								appelDefinitionNouvelOrdre();
 								
 							}
@@ -416,7 +517,7 @@ public class Affichage implements ActionListener {
 
 			else if (compteurpioche == 1) {
 
-				// Retour couleur selectionnée
+				// Retour couleur selectionnï¿½e
 
 			}
 
@@ -424,17 +525,49 @@ public class Affichage implements ActionListener {
 
 			}
 
-			// jButton.setText(String.valueOf(jButton.getWidth()));
-
-			/*
-			 * jButton.setOpaque(false); jButton.setContentAreaFilled(false);
-			 * jButton.setBorderPainted(false); jButton.setFocusPainted(false);
-			 * jButton.setHorizontalAlignment(SwingConstants.CENTER);
-			 * jButton.setHorizontalTextPosition(SwingConstants.CENTER);
-			 */
-
 		}
+		
+		/*
+		if (source==PageAccueil.ChampJ2) {
+			String input = ((JTextComponent) e.getSource()).getText();
+			PageJeu.B=input; //Nord 
+		}
+		if (source==PageAccueil.ChampJ3) {
+			String input = ((JTextComponent) e.getSource()).getText();
+			PageJeu.Y=input; //Est
+		}
+		if (source==PageAccueil.ChampJ4) {
+			String input = ((JTextComponent) e.getSource()).getText();
+			//PageJeu.EcranEst.Nom.setText(input); 
+			PageJeu.V=input;  //Sud
 
+		}/*/
+
+	}
+	
+	public void setRoiTour1 (String clr, Tuile T) {
+		Color Couleur=Color.WHITE;
+		switch (clr) {
+		case "Vert" :
+			Couleur = Color.GREEN;
+			break;
+		case "Bleu" :
+			Couleur = Color.BLUE;
+			break;
+		case "Rouge" :
+			Couleur = Color.RED;
+			break;
+		case "Jaune" :
+			Couleur = Color.YELLOW;
+			break;
+		}
+		for (int j=0; j<List1BoutonRoi.size();j++) {
+			if (T.getnumdomi()==dominostour[j][0].getnumdomi()) { 
+			 List1BoutonRoi.get(j).setBackground(Couleur);
+			 List1BoutonRoi.get(j).setForeground(Color.WHITE);
+			 List1BoutonRoi.get(j).setText("R");
+			}
+		}	
 	}
 	
 	
@@ -484,7 +617,13 @@ public class Affichage implements ActionListener {
 	public void setBonChoix(boolean bonchoix) {
 		this.bonchoix=bonchoix;
 	}
+	
+	public void display(Tuile Tuile, JButton T) {
 
+		ImageIcon img = new ImageIcon(this.getClass().getResource("/"+Tuile.gettype()+Tuile.getnbcouronne()+".png"));
+		Image newimg = img.getImage().getScaledInstance(T.getWidth(), T.getHeight(), java.awt.Image.SCALE_SMOOTH);
+		T.setIcon(new ImageIcon(newimg));
+	}
 }
 
 class Cote extends JPanel {
@@ -494,7 +633,7 @@ class Cote extends JPanel {
 	public void paintComponent(Graphics g) {
 		// x1, y1, width, height, arcWidth, arcHeight
 		try {
-			Image img = ImageIO.read(this.getClass().getResource("/Wallpaper.jpg"));
+			Image img = ImageIO.read(this.getClass().getResource("/Rid.jpg"));
 			// g.drawImage(img, 0, 0, this);
 			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 		} catch (IOException e) {

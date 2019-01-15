@@ -3,6 +3,7 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -19,10 +21,13 @@ import javax.swing.JTextPane;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
-public class AffichageFenetreAccueil extends JPanel {
+public class test extends JPanel {
 	
 	
-	
+	JTextField ChampJ1 = new JTextField();
+	JTextField ChampJ2 = new JTextField();
+	JTextField ChampJ3 = new JTextField();
+	JTextField ChampJ4 = new JTextField();
 
 	JRadioButton DeuxJoueurs = new JRadioButton("2 joueurs");
 	JRadioButton TroisJoueurs = new JRadioButton("3 joueurs");
@@ -33,9 +38,15 @@ public class AffichageFenetreAccueil extends JPanel {
 	JLabel lblNombreDeJoueurs = new JLabel();
 	JLabel lblKingdomino = new JLabel("KingDomino");
 	
-	GridBagLayout Layout = new GridBagLayout();
+	GridLayout Layout = new GridLayout();
 	
-	public AffichageFenetreAccueil() {
+	GridBagConstraints gbc_textField = new GridBagConstraints();
+	GridBagConstraints gbc_textField_1 = new GridBagConstraints();
+	GridBagConstraints gbc_textField_2 = new GridBagConstraints();
+	GridBagConstraints gbc_textField_3 = new GridBagConstraints();
+
+
+	public test() {
 
 		//BorderLayout.CENTER
 		this.setLayout(Layout);
@@ -105,6 +116,37 @@ public class AffichageFenetreAccueil extends JPanel {
 		gbc_btnJouer.gridx = 3;
 		gbc_btnJouer.gridy = 9;
 		this.add(btnJouer, gbc_btnJouer);
+		
+		gbc_textField.insets = new Insets(0, 0, 5, 5);
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.gridx = 2;
+		gbc_textField.gridy = 5;
+		add(ChampJ1, gbc_textField);
+		ChampJ1.setColumns(10);
+
+		
+		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_1.gridx = 3;
+		gbc_textField_1.gridy = 7;
+		add(ChampJ2, gbc_textField_1);
+		ChampJ2.setColumns(10);
+
+		
+		gbc_textField_2.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_2.gridx = 3;
+		gbc_textField_2.gridy = 5;
+		add(ChampJ3, gbc_textField_2);
+		
+		gbc_textField_3.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_3.gridx = 2;
+		gbc_textField_3.gridy = 7;
+		add(ChampJ4, gbc_textField_3);
+		
+
+
 
 	}
 	
