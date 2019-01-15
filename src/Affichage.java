@@ -117,10 +117,10 @@ public class Affichage implements ActionListener {
 		
 		//PageAccueil.add(PageAccueil.ChampJ1);
 		//PageAccueil.add(PageAccueil.ChampJ2);
-		PageAccueil.ChampJ1.addActionListener((ActionListener) this);
-		PageAccueil.ChampJ2.addActionListener((ActionListener) this);
-		PageAccueil.ChampJ3.addActionListener((ActionListener) this);
-		PageAccueil.ChampJ4.addActionListener((ActionListener) this);
+		//PageAccueil.ChampJ1.addActionListener((ActionListener) this);
+		//PageAccueil.ChampJ2.addActionListener((ActionListener) this);
+		//ageAccueil.ChampJ3.addActionListener((ActionListener) this);
+		//PageAccueil.ChampJ4.addActionListener((ActionListener) this);	
 	}
 
 	private static void resizePreview(JPanel innerPanel, JPanel container) {
@@ -199,37 +199,15 @@ public class Affichage implements ActionListener {
 
 			Principal.initialisation();
 			
-			PageAccueil.ChampJ1.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					String input = ((JTextComponent) e.getSource()).getText();
-					PageJeu.R=input; //Ouest
-					ordrejoueurs[0][0].setNomJoueur(input);
-				}
-			});
+			ordrejoueurs[0][0].setNomJoueur(PageAccueil.J);
+			ordrejoueurs[1][0].setNomJoueur(PageAccueil.B);
+			ordrejoueurs[2][0].setNomJoueur(PageAccueil.R);
+			ordrejoueurs[3][0].setNomJoueur(PageAccueil.V);
+			PageJeu.EcranOuest.Nom.setText(PageAccueil.J);
+			PageJeu.EcranNord.Nom.setText(PageAccueil.B);
+			PageJeu.EcranEst.Nom.setText(PageAccueil.R);
+			PageJeu.EcranSud.Nom.setText(PageAccueil.V);
 			
-			PageAccueil.ChampJ2.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					String input = ((JTextComponent) e.getSource()).getText();
-					PageJeu.B=input; //Nord
-					ordrejoueurs[0][0].setNomJoueur(input);
-				}
-			});
-			
-			PageAccueil.ChampJ3.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					String input = ((JTextComponent) e.getSource()).getText();
-					PageJeu.Y=input; //Est
-					ordrejoueurs[0][0].setNomJoueur(input);
-				}
-			});
-			
-			PageAccueil.ChampJ4.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					String input = ((JTextComponent) e.getSource()).getText();
-					PageJeu.V=input; //Sud
-					ordrejoueurs[0][0].setNomJoueur(input);
-				}
-			});
 			/*
 			for (int i = 0; i < nbrois; i++) {
 
@@ -324,20 +302,20 @@ public class Affichage implements ActionListener {
 				PageJeu.EcranSud.removeAll();
 				JLabel label1 = new JLabel(ImgIcon);
 				PageJeu.EcranSud.add(label1);
-				PageJeu.EcranNord.setBackground(new Color(0,0,0,64));
-				PageJeu.EcranNord.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true), new LineBorder(new Color(0,0,0,64), 4, true)));
-				PageJeu.EcranNord.Nom.setBackground(new Color(0,0,0,64));
-				PageJeu.EcranNord.PlanCentral.setBackground(new Color(0,0,0,64));
-				PageJeu.EcranNord.removeAll();
+				PageJeu.EcranEst.setBackground(new Color(0,0,0,64));
+				PageJeu.EcranEst.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true), new LineBorder(new Color(0,0,0,64), 4, true)));
+				PageJeu.EcranEst.Nom.setBackground(new Color(0,0,0,64));
+				PageJeu.EcranEst.PlanCentral.setBackground(new Color(0,0,0,64));
+				PageJeu.EcranEst.removeAll();
 				JLabel label = new JLabel(imgIcon);
-				PageJeu.EcranNord.add(label);
+				PageJeu.EcranEst.add(label);
 				break;
 			case "3" :
-				PageJeu.EcranNord.setBackground(new Color(0,0,0,64));
-				PageJeu.EcranNord.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true), new LineBorder(new Color(0,0,0,64), 4, true)));
-				PageJeu.EcranNord.Nom.setBackground(new Color(0,0,0,64));
-				PageJeu.EcranNord.PlanCentral.setBackground(new Color(0,0,0,64));
-				PageJeu.EcranNord.removeAll();
+				PageJeu.EcranSud.setBackground(new Color(0,0,0,64));
+				PageJeu.EcranSud.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true), new LineBorder(new Color(0,0,0,64), 4, true)));
+				PageJeu.EcranSud.Nom.setBackground(new Color(0,0,0,64));
+				PageJeu.EcranSud.PlanCentral.setBackground(new Color(0,0,0,64));
+				PageJeu.EcranSud.removeAll();
 				JLabel label2 = new JLabel(imgIcon);
 				PageJeu.EcranNord.add(label2);
 				break;

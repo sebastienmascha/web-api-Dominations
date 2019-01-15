@@ -23,19 +23,18 @@ import javax.swing.JSeparator;
 
 public class AffichageJeu extends JPanel {
 	
-	JScrollBar scrollBar = new JScrollBar();
 	JButton btnPioche = new JButton("Pioche");
 	
-	String V = new String();
-	String B = new String();
-	String R = new String();
-	String Y = new String();
+	String V ;
+	String B ;
+	String R ;
+	String J ;
 
 	
 	AffichagePlateau EcranSud = new AffichagePlateau(V,Color.GREEN);
 	AffichagePlateau EcranNord = new AffichagePlateau(B,Color.BLUE);
 	AffichagePlateau EcranEst = new AffichagePlateau(R,Color.YELLOW);
-	AffichagePlateau EcranOuest = new AffichagePlateau(Y,Color.RED);
+	AffichagePlateau EcranOuest = new AffichagePlateau(J,Color.RED);
 	
 	AffichagePanelDeJeu NordOuest = new AffichagePanelDeJeu();
 	AffichagePanelDeJeu2 NordEst = new AffichagePanelDeJeu2();
