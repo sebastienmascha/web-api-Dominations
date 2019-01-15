@@ -16,17 +16,24 @@ public class Regles {
 	public static ArrayList<Integer> histolistTuilePositionY = new ArrayList<Integer>();
 	*/
 	
-	public static boolean placementTuile(Tuile tuile, Terrain terrain, int posx, int posy) {
+	// VALIDITÉ GÉNÉRALE DU PLACEMENT D'UNE TUILE
+	public static boolean placementTuile(Terrain terrain, Tuile tuile, int posx, int posy) {
 		if (isTuileVide(posx,posy,terrain)) {
-			if (terrain.terrain[posx+1][posy].gettype() == tuile.gettype() ) {//|| terrain.terrain[posx-1][posy].gettype() == tuile.gettype() || terrain.terrain[posx][posy+1].gettype() == tuile.gettype() || terrain.terrain[posx][posy-1].gettype() == tuile.gettype()) {
-				return true;
+			if (terrain.getTuilesVoisinesPositionX(tuile, posx, posy, terrain).size() != 0) {
+				if (isRoyaumeValide(posx,posy,terrain)) {
+					return true;
+				}
+				return false;
 			}
+			return false;
+		}else {
+			return false;
 		}
-		return false;
+		
 	}
 	
 	// ROYAUME 5x5
-	public static boolean isPlacementValide(int x, int y, Terrain terrain) {
+	public static boolean isRoyaumeValide(int x, int y, Terrain terrain) {
 		boolean isPlacementValide = true;
 		if (x < getLimiteRoyaume(terrain).get(0)) {
 			isPlacementValide = false;
