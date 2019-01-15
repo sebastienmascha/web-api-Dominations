@@ -26,10 +26,16 @@ public class AffichageFenetreJeu extends JPanel {
 	JScrollBar scrollBar = new JScrollBar();
 	JButton btnPioche = new JButton("Pioche");
 	
-	AffichagePlateau EcranSud = new AffichagePlateau("Seb", Color.GREEN);
-	AffichagePlateau EcranNord = new AffichagePlateau("Tristan", Color.BLUE);
-	AffichagePlateau EcranEst = new AffichagePlateau("Amine", Color.YELLOW);
-	AffichagePlateau EcranOuest = new AffichagePlateau("Hugo", Color.RED);
+	String V = new String();
+	String B = new String();
+	String R = new String();
+	String Y = new String();
+
+	
+	AffichagePlateau EcranSud = new AffichagePlateau(V,Color.GREEN);
+	AffichagePlateau EcranNord = new AffichagePlateau(B,Color.BLUE);
+	AffichagePlateau EcranEst = new AffichagePlateau(R,Color.YELLOW);
+	AffichagePlateau EcranOuest = new AffichagePlateau(Y,Color.RED);
 	
 	AffichagePanelDeJeu NordOuest = new AffichagePanelDeJeu();
 	AffichagePanelDeJeu2 NordEst = new AffichagePanelDeJeu2();

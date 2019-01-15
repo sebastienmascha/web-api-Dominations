@@ -3,6 +3,7 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,13 +38,15 @@ public class test extends JPanel {
 	JLabel lblNombreDeJoueurs = new JLabel();
 	JLabel lblKingdomino = new JLabel("KingDomino");
 	
-	GridBagLayout Layout = new GridBagLayout();
+	GridLayout Layout = new GridLayout();
 	
+	GridBagConstraints gbc_textField = new GridBagConstraints();
+	GridBagConstraints gbc_textField_1 = new GridBagConstraints();
+	GridBagConstraints gbc_textField_2 = new GridBagConstraints();
+	GridBagConstraints gbc_textField_3 = new GridBagConstraints();
+
+
 	public test() {
-		textField_3.setColumns(10);
-		textField_2.setColumns(10);
-		Layout.columnWidths = new int[]{0, 166, 0, 0, 0};
-		Layout.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, 0.0};
 
 		//BorderLayout.CENTER
 		this.setLayout(Layout);
@@ -57,6 +60,14 @@ public class test extends JPanel {
 		gbc_lblKingdomino.gridy = 0;
 		this.add(lblKingdomino, gbc_lblKingdomino);
 		
+		lblNombreDeJoueurs.setForeground(Color.WHITE);
+		lblNombreDeJoueurs.setBounds(153, 191, 250, 16);
+		GridBagConstraints gbc_lblNombreDeJoueurs = new GridBagConstraints();
+		gbc_lblNombreDeJoueurs.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNombreDeJoueurs.gridx = 2;
+		gbc_lblNombreDeJoueurs.gridy = 3;
+		this.add(lblNombreDeJoueurs, gbc_lblNombreDeJoueurs);
+		
 		DeuxJoueurs.setForeground(Color.WHITE);
 		DeuxJoueurs.setSelected(false);
 		DeuxJoueurs.setRequestFocusEnabled(false);
@@ -64,8 +75,8 @@ public class test extends JPanel {
 		DeuxJoueurs.setBounds(76, 126, 91, 23);
 		GridBagConstraints gbc_DeuxJoueurs = new GridBagConstraints();
 		gbc_DeuxJoueurs.insets = new Insets(0, 0, 5, 5);
-		gbc_DeuxJoueurs.gridx = 1;
-		gbc_DeuxJoueurs.gridy = 2;
+		gbc_DeuxJoueurs.gridx = 2;
+		gbc_DeuxJoueurs.gridy = 5;
 		this.add(DeuxJoueurs, gbc_DeuxJoueurs);
 		
 		
@@ -77,7 +88,7 @@ public class test extends JPanel {
 		GridBagConstraints gbc_TroisJoueurs = new GridBagConstraints();
 		gbc_TroisJoueurs.insets = new Insets(0, 0, 5, 5);
 		gbc_TroisJoueurs.gridx = 2;
-		gbc_TroisJoueurs.gridy = 2;
+		gbc_TroisJoueurs.gridy = 6;
 		this.add(TroisJoueurs, gbc_TroisJoueurs);
 		
 		QuatreJoueurs.setForeground(Color.WHITE);
@@ -87,70 +98,55 @@ public class test extends JPanel {
 		QuatreJoueurs.setBounds(282, 126, 91, 23);
 		GridBagConstraints gbc_QuatreJoueurs = new GridBagConstraints();
 		gbc_QuatreJoueurs.insets = new Insets(0, 0, 5, 5);
-		gbc_QuatreJoueurs.gridx = 3;
-		gbc_QuatreJoueurs.gridy = 2;
+		gbc_QuatreJoueurs.gridx = 2;
+		gbc_QuatreJoueurs.gridy = 7;
 		this.add(QuatreJoueurs, gbc_QuatreJoueurs);
-		
-		GridBagConstraints gbc_lblEntrezVosNoms = new GridBagConstraints();
-		gbc_lblEntrezVosNoms.insets = new Insets(0, 0, 5, 5);
-		gbc_lblEntrezVosNoms.anchor = GridBagConstraints.EAST;
-		gbc_lblEntrezVosNoms.gridx = 1;
-		gbc_lblEntrezVosNoms.gridy = 5;
-		add(lblEntrezVosNoms, gbc_lblEntrezVosNoms);
-		textField.setColumns(10);
-		
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 2;
-		gbc_textField.gridy = 5;
-		add(textField, gbc_textField);
-		
-		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-		gbc_textField_2.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_2.gridx = 3;
-		gbc_textField_2.gridy = 5;
-		add(textField_2, gbc_textField_2);
-		
-		lblNombreDeJoueurs.setForeground(Color.WHITE);
-		lblNombreDeJoueurs.setBounds(153, 191, 250, 16);
-		GridBagConstraints gbc_lblNombreDeJoueurs = new GridBagConstraints();
-		gbc_lblNombreDeJoueurs.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNombreDeJoueurs.gridx = 2;
-		gbc_lblNombreDeJoueurs.gridy = 6;
-		this.add(lblNombreDeJoueurs, gbc_lblNombreDeJoueurs);
-		
-		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
-		gbc_textField_3.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_3.gridx = 2;
-		gbc_textField_3.gridy = 7;
-		add(textField_3, gbc_textField_3);
-		textField_1.setColumns(10);
-		
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.gridx = 3;
-		gbc_textField_1.gridy = 7;
-		add(textField_1, gbc_textField_1);
 		
 		BoutonRegles.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		BoutonRegles.setBounds(312, 243, 132, 29);
 		GridBagConstraints gbc_BoutonRegles = new GridBagConstraints();
 		gbc_BoutonRegles.insets = new Insets(0, 0, 0, 5);
-		gbc_BoutonRegles.gridx = 2;
+		gbc_BoutonRegles.gridx = 1;
 		gbc_BoutonRegles.gridy = 9;
 		this.add(BoutonRegles, gbc_BoutonRegles);
 		BoutonRegles.addActionListener(ActionRegles);
 		
 		btnJouer.setBounds(50, 243, 117, 29);
 		GridBagConstraints gbc_btnJouer = new GridBagConstraints();
-		gbc_btnJouer.insets = new Insets(0, 0, 0, 5);
 		gbc_btnJouer.gridx = 3;
 		gbc_btnJouer.gridy = 9;
 		this.add(btnJouer, gbc_btnJouer);
+		
+		gbc_textField.insets = new Insets(0, 0, 5, 5);
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.gridx = 2;
+		gbc_textField.gridy = 5;
+		add(ChampJ1, gbc_textField);
+		ChampJ1.setColumns(10);
+
+		
+		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_1.gridx = 3;
+		gbc_textField_1.gridy = 7;
+		add(ChampJ2, gbc_textField_1);
+		ChampJ2.setColumns(10);
+
+		
+		gbc_textField_2.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_2.gridx = 3;
+		gbc_textField_2.gridy = 5;
+		add(ChampJ3, gbc_textField_2);
+		
+		gbc_textField_3.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_3.gridx = 2;
+		gbc_textField_3.gridy = 7;
+		add(ChampJ4, gbc_textField_3);
+		
+
+
 
 	}
 	
@@ -174,11 +170,6 @@ public class test extends JPanel {
 			pan.add(wewe);
 	   }
 	};
-	private final JTextField textField = new JTextField();
-	private final JTextField textField_1 = new JTextField();
-	private final JTextField textField_2 = new JTextField();
-	private final JTextField textField_3 = new JTextField();
-	private final JLabel lblEntrezVosNoms = new JLabel("Entrez vos noms");
 	
 
 	

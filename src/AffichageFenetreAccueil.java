@@ -12,7 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JToggleButton;
+import javax.swing.JTextField;
+import javax.swing.JToggleButton; 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
@@ -22,7 +23,10 @@ import java.awt.Insets;
 public class AffichageFenetreAccueil extends JPanel {
 	
 	
-	
+	JTextField ChampJ1 = new JTextField();
+	JTextField ChampJ2 = new JTextField();
+	JTextField ChampJ3 = new JTextField();
+	JTextField ChampJ4 = new JTextField();
 
 	JRadioButton DeuxJoueurs = new JRadioButton("2 joueurs");
 	JRadioButton TroisJoueurs = new JRadioButton("3 joueurs");
@@ -35,6 +39,12 @@ public class AffichageFenetreAccueil extends JPanel {
 	
 	GridBagLayout Layout = new GridBagLayout();
 	
+	GridBagConstraints gbc_textField = new GridBagConstraints();
+	GridBagConstraints gbc_textField_1 = new GridBagConstraints();
+	GridBagConstraints gbc_textField_2 = new GridBagConstraints();
+	GridBagConstraints gbc_textField_3 = new GridBagConstraints();
+
+
 	public AffichageFenetreAccueil() {
 
 		//BorderLayout.CENTER
@@ -54,7 +64,7 @@ public class AffichageFenetreAccueil extends JPanel {
 		GridBagConstraints gbc_lblNombreDeJoueurs = new GridBagConstraints();
 		gbc_lblNombreDeJoueurs.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNombreDeJoueurs.gridx = 2;
-		gbc_lblNombreDeJoueurs.gridy = 3;
+		gbc_lblNombreDeJoueurs.gridy = 4;
 		this.add(lblNombreDeJoueurs, gbc_lblNombreDeJoueurs);
 		
 		DeuxJoueurs.setForeground(Color.WHITE);
@@ -64,8 +74,8 @@ public class AffichageFenetreAccueil extends JPanel {
 		DeuxJoueurs.setBounds(76, 126, 91, 23);
 		GridBagConstraints gbc_DeuxJoueurs = new GridBagConstraints();
 		gbc_DeuxJoueurs.insets = new Insets(0, 0, 5, 5);
-		gbc_DeuxJoueurs.gridx = 2;
-		gbc_DeuxJoueurs.gridy = 5;
+		gbc_DeuxJoueurs.gridx = 1;
+		gbc_DeuxJoueurs.gridy = 6;
 		this.add(DeuxJoueurs, gbc_DeuxJoueurs);
 		
 		
@@ -76,8 +86,8 @@ public class AffichageFenetreAccueil extends JPanel {
 		TroisJoueurs.setBounds(179, 126, 91, 23);
 		GridBagConstraints gbc_TroisJoueurs = new GridBagConstraints();
 		gbc_TroisJoueurs.insets = new Insets(0, 0, 5, 5);
-		gbc_TroisJoueurs.gridx = 2;
-		gbc_TroisJoueurs.gridy = 6;
+		gbc_TroisJoueurs.gridx = 1;
+		gbc_TroisJoueurs.gridy = 7;
 		this.add(TroisJoueurs, gbc_TroisJoueurs);
 		
 		QuatreJoueurs.setForeground(Color.WHITE);
@@ -87,8 +97,8 @@ public class AffichageFenetreAccueil extends JPanel {
 		QuatreJoueurs.setBounds(282, 126, 91, 23);
 		GridBagConstraints gbc_QuatreJoueurs = new GridBagConstraints();
 		gbc_QuatreJoueurs.insets = new Insets(0, 0, 5, 5);
-		gbc_QuatreJoueurs.gridx = 2;
-		gbc_QuatreJoueurs.gridy = 7;
+		gbc_QuatreJoueurs.gridx = 1;
+		gbc_QuatreJoueurs.gridy = 8;
 		this.add(QuatreJoueurs, gbc_QuatreJoueurs);
 		
 		BoutonRegles.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -96,15 +106,46 @@ public class AffichageFenetreAccueil extends JPanel {
 		GridBagConstraints gbc_BoutonRegles = new GridBagConstraints();
 		gbc_BoutonRegles.insets = new Insets(0, 0, 0, 5);
 		gbc_BoutonRegles.gridx = 1;
-		gbc_BoutonRegles.gridy = 9;
+		gbc_BoutonRegles.gridy = 10;
 		this.add(BoutonRegles, gbc_BoutonRegles);
 		BoutonRegles.addActionListener(ActionRegles);
 		
 		btnJouer.setBounds(50, 243, 117, 29);
 		GridBagConstraints gbc_btnJouer = new GridBagConstraints();
 		gbc_btnJouer.gridx = 3;
-		gbc_btnJouer.gridy = 9;
+		gbc_btnJouer.gridy = 10;
 		this.add(btnJouer, gbc_btnJouer);
+		
+		gbc_textField.insets = new Insets(0, 0, 5, 5);
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.gridx = 2;
+		gbc_textField.gridy = 6;
+		add(ChampJ1, gbc_textField);
+		ChampJ1.setColumns(10);
+
+		
+		gbc_textField_1.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_1.gridx = 3;
+		gbc_textField_1.gridy = 8;
+		add(ChampJ2, gbc_textField_1);
+		ChampJ2.setColumns(10);
+
+		
+		gbc_textField_2.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_2.gridx = 3;
+		gbc_textField_2.gridy = 6;
+		add(ChampJ3, gbc_textField_2);
+		
+		gbc_textField_3.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_3.gridx = 2;
+		gbc_textField_3.gridy = 8;
+		add(ChampJ4, gbc_textField_3);
+		
+
+
 
 	}
 	

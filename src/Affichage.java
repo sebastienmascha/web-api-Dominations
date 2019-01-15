@@ -113,8 +113,8 @@ public class Affichage implements ActionListener {
 		PageAccueil.btnJouer.addActionListener((ActionListener) this);
 		PageJeu.btnPioche.addActionListener((ActionListener) this);
 		
-		PageAccueil.add(PageAccueil.ChampJ1);
-		PageAccueil.add(PageAccueil.ChampJ2);
+		//PageAccueil.add(PageAccueil.ChampJ1);
+		//PageAccueil.add(PageAccueil.ChampJ2);
 		PageAccueil.ChampJ1.addActionListener((ActionListener) this);
 		PageAccueil.ChampJ2.addActionListener((ActionListener) this);
 		PageAccueil.ChampJ3.addActionListener((ActionListener) this);
@@ -170,6 +170,7 @@ public class Affichage implements ActionListener {
 				nbjoueurs = 4;
 				break;
 			}
+			/*
 			if (nbjoueurs==3) {
 				PageAccueil.remove(PageAccueil.ChampJ4);
 				PageAccueil.add(PageAccueil.ChampJ3);
@@ -182,6 +183,7 @@ public class Affichage implements ActionListener {
 				PageAccueil.remove(PageAccueil.ChampJ4);
 				PageAccueil.remove(PageAccueil.ChampJ3);
 			}
+			*/
 			System.out.println(nbjoueurs);
 			lblNombreDeJoueurs.setText("Nombre de joueurs :" + nbjoueurs + ", veuillez choisir ...");
 		}
@@ -193,7 +195,39 @@ public class Affichage implements ActionListener {
 		if (source == PageAccueil.btnJouer) {
 
 			Principal.initialisation();
-
+			
+			PageAccueil.ChampJ1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String input = ((JTextComponent) e.getSource()).getText();
+					PageJeu.R=input; //Ouest
+					ordrejoueurs[0][0].setNomJoueur(input);
+				}
+			});
+			
+			PageAccueil.ChampJ2.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String input = ((JTextComponent) e.getSource()).getText();
+					PageJeu.B=input; //Nord
+					ordrejoueurs[0][0].setNomJoueur(input);
+				}
+			});
+			
+			PageAccueil.ChampJ3.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String input = ((JTextComponent) e.getSource()).getText();
+					PageJeu.Y=input; //Est
+					ordrejoueurs[0][0].setNomJoueur(input);
+				}
+			});
+			
+			PageAccueil.ChampJ4.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String input = ((JTextComponent) e.getSource()).getText();
+					PageJeu.V=input; //Sud
+					ordrejoueurs[0][0].setNomJoueur(input);
+				}
+			});
+			/*
 			for (int i = 0; i < nbrois; i++) {
 
 				// demande nom des joueurs
@@ -202,7 +236,7 @@ public class Affichage implements ActionListener {
 				String username = scanner.nextLine();
 				ordrejoueurs[i][0].setNomJoueur(username);
 
-			}
+			}*/
 
 			PlusieursPages.show(FenetreJeu.getContentPane(), listeIndice[1]);
 
@@ -319,16 +353,8 @@ public class Affichage implements ActionListener {
 
 					AffichageBoutonTuile afficheurBoutonTuile = new AffichageBoutonTuile();
 
-					afficheurBoutonTuile.display(dominostour[k][0],
-							/*
-							 * String.valueOf(dominostour[k][0].getnumdomi())+ " " +
-							 * String.valueOf(dominostour[k][0].getnumtuile()),
-							 */ jButton1);
-					afficheurBoutonTuile.display(dominostour[k][1],
-							/*
-							 * String.valueOf(dominostour[k][1].getnumdomi())+ " " +
-							 * String.valueOf(dominostour[k][1].getnumtuile()),
-							 */ jButton2);
+					afficheurBoutonTuile.display(dominostour[k][0], jButton1);
+					afficheurBoutonTuile.display(dominostour[k][1], jButton2);
 
 					jButton1.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -394,24 +420,21 @@ public class Affichage implements ActionListener {
 
 		}
 		
-		if (source==PageAccueil.ChampJ1) {
-			String input = ((JTextComponent) e.getSource()).getText();
-			PageJeu.a=input; 
-		}
+		/*
 		if (source==PageAccueil.ChampJ2) {
 			String input = ((JTextComponent) e.getSource()).getText();
-			PageJeu.a=input; 
+			PageJeu.B=input; //Nord 
 		}
 		if (source==PageAccueil.ChampJ3) {
 			String input = ((JTextComponent) e.getSource()).getText();
-			PageJeu.a=input; 
+			PageJeu.Y=input; //Est
 		}
 		if (source==PageAccueil.ChampJ4) {
 			String input = ((JTextComponent) e.getSource()).getText();
 			//PageJeu.EcranEst.Nom.setText(input); 
-			PageJeu.a=input; 
+			PageJeu.V=input;  //Sud
 
-		}
+		}/*/
 
 	}
 	
