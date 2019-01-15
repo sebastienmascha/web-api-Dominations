@@ -195,8 +195,8 @@ public class Regles {
 
 	// Calcul du score pour un terrain donné
 	public static int scorePlateau(Terrain terrain) {
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
+		for (int i = getLimiteRoyaume(terrain).get(0); i < getLimiteRoyaume(terrain).get(1); i++) {
+			for (int j = getLimiteRoyaume(terrain).get(2); j < getLimiteRoyaume(terrain).get(3); j++) {
 				if (terrain.terrain[i][j]!=null) {
 					scoreZone(i, j, terrain); // on compte 
 					ZonesTuiles = new ArrayList<Tuile>(); // on initialise la zone à liste vide
