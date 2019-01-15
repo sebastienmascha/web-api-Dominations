@@ -205,7 +205,7 @@ public class Affichage implements ActionListener {
 			PageJeu.EcranEst.Nom.setText(PageAccueil.R);
 			PageJeu.EcranSud.Nom.setText(PageAccueil.V);
 			
-			/*
+			
 			for (int i = 0; i < nbrois; i++) {
 
 				// demande nom des joueurs
