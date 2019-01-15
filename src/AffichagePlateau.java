@@ -83,22 +83,17 @@ public class AffichagePlateau extends Carre {
         
     }
     
-    public void lireTerrain(Tuile[][] terrain) {
-    	for (int i = 0; i <= terrain.length - 1; i++) {
-    		for (int j = 0; j <= terrain.length - 1; j++) {
-    			if (terrain[i][j]==null) {
-    				//if vide alors rien afficher sinon utiliser fonction changerboutton
-    			}
-    			else {
-    				changeBoutton(i,j,terrain[i][j].gettype(),terrain[i][j].getnbcouronne());
-    			}
-    			
-    		}
-    		
-    		
-    	}
-    	
-    }
+	  public void lireTerrain(Tuile[][] terrain) {
+	    	for (int i = 0; i <= terrain.length - 1; i++) {
+	    		for (int j = 0; j <= terrain.length - 1; j++) {
+	    			if (terrain[i][j]!=null) {
+	    				display(terrain[i][j], getBoutton(i,j) );
+	    			}
+	   
+	    		}
+	    			
+	    	}    	
+	    }
     
     public void setTerrain(Tuile[][] terrain) {
     	this.terrain=terrain;
@@ -116,7 +111,7 @@ public class AffichagePlateau extends Carre {
 	            public void actionPerformed(ActionEvent e) {
 	                //JButton gb = getBoutton(x, y);
 	                System.out.println("[" + x + "][" + y + "]"
-	                    + " enclenché sur le terrain " + ((JButton) e.getSource()).getParent());
+	                    + " enclenché sur le terrain " + ((JButton) e.getSource()).getParent().getParent());
 	                ((JButton) e.getSource()).setText("Cliqué !");
 	                Image newimg = IMG.getImage().getScaledInstance( ((JButton)e.getSource()).getWidth(), ((JButton)e.getSource()).getHeight(),  java.awt.Image.SCALE_SMOOTH ) ;
 	                ((JButton) e.getSource()).setIcon(new ImageIcon(newimg));
@@ -145,7 +140,13 @@ public class AffichagePlateau extends Carre {
 		this.posy=posy;
 	}
 	
-        
+	public void display(Tuile Tuile, JButton T) {
+
+		ImageIcon img = new ImageIcon(
+				this.getClass().getResource("/" + Tuile.gettype() + Tuile.getnbcouronne() + ".png"));
+		Image newimg = img.getImage().getScaledInstance(T.getWidth(), T.getHeight(), java.awt.Image.SCALE_SMOOTH);
+		T.setIcon(new ImageIcon(newimg));
+	}
 }
 
 class Carre extends JPanel {

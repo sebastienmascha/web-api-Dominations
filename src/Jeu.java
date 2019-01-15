@@ -357,7 +357,7 @@ public class Jeu {
 	}
 
 	// suppression des trous dans une liste apres avoir supprimer des dominos
-	private Tuile[][] reconstruirepioche(Tuile listetuiles[][]) {
+	public Tuile[][] reconstruirepioche(Tuile listetuiles[][]) {
 
 		Tuile[][] piochetemporaire = new Tuile[listetuiles.length][2];
 		int nombrededominosrestants = 0;

@@ -69,6 +69,7 @@ public class Affichage implements ActionListener {
 		DefinitionFenetre();
 		AjouterLesActionsListner();
 		DefinitionPageCarreQuiContientPageJeu();
+		InitialiselesChampdeTexte();
 
 	}
 
@@ -111,7 +112,7 @@ public class Affichage implements ActionListener {
 
 					Tuile tuile1 = dominostour[k][0];
 					Tuile tuile2 = dominostour[k][1];
-
+					
 					display(dominostour[k][0], jButton1);
 					display(dominostour[k][1], jButton2);
 
@@ -167,7 +168,6 @@ public class Affichage implements ActionListener {
 									setJoueurEnCours(ordrejoueurs[compteurjoueur][0]);
 
 									setChoixTuileTour(tuile1);
-
 									
 
 									if (joueurs[compteurjoueur][0].numjoueur == 0) {
@@ -274,7 +274,7 @@ public class Affichage implements ActionListener {
 
 		}
 	}
-	
+
 	private static void resizePreview(JPanel innerPanel, JPanel container) {
 		int w = container.getWidth();
 		int h = container.getHeight();
@@ -298,16 +298,16 @@ public class Affichage implements ActionListener {
 	public void setRoiTour(String clr, Tuile T,Tuile[][] dominostour) {
 		Color Couleur = Color.WHITE;
 		switch (clr) {
-		case "Vert":
+		case "GREEN":
 			Couleur = Color.GREEN;
 			break;
-		case "Bleu":
+		case "BLUE":
 			Couleur = Color.BLUE;
 			break;
-		case "Rouge":
+		case "RED":
 			Couleur = Color.RED;
 			break;
-		case "Jaune":
+		case "YELLOW":
 			Couleur = Color.YELLOW;
 			break;
 		}
@@ -336,7 +336,15 @@ public class Affichage implements ActionListener {
 		System.out.println("Num domi clique: " + this.numdomitour);
 
 	}
+	
+	public void display(Tuile Tuile, JButton T) {
 
+		ImageIcon img = new ImageIcon(
+				this.getClass().getResource("/" + Tuile.gettype() + Tuile.getnbcouronne() + ".png"));
+		Image newimg = img.getImage().getScaledInstance(T.getWidth(), T.getHeight(), java.awt.Image.SCALE_SMOOTH);
+		T.setIcon(new ImageIcon(newimg));
+	}
+	
 	public void setNumTuileTour(int num) {
 		this.numtuiletour = num;
 		System.out.println("Num tuile clique: " + this.numtuiletour);
@@ -388,26 +396,22 @@ public class Affichage implements ActionListener {
 		this.posy=posy;
 	}
 
-	public void display(Tuile Tuile, JButton T) {
 
-		ImageIcon img = new ImageIcon(
-				this.getClass().getResource("/" + Tuile.gettype() + Tuile.getnbcouronne() + ".png"));
-		Image newimg = img.getImage().getScaledInstance(T.getWidth(), T.getHeight(), java.awt.Image.SCALE_SMOOTH);
-		T.setIcon(new ImageIcon(newimg));
+	
+	public void InitialiselesChampdeTexte() {
+	PageAccueil.ChampJ1.setEnabled(false);
+	PageAccueil.ChampJ1.setVisible(false);
+	PageAccueil.ChampJ2.setEnabled(false);
+	PageAccueil.ChampJ2.setVisible(false);
+	PageAccueil.ChampJ3.setEnabled(false);
+	PageAccueil.ChampJ3.setVisible(false);
+	PageAccueil.ChampJ4.setEnabled(false);
+	PageAccueil.ChampJ4.setVisible(false);
 	}
 	
 	public void AfficherChampdeTexteAccueilSelonNbreJoueurs() {
-		if (nbjoueurs==0) {
-			PageAccueil.ChampJ1.setEnabled(false);
-			PageAccueil.ChampJ1.setVisible(false);
-			PageAccueil.ChampJ2.setEnabled(false);
-			PageAccueil.ChampJ2.setVisible(false);
-			PageAccueil.ChampJ3.setEnabled(false);
-			PageAccueil.ChampJ3.setVisible(false);
-			PageAccueil.ChampJ4.setEnabled(false);
-			PageAccueil.ChampJ4.setVisible(false);
-		}
-		else if (nbjoueurs==2) {
+		
+		if (nbjoueurs==2) {
 			PageAccueil.ChampJ1.setEnabled(true);
 			PageAccueil.ChampJ1.setVisible(true);
 			PageAccueil.ChampJ2.setEnabled(true);
@@ -585,20 +589,20 @@ public class Affichage implements ActionListener {
 	}
 
 	public void AffecteAOrdrejoueursETauxEcransleNomdeChaqueJoueur() {
-		ordrejoueurs[0][0].setNomJoueur(PageAccueil.J);
-		ordrejoueurs[1][0].setNomJoueur(PageAccueil.B);
+		ordrejoueurs[0][0].setNomJoueur(PageAccueil.R);
+		ordrejoueurs[1][0].setNomJoueur(PageAccueil.J);
 		if (nbjoueurs == 3) {
-			ordrejoueurs[2][0].setNomJoueur(PageAccueil.R);
+			ordrejoueurs[2][0].setNomJoueur(PageAccueil.V);
 		}
 		if (nbjoueurs == 4) {
-			ordrejoueurs[2][0].setNomJoueur(PageAccueil.R);
-			ordrejoueurs[3][0].setNomJoueur(PageAccueil.V);
+			ordrejoueurs[2][0].setNomJoueur(PageAccueil.V);
+			ordrejoueurs[3][0].setNomJoueur(PageAccueil.B);
 		}
 		
-		PageJeu.EcranOuest.Nom.setText(PageAccueil.J);
-		PageJeu.EcranNord.Nom.setText(PageAccueil.B);
-		PageJeu.EcranEst.Nom.setText(PageAccueil.R);
-		PageJeu.EcranSud.Nom.setText(PageAccueil.V);
+		PageJeu.EcranOuest.Nom.setText(PageAccueil.R);
+		PageJeu.EcranNord.Nom.setText(PageAccueil.J);
+		PageJeu.EcranEst.Nom.setText(PageAccueil.V);
+		PageJeu.EcranSud.Nom.setText(PageAccueil.B);
 	}
 
 	public void ChoixDuNombreDeJoueurs(Object source) {
