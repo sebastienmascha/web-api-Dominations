@@ -22,6 +22,10 @@ import java.awt.Insets;
 
 public class AffichageAccueil extends JPanel {
 	
+	String V ;
+	String B ;
+	String R ;
+	String J ;
 	
 	JTextField ChampJ1 = new JTextField();
 	JTextField ChampJ2 = new JTextField();
@@ -58,6 +62,8 @@ public class AffichageAccueil extends JPanel {
 		gbc_lblKingdomino.gridx = 2;
 		gbc_lblKingdomino.gridy = 0;
 		this.add(lblKingdomino, gbc_lblKingdomino);
+		
+
 		
 		lblNombreDeJoueurs.setForeground(Color.WHITE);
 		lblNombreDeJoueurs.setBounds(153, 191, 250, 16);
@@ -145,7 +151,41 @@ public class AffichageAccueil extends JPanel {
 		add(ChampJ4, gbc_textField_3);
 		
 
+		ChampJ1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent f) {
+				String input = ChampJ1.getText();
+				R=input; //Ouest
+				System.out.println(input);
 
+			}
+		});
+		
+		ChampJ2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent f) {
+				String input = ChampJ2.getText();
+				B=input; //Nord
+				System.out.println(input);
+
+			}
+		});
+		
+		ChampJ3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent f) {
+				String input = ChampJ3.getText();
+				J=input; //Est
+				System.out.println(input);
+				
+
+			}
+		});
+		
+		ChampJ4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent f) {
+				String input = ChampJ4.getText();
+				System.out.println(input);
+				V=input; //Sud
+			}
+		});
 
 	}
 	
@@ -163,7 +203,7 @@ public class AffichageAccueil extends JPanel {
 	   		FenetreRegles.getContentPane().add(pan);
 	   		pan.add(label);	 
 			JTextPane wewe = new JTextPane();
-			wewe.setText("\t\t\t\t SEB LE CHAT & TRISTAN EDOU DANS LA PLACE + \\n\\t   \\t\\t\\t\\t\\1. Quelle mamie fait peur aux voleurs ? + \n\t   \t\t\t\t\"Mamie Traillette \\\\n\\"
+			wewe.setText(" \\n\\t   \\t\\t\\t\\t\\1. Quelle mamie fait peur aux voleurs ? + \n\t   \t\t\t\t\"Mamie Traillette \\\\n\\"
 					+ "+ \n\t   \t\t\t\t\"2. J'ai une blague sur les magasins\\n\" + \n\t   \t\t\t\t\"Mais elle a pas supermarché\\n\" + \n\t   \t\t\t\t\"3. Pourquoi est-ce c'est difficile de conduire dans le Nord ?\\n\" + \n\t   \t\t\t\t\"Parce que les voitures arrêtent PAS DE CALER\\n\" + \n\t   \t\t\t\t\"\\n\" + \n\t   \t\t\t\t\"4. Comment est-ce que la chouette sait que son mari fait la gueule ?\\n\" + \n\t   \t\t\t\t\"\\n\" + \n\t   \t\t\t\t\"Parce qu’HIBOUDE\\n\" + \n\t   \t\t\t\t\"\\n\" + \n\t   \t\t\t\t\"5. Pourquoi est-ce qu'on dit que les bretons sont tous frères et sœurs ?\\n\" + \n\t   \t\t\t\t\"\\n\" + \n\t   \t\t\t\t\"Parce qu’ils n’ont Quimper\\n\" + \n\t   \t\t\t\t\"\\n\" + \n\t   \t\t\t\t\"6. Pourquoi est-ce qu'on met tous les crocos en prison ?\\n\" + \n\t   \t\t\t\t\"\\n\" + \n\t   \t\t\t\t\"Parce que les crocos dealent.\\n\" + \n\t   \t\t\t\t\"\\n\" + \n\t   \t\t\t\t\"7. Comment fait-on pour allumer un barbecue breton ?\\n\" + \n\t   \t\t\t\t\"\\n\" + \n\t   \t\t\t\t\"On utilise des breizh\\n\" + \n\t   \t\t\t\t\"\\n\" + \n\t   \t\t\t\t\"8. Pourquoi dit-on que les poissons travaillent illégalement ?\\n\" + \n\t   \t\t\t\t\"\\n\" + \n\t   \t\t\t\t\"Parce qu’ils n’ont pas de FISH de paie.\\n\" + \n\t   \t\t\t\t\"\\n\" + \n\t   \t\t\t\t\"9. Quel est le bar préféré des espagnols ?\\n\" + \n\t   \t\t\t\t\"\\n\" + \n\t   \t\t\t\t\"Le Bar-celone\\n\" + \n\t   \t\t\t\t\"\\n\" + \n\t   \t\t\t\t\"10. Pourquoi est-ce que les mexicains mangent-ils aux toilettes ?\\n\" + \n\t   \t\t\t\t\"\\n\" + \n\t   \t\t\t\t\"Parce qu’ils aiment manger épicé\"");
 			wewe.setBounds(429, 30, -376, 224);
 			pan.add(wewe);
