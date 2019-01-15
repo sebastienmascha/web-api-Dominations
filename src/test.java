@@ -47,6 +47,8 @@ public class test extends JPanel {
 
 
 	public test() {
+		Layout.setColumns(7);
+		Layout.setRows(7);
 
 		//BorderLayout.CENTER
 		this.setLayout(Layout);

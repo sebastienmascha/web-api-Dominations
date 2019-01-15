@@ -38,7 +38,7 @@ public class AffichageJeu extends JPanel {
 	
 	AffichagePanelDeJeu NordOuest = new AffichagePanelDeJeu();
 	AffichagePanelDeJeu2 NordEst = new AffichagePanelDeJeu2();
-	JPanel Centre = new JPanel();
+	JCentre Centre = new JCentre();
 	AffichagePanelDeJeu3 SudOuest = new AffichagePanelDeJeu3();
 	AffichagePanelDeJeu4 SudEst = new AffichagePanelDeJeu4();
 
@@ -62,6 +62,7 @@ public class AffichageJeu extends JPanel {
 			this.add(EcranEst);
 			
 			this.add(Centre);
+			Centre.setBackground(Color.red);
 			Centre.setLayout(new GridLayout(6, 6, 0, 0));
 				
 			this.add(EcranOuest);
@@ -141,6 +142,23 @@ class AffichagePanelDeJeu4 extends JPanel {
 		    //x1, y1, width, height, arcWidth, arcHeight
 		    try {
 		        Image img = ImageIO.read(this.getClass().getResource("--SE.jpg"));
+		        //g.drawImage(img, 0, 0, this);
+		        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+		      } catch (IOException e) {
+		        e.printStackTrace();
+		      }
+		  }          
+}
+
+class JCentre extends JPanel {	
+
+	public JCentre() {
+	
+	}
+	public void paintComponent(Graphics g){
+		    //x1, y1, width, height, arcWidth, arcHeight
+		    try {
+		        Image img = ImageIO.read(this.getClass().getResource("Wallpaper.jpg"));
 		        //g.drawImage(img, 0, 0, this);
 		        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 		      } catch (IOException e) {

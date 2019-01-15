@@ -6,34 +6,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.imageio.ImageIO;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSeparator;
-import javax.swing.JTextField;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.text.JTextComponent;
 
 public class Affichage implements ActionListener {
-
-	Icon imgIcon = new ImageIcon(this.getClass().getResource("/giphy.gif"));
-	Icon ImgIcon = new ImageIcon(this.getClass().getResource("/Giph.gif"));
 
 	// vers Jeu
 	int numdomitour = 0;
@@ -50,274 +40,62 @@ public class Affichage implements ActionListener {
 	public Joueur[][] joueurs = new Joueur[4][2];
 	boolean bonchoix;
 	
-
+	//Instanciation de Compteurs
 	int compteurpioche = 0;
 	public int compteurjoueur = 0;
 	public int compteurclictuile = 0;
+	
 
-	String NombreDeJoueursString = String.valueOf(nbjoueurs);
-	JLabel lblNombreDeJoueurs = new JLabel("Nombre de joueurs :" + nbjoueurs + ", veuillez choisir ...");
-
+	//Instanciation de la fenêtre et de ses pages
 	JFrame FenetreJeu = new JFrame("Projet Kingdomino");
-	Cote Panel = new Cote();
-
-	AffichageJeu PageJeu = new AffichageJeu();
-	AffichageAccueil PageAccueil = new AffichageAccueil();
-
-	JPanel pane = new JPanel();
-	JPanel pan = new JPanel();
-
-	JPanel pa = new JPanel();
 	CardLayout PlusieursPages = new CardLayout(0, 0);
-	GridBagLayout recadrage = new GridBagLayout();
 	String[] listeIndice = { "Accueil", "Principal" };
+		AffichageAccueil PageAccueil = new AffichageAccueil();
+		Cote Panel = new Cote();
+			GridBagLayout recadrage = new GridBagLayout();
+			AffichageJeu PageJeu = new AffichageJeu();
+			
 
-	JComboBox<String> SelectionDefilante = new JComboBox<String>();
-	int ValeurSelection = 0;
-
-	public Tuile[][] dominostour = new Tuile[4][2];
-
+	//Instanciation de listes de boutons. Pour pouvoir modifier les boutons du jeu
 	public ArrayList<JButton> ListTour1 = new ArrayList<>();
 	public ArrayList<JButton> ListTour2 = new ArrayList<>();
 	public ArrayList<JButton> List1BoutonRoi = new ArrayList<>();
 	public ArrayList<JButton> List2BoutonRoi = new ArrayList<>();
-
-	private final JSeparator separator = new JSeparator();
-	private final JSeparator separator1 = new JSeparator();
-	private final JSeparator separator2 = new JSeparator();
-	private final JSeparator separator3 = new JSeparator();
-	private final JSeparator separator4 = new JSeparator();
-	private final JSeparator separator5 = new JSeparator();
+	
+	public Tuile[][] dominostour = new Tuile[4][2];
 
 	public Affichage() {
 
-		FenetreJeu.setIconImage(new ImageIcon(this.getClass().getResource("/chateau.png")).getImage());
-		FenetreJeu.setBounds(0, 0, 1440, 900);
-		FenetreJeu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		FenetreJeu.getContentPane().setLayout(PlusieursPages);
+		DefinitionFenetre();
+		AjouterLesActionsListner();
+		DefinitionPageCarreQuiContientPageJeu();
 
-		FenetreJeu.getContentPane().add(PageAccueil, listeIndice[0]);
-		FenetreJeu.getContentPane().add(Panel, listeIndice[1]);
-
-		SelectionDefilante.setModel(new DefaultComboBoxModel<String>(
-				new String[] { "Choissisez votre Terrain...", "Terrain 1", "Terrain 2", "Terrain 3", "Terrain 4" }));
-		PageJeu.SudOuest.add(SelectionDefilante);
-
-		Panel.setLayout(recadrage);
-		Panel.add(PageJeu);
-		Panel.addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentResized(ComponentEvent e) {
-				resizePreview(PageJeu, Panel);
-			}
-		});
-
-		PageAccueil.QuatreJoueurs.addActionListener((ActionListener) this);
-		PageAccueil.DeuxJoueurs.addActionListener((ActionListener) this);
-		PageAccueil.TroisJoueurs.addActionListener((ActionListener) this);
-		PageJeu.btnRetournerAuMenu.addActionListener((ActionListener) this);
-		PageAccueil.btnJouer.addActionListener((ActionListener) this);
-		PageJeu.btnPioche.addActionListener((ActionListener) this);
-		
-		//PageAccueil.add(PageAccueil.ChampJ1);
-		//PageAccueil.add(PageAccueil.ChampJ2);
-		//PageAccueil.ChampJ1.addActionListener((ActionListener) this);
-		//PageAccueil.ChampJ2.addActionListener((ActionListener) this);
-		//ageAccueil.ChampJ3.addActionListener((ActionListener) this);
-		//PageAccueil.ChampJ4.addActionListener((ActionListener) this);	
 	}
-
-	private static void resizePreview(JPanel innerPanel, JPanel container) {
-		int w = container.getWidth();
-		int h = container.getHeight();
-		int size = Math.min(w, h);
-		innerPanel.setPreferredSize(new Dimension(size, size));
-		container.revalidate();
-	}
-
-	public int getnbjoueurs() {
-		return nbjoueurs;
-	}
-
-	public void setDominosTour(Tuile[][] dominostour) {
-		this.dominostour = dominostour;
-	}
-
-	public void setnbrois(int n) {
-		this.nbrois = n;
-	}
-
-	public ActionListener AjoutDominoTerrain = new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			Object source = e.getSource();
-
-		}
-	};
 
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 
-		if (source == PageAccueil.QuatreJoueurs || source == PageAccueil.TroisJoueurs
-				|| source == PageAccueil.DeuxJoueurs) {
-			PageAccueil.lblNombreDeJoueurs.setText("Vous êtes " + ((JRadioButton) source).getText());
-			PageAccueil.DeuxJoueurs.setSelected(false);
-			PageAccueil.TroisJoueurs.setSelected(false);
-			PageAccueil.QuatreJoueurs.setSelected(false);
-			((JRadioButton) source).setSelected(true);
-
-			switch (((JRadioButton) source).getText()) {
-			case "2 joueurs":
-				nbjoueurs = 2;
-				break;
-			case "3 joueurs":
-				nbjoueurs = 3;
-				break;
-			case "4 joueurs":
-				nbjoueurs = 4;
-				break;
-			}
-			PageJeu.lblNbreJoueurs.setText("Partie à " + ((JRadioButton) source).getText());
-			/*
-			 * if (nbjoueurs==3) { PageAccueil.remove(PageAccueil.ChampJ4);
-			 * PageAccueil.add(PageAccueil.ChampJ3); } else if (nbjoueurs==4) {
-			 * PageAccueil.add(PageAccueil.ChampJ3); PageAccueil.add(PageAccueil.ChampJ4); }
-			 * else { PageAccueil.remove(PageAccueil.ChampJ4);
-			 * PageAccueil.remove(PageAccueil.ChampJ3); }
-			 */
-			System.out.println(nbjoueurs);
-			lblNombreDeJoueurs.setText("Nombre de joueurs :" + nbjoueurs + ", veuillez choisir ...");
+		if (source == PageAccueil.QuatreJoueurs || source == PageAccueil.TroisJoueurs || source == PageAccueil.DeuxJoueurs) {
+			ChoixDuNombreDeJoueurs(source);
+			DefinitNbreJoueursEnFonctionDuChoix(source);
+			PageAccueil.lblNombreDeJoueurs.setText("Vous êtes " + ((JRadioButton) source).getText()); //Affiche en texte le nombre de joueurs sur l'accueil
+			PageJeu.lblNbreJoueurs.setText("Partie à " + ((JRadioButton) source).getText()); //Affiche en texte le nombre de joueurs sur le jeu principal
+			System.out.println("Il y a " + nbjoueurs +" joueurs !"); //Affiche en texte le nombre de joueurs sur la console
+			AfficherChampdeTexteAccueilSelonNbreJoueurs();
 		}
+		
 
 		if (source == PageJeu.btnRetournerAuMenu) {
 			PlusieursPages.show(FenetreJeu.getContentPane(), listeIndice[0]);
 		}
 
 		if (source == PageAccueil.btnJouer) {
-
-			Principal.initialisation();
-			
-			ordrejoueurs[0][0].setNomJoueur(PageAccueil.J);
-			ordrejoueurs[1][0].setNomJoueur(PageAccueil.B);
-			ordrejoueurs[2][0].setNomJoueur(PageAccueil.R);
-			ordrejoueurs[3][0].setNomJoueur(PageAccueil.V);
-			PageJeu.EcranOuest.Nom.setText(PageAccueil.J);
-			PageJeu.EcranNord.Nom.setText(PageAccueil.B);
-			PageJeu.EcranEst.Nom.setText(PageAccueil.R);
-			PageJeu.EcranSud.Nom.setText(PageAccueil.V);
-			
-			
-			for (int i = 0; i < nbrois; i++) {
-
-				// demande nom des joueurs
-				System.out.println("Entrez le nom du joueur: ");
-				Scanner scanner = new Scanner(System.in);
-				String username = scanner.nextLine();
-				ordrejoueurs[i][0].setNomJoueur(username);
-
-			}
-
 			PlusieursPages.show(FenetreJeu.getContentPane(), listeIndice[1]);
-
-			ImageIcon ChateauIcone = new ImageIcon(this.getClass().getResource("/chateau.png"));
-			Image ChateauIconeResize = ChateauIcone.getImage().getScaledInstance(PageJeu.EcranSud.BtnChateau.getWidth(),
-					PageJeu.EcranSud.BtnChateau.getHeight(), java.awt.Image.SCALE_SMOOTH);
-			PageJeu.EcranOuest.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
-			PageJeu.EcranNord.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
-			PageJeu.EcranEst.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
-			PageJeu.EcranSud.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
-
-			for (int i = 0; i < 6; i++) {
-				PageJeu.Centre.add(new JLabel());
-			}
-
-			for (int i = 0; i < nbrois; i++) {
-				PanelRoi R = new PanelRoi();
-				JButton NouvelleTuile1 = new JButton();
-				JButton NouvelleTuile2 = new JButton();
-
-				PageJeu.Centre.add(R);
-				PageJeu.Centre.add(NouvelleTuile1);
-				PageJeu.Centre.add(NouvelleTuile2);
-
-				ListTour1.add(NouvelleTuile1);
-				ListTour1.add(NouvelleTuile2);
-				List1BoutonRoi.add(R.Roibtn);
-			}
-
-			separator.setBackground(new Color(102, 0, 51));
-			separator1.setBackground(new Color(102, 0, 51));
-			separator2.setBackground(new Color(102, 0, 51));
-			separator3.setBackground(new Color(102, 0, 51));
-			separator4.setBackground(new Color(102, 0, 51));
-			separator5.setBackground(new Color(102, 0, 51));
-
-			if (nbrois == 3) {
-				for (int i = 0; i < 3; i++) {
-					PageJeu.Centre.add(new JLabel());
-				}
-				PageJeu.Centre.add(separator);
-				PageJeu.Centre.add(separator1);
-				PageJeu.Centre.add(separator2);
-				PageJeu.Centre.add(separator3);
-				PageJeu.Centre.add(separator4);
-				for (int j = 0; j < 21 - (6 * nbrois); j++) {
-					PageJeu.Centre.add(new JLabel());
-				}
-			} else {
-				PageJeu.Centre.add(separator);
-				PageJeu.Centre.add(separator1);
-				PageJeu.Centre.add(separator2);
-				PageJeu.Centre.add(separator3);
-				PageJeu.Centre.add(separator4);
-				PageJeu.Centre.add(separator5);
-				for (int i = 0; i < 24 - (6 * nbrois); i++) {
-					PageJeu.Centre.add(new JLabel());
-				}
-			}
-
-			for (int i = 0; i < nbrois; i++) {
-				PanelRoi R = new PanelRoi();
-				JButton NouvelleTuile1 = new JButton();
-				JButton NouvelleTuile2 = new JButton();
-
-				PageJeu.Centre.add(R);
-				PageJeu.Centre.add(NouvelleTuile1);
-				PageJeu.Centre.add(NouvelleTuile2);
-
-				ListTour2.add(NouvelleTuile1);
-				ListTour2.add(NouvelleTuile2);
-				List2BoutonRoi.add(R.Roibtn);
-			}
-
-			switch (String.valueOf(nbjoueurs)) {
-			case "2":
-				PageJeu.EcranSud.setBackground(new Color(0, 0, 0, 64));
-				PageJeu.EcranSud.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true),
-						new LineBorder(new Color(0, 0, 0, 64), 4, true)));
-				PageJeu.EcranSud.Nom.setBackground(new Color(0, 0, 0, 64));
-				PageJeu.EcranSud.PlanCentral.setBackground(new Color(0, 0, 0, 64));
-				PageJeu.EcranSud.removeAll();
-				JLabel label1 = new JLabel(ImgIcon);
-				PageJeu.EcranSud.add(label1);
-				PageJeu.EcranEst.setBackground(new Color(0,0,0,64));
-				PageJeu.EcranEst.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true), new LineBorder(new Color(0,0,0,64), 4, true)));
-				PageJeu.EcranEst.Nom.setBackground(new Color(0,0,0,64));
-				PageJeu.EcranEst.PlanCentral.setBackground(new Color(0,0,0,64));
-				PageJeu.EcranEst.removeAll();
-				JLabel label = new JLabel(imgIcon);
-				PageJeu.EcranEst.add(label);
-				break;
-			case "3" :
-				PageJeu.EcranSud.setBackground(new Color(0,0,0,64));
-				PageJeu.EcranSud.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true), new LineBorder(new Color(0,0,0,64), 4, true)));
-				PageJeu.EcranSud.Nom.setBackground(new Color(0,0,0,64));
-				PageJeu.EcranSud.PlanCentral.setBackground(new Color(0,0,0,64));
-				PageJeu.EcranSud.removeAll();
-				JLabel label2 = new JLabel(imgIcon);
-				PageJeu.EcranSud.add(label2);
-				break;
-			}
-
+			Principal.initialisation();
+			AffecteAOrdrejoueursETauxEcransleNomdeChaqueJoueur();
+			CreerPanelCentral_ET_ImplementerListesDeBoutons ();
+			DefinirChateauPourTousEcran();
+			DefinirNombreEcrans ();
 		}
 
 		if (source == PageJeu.btnPioche) {
@@ -495,19 +273,26 @@ public class Affichage implements ActionListener {
 			}
 
 		}
+	}
+	
+	private static void resizePreview(JPanel innerPanel, JPanel container) {
+		int w = container.getWidth();
+		int h = container.getHeight();
+		int size = Math.min(w, h);
+		innerPanel.setPreferredSize(new Dimension(size, size));
+		container.revalidate();
+	}
 
-		/*
-		 * if (source==PageAccueil.ChampJ2) { String input = ((JTextComponent)
-		 * e.getSource()).getText(); PageJeu.B=input; //Nord } if
-		 * (source==PageAccueil.ChampJ3) { String input = ((JTextComponent)
-		 * e.getSource()).getText(); PageJeu.Y=input; //Est } if
-		 * (source==PageAccueil.ChampJ4) { String input = ((JTextComponent)
-		 * e.getSource()).getText(); //PageJeu.EcranEst.Nom.setText(input);
-		 * PageJeu.V=input; //Sud
-		 * 
-		 * }/
-		 */
+	public int getnbjoueurs() {
+		return nbjoueurs;
+	}
 
+	public void setDominosTour(Tuile[][] dominostour) {
+		this.dominostour = dominostour;
+	}
+
+	public void setnbrois(int n) {
+		this.nbrois = n;
 	}
 
 	public void setRoiTour(String clr, Tuile T,Tuile[][] dominostour) {
@@ -610,8 +395,234 @@ public class Affichage implements ActionListener {
 		Image newimg = img.getImage().getScaledInstance(T.getWidth(), T.getHeight(), java.awt.Image.SCALE_SMOOTH);
 		T.setIcon(new ImageIcon(newimg));
 	}
-}
+	
+	public void AfficherChampdeTexteAccueilSelonNbreJoueurs() {
+		if (nbjoueurs==0) {
+			PageAccueil.ChampJ1.setEnabled(false);
+			PageAccueil.ChampJ1.setVisible(false);
+			PageAccueil.ChampJ2.setEnabled(false);
+			PageAccueil.ChampJ2.setVisible(false);
+			PageAccueil.ChampJ3.setEnabled(false);
+			PageAccueil.ChampJ3.setVisible(false);
+			PageAccueil.ChampJ4.setEnabled(false);
+			PageAccueil.ChampJ4.setVisible(false);
+		}
+		else if (nbjoueurs==2) {
+			PageAccueil.ChampJ1.setEnabled(true);
+			PageAccueil.ChampJ1.setVisible(true);
+			PageAccueil.ChampJ2.setEnabled(true);
+			PageAccueil.ChampJ2.setVisible(true);
+			PageAccueil.ChampJ3.setEnabled(false);
+			PageAccueil.ChampJ3.setVisible(false);
+			PageAccueil.ChampJ4.setEnabled(false);
+			PageAccueil.ChampJ4.setVisible(false);
+		}
+		else if (nbjoueurs==3) { 
+			PageAccueil.ChampJ1.setEnabled(true);
+			PageAccueil.ChampJ1.setVisible(true);
+			PageAccueil.ChampJ2.setEnabled(true);
+			PageAccueil.ChampJ2.setVisible(true);
+			PageAccueil.ChampJ3.setEnabled(true);
+			PageAccueil.ChampJ3.setVisible(true);
+			PageAccueil.ChampJ4.setEnabled(false);
+			PageAccueil.ChampJ4.setVisible(false);
+		}
+		else if (nbjoueurs==4) {
+			PageAccueil.ChampJ1.setEnabled(true);
+			PageAccueil.ChampJ1.setVisible(true);
+			PageAccueil.ChampJ2.setEnabled(true);
+			PageAccueil.ChampJ2.setVisible(true);
+			PageAccueil.ChampJ3.setEnabled(true);
+			PageAccueil.ChampJ3.setVisible(true);
+			PageAccueil.ChampJ4.setEnabled(true);
+			PageAccueil.ChampJ4.setVisible(true);
+		}
+	}
 
+	public void AjouterLesActionsListner() {
+		PageAccueil.QuatreJoueurs.addActionListener((ActionListener) this);
+		PageAccueil.DeuxJoueurs.addActionListener((ActionListener) this);
+		PageAccueil.TroisJoueurs.addActionListener((ActionListener) this);
+		PageJeu.btnRetournerAuMenu.addActionListener((ActionListener) this);
+		PageAccueil.btnJouer.addActionListener((ActionListener) this);
+		PageJeu.btnPioche.addActionListener((ActionListener) this);
+	}
+
+	public void CreerPanelCentral_ET_ImplementerListesDeBoutons () {
+		JSeparator separator = new JSeparator();
+		JSeparator separator1 = new JSeparator();
+		JSeparator separator2 = new JSeparator();
+		JSeparator separator3 = new JSeparator();
+		JSeparator separator4 = new JSeparator();
+		JSeparator separator5 = new JSeparator();
+		
+		for (int i = 0; i < 6; i++) {
+			JLabel ligneduhaut = new JLabel();
+			PageJeu.Centre.add(ligneduhaut);		
+		}
+
+		for (int i = 0; i < nbrois; i++) {
+			PanelRoi R = new PanelRoi();
+			JButton NouvelleTuile1 = new JButton();
+			JButton NouvelleTuile2 = new JButton();
+
+			PageJeu.Centre.add(R);
+			PageJeu.Centre.add(NouvelleTuile1);
+			PageJeu.Centre.add(NouvelleTuile2);
+
+			ListTour1.add(NouvelleTuile1);
+			ListTour1.add(NouvelleTuile2);
+			List1BoutonRoi.add(R.Roibtn);
+		}
+
+		separator.setBackground(new Color(102, 0, 51));
+		separator1.setBackground(new Color(102, 0, 51));
+		separator2.setBackground(new Color(102, 0, 51));
+		separator3.setBackground(new Color(102, 0, 51));
+		separator4.setBackground(new Color(102, 0, 51));
+		separator5.setBackground(new Color(102, 0, 51));
+
+		if (nbrois == 3) {
+			for (int i = 0; i < 3; i++) {
+				PageJeu.Centre.add(new JLabel());
+			}
+			PageJeu.Centre.add(separator);
+			PageJeu.Centre.add(separator1);
+			PageJeu.Centre.add(separator2);
+			PageJeu.Centre.add(separator3);
+			PageJeu.Centre.add(separator4);
+			for (int j = 0; j < 21 - (6 * nbrois); j++) {
+				PageJeu.Centre.add(new JLabel());
+			}
+		} else {
+			PageJeu.Centre.add(separator);
+			PageJeu.Centre.add(separator1);
+			PageJeu.Centre.add(separator2);
+			PageJeu.Centre.add(separator3);
+			PageJeu.Centre.add(separator4);
+			PageJeu.Centre.add(separator5);
+			for (int i = 0; i < 24 - (6 * nbrois); i++) {
+				PageJeu.Centre.add(new JLabel());
+			}
+		}
+
+		for (int i = 0; i < nbrois; i++) {
+			PanelRoi R = new PanelRoi();
+			JButton NouvelleTuile1 = new JButton();
+			JButton NouvelleTuile2 = new JButton();
+
+			PageJeu.Centre.add(R);
+			PageJeu.Centre.add(NouvelleTuile1);
+			PageJeu.Centre.add(NouvelleTuile2);
+
+			ListTour2.add(NouvelleTuile1);
+			ListTour2.add(NouvelleTuile2);
+			List2BoutonRoi.add(R.Roibtn);
+		}
+	}
+
+	public void DefinirNombreEcrans () {
+		Icon drole = new ImageIcon(this.getClass().getResource("/giphy.gif"));
+		Icon ImgIcon = new ImageIcon(this.getClass().getResource("/Giph.gif"));
+		
+		switch (String.valueOf(nbjoueurs)) {
+		case "2":
+			PageJeu.EcranSud.setBackground(new Color(0, 0, 0, 64));
+			PageJeu.EcranSud.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true),
+					new LineBorder(new Color(0, 0, 0, 64), 4, true)));
+			PageJeu.EcranSud.Nom.setBackground(new Color(0, 0, 0, 64));
+			PageJeu.EcranSud.PlanCentral.setBackground(new Color(0, 0, 0, 64));
+			PageJeu.EcranSud.removeAll();
+			JLabel label1 = new JLabel(ImgIcon);
+			PageJeu.EcranSud.add(label1);
+			PageJeu.EcranOuest.setBackground(new Color(0,0,0,64));
+			PageJeu.EcranOuest.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true), new LineBorder(new Color(0,0,0,64), 4, true)));
+			PageJeu.EcranOuest.Nom.setBackground(new Color(0,0,0,64));
+			PageJeu.EcranOuest.PlanCentral.setBackground(new Color(0,0,0,64));
+			PageJeu.EcranOuest.removeAll();
+			JLabel label = new JLabel(drole);
+			PageJeu.EcranOuest.add(label);
+			break;
+		case "3" :
+			PageJeu.EcranSud.setBackground(new Color(0,0,0,64));
+			PageJeu.EcranSud.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true), new LineBorder(new Color(0,0,0,64), 4, true)));
+			PageJeu.EcranSud.Nom.setBackground(new Color(0,0,0,64));
+			PageJeu.EcranSud.PlanCentral.setBackground(new Color(0,0,0,64));
+			PageJeu.EcranSud.removeAll();
+			JLabel label2 = new JLabel(drole);
+			PageJeu.EcranSud.add(label2);
+			break;
+		}
+	}
+	
+	public void DefinirChateauPourTousEcran() {
+		ImageIcon ChateauIcone = new ImageIcon(this.getClass().getResource("/chateau.png"));
+		Image ChateauIconeResize = ChateauIcone.getImage().getScaledInstance(PageJeu.EcranEst.BtnChateau.getWidth(), PageJeu.EcranEst.BtnChateau.getHeight(), java.awt.Image.SCALE_SMOOTH);
+		PageJeu.EcranOuest.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
+		PageJeu.EcranNord.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
+		PageJeu.EcranEst.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
+		PageJeu.EcranSud.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
+	}
+
+	public void DefinitionFenetre () {
+		FenetreJeu.setIconImage(new ImageIcon(this.getClass().getResource("/chateau.png")).getImage());
+		FenetreJeu.setBounds(0, 0, 1440, 900);
+		FenetreJeu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		FenetreJeu.getContentPane().setLayout(PlusieursPages);
+		FenetreJeu.getContentPane().add(PageAccueil, listeIndice[0]);
+		FenetreJeu.getContentPane().add(Panel, listeIndice[1]);
+	}
+
+	public void DefinitionPageCarreQuiContientPageJeu () {
+		Panel.setLayout(recadrage);
+		Panel.add(PageJeu);
+		Panel.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				resizePreview(PageJeu, Panel);
+			}
+		});
+	}
+
+	public void AffecteAOrdrejoueursETauxEcransleNomdeChaqueJoueur() {
+		ordrejoueurs[0][0].setNomJoueur(PageAccueil.J);
+		ordrejoueurs[1][0].setNomJoueur(PageAccueil.B);
+		if (nbjoueurs == 3) {
+			ordrejoueurs[2][0].setNomJoueur(PageAccueil.R);
+		}
+		if (nbjoueurs == 4) {
+			ordrejoueurs[2][0].setNomJoueur(PageAccueil.R);
+			ordrejoueurs[3][0].setNomJoueur(PageAccueil.V);
+		}
+		
+		PageJeu.EcranOuest.Nom.setText(PageAccueil.J);
+		PageJeu.EcranNord.Nom.setText(PageAccueil.B);
+		PageJeu.EcranEst.Nom.setText(PageAccueil.R);
+		PageJeu.EcranSud.Nom.setText(PageAccueil.V);
+	}
+
+	public void ChoixDuNombreDeJoueurs(Object source) {
+		PageAccueil.DeuxJoueurs.setSelected(false);
+		PageAccueil.TroisJoueurs.setSelected(false);
+		PageAccueil.QuatreJoueurs.setSelected(false);
+		((JRadioButton) source).setSelected(true);
+	}
+
+	public void DefinitNbreJoueursEnFonctionDuChoix(Object source) {
+		switch (((JRadioButton) source).getText()) {
+		case "2 joueurs":
+			nbjoueurs = 2;
+			break;
+		case "3 joueurs":
+			nbjoueurs = 3;
+			break;
+		case "4 joueurs":
+			nbjoueurs = 4;
+			break;
+		}
+	}
+}
+	
 class Cote extends JPanel {
 	public Cote() {
 	}
@@ -626,7 +637,6 @@ class Cote extends JPanel {
 			e.printStackTrace();
 		}
 	}
-
 }
 
 class PanelRoi extends JPanel {
@@ -641,6 +651,7 @@ class PanelRoi extends JPanel {
 	JButton Roibtn = new JButton();
 
 	public PanelRoi() {
+		this.setOpaque(false);
 		setLayout(new GridLayout(3, 3, 0, 0));
 		this.add(lblNewLabel1);
 		this.add(lblNewLabel2);

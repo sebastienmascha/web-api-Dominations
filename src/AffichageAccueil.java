@@ -19,6 +19,11 @@ import javax.swing.JButton;
 import javax.swing.JTextPane;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.SystemColor;
+import javax.swing.UIManager;
+import javax.swing.SwingConstants;
 
 public class AffichageAccueil extends JPanel {
 	
@@ -51,9 +56,8 @@ public class AffichageAccueil extends JPanel {
 
 	public AffichageAccueil() {
 
-		//BorderLayout.CENTER
 		this.setLayout(Layout);
-		
+		this.setFocusable(true);
 		lblKingdomino.setForeground(Color.WHITE);
 		lblKingdomino.setFont(new Font("Comic Sans MS", Font.ITALIC, 20));
 		lblKingdomino.setBounds(179, 16, 114, 32);
@@ -72,6 +76,7 @@ public class AffichageAccueil extends JPanel {
 		gbc_lblNombreDeJoueurs.gridx = 2;
 		gbc_lblNombreDeJoueurs.gridy = 4;
 		this.add(lblNombreDeJoueurs, gbc_lblNombreDeJoueurs);
+		DeuxJoueurs.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 		
 		DeuxJoueurs.setForeground(Color.WHITE);
 		DeuxJoueurs.setSelected(false);
@@ -83,6 +88,7 @@ public class AffichageAccueil extends JPanel {
 		gbc_DeuxJoueurs.gridx = 1;
 		gbc_DeuxJoueurs.gridy = 6;
 		this.add(DeuxJoueurs, gbc_DeuxJoueurs);
+		TroisJoueurs.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 		
 		
 		TroisJoueurs.setForeground(Color.WHITE);
@@ -95,6 +101,7 @@ public class AffichageAccueil extends JPanel {
 		gbc_TroisJoueurs.gridx = 1;
 		gbc_TroisJoueurs.gridy = 7;
 		this.add(TroisJoueurs, gbc_TroisJoueurs);
+		QuatreJoueurs.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 		
 		QuatreJoueurs.setForeground(Color.WHITE);
 		QuatreJoueurs.setSelected(false);
@@ -126,6 +133,11 @@ public class AffichageAccueil extends JPanel {
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 2;
 		gbc_textField.gridy = 6;
+		ChampJ1.setHorizontalAlignment(SwingConstants.CENTER);
+		ChampJ1.setText("Joueur 1");
+		ChampJ1.setFont(new Font("Tahoma", Font.ITALIC, 16));
+		ChampJ1.setBackground(SystemColor.inactiveCaptionText);
+		ChampJ1.setForeground(Color.WHITE);
 		add(ChampJ1, gbc_textField);
 		ChampJ1.setColumns(10);
 
@@ -134,25 +146,112 @@ public class AffichageAccueil extends JPanel {
 		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField_1.gridx = 3;
 		gbc_textField_1.gridy = 8;
+		ChampJ2.setHorizontalAlignment(SwingConstants.CENTER);
+		ChampJ2.setText("Joueur 2");
+		ChampJ2.setFont(new Font("Tahoma", Font.ITALIC, 16));
+		ChampJ2.setBackground(SystemColor.inactiveCaptionText);
+		ChampJ2.setForeground(Color.WHITE);
 		add(ChampJ2, gbc_textField_1);
 		ChampJ2.setColumns(10);
+
 
 		
 		gbc_textField_2.insets = new Insets(0, 0, 5, 0);
 		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField_2.gridx = 3;
 		gbc_textField_2.gridy = 6;
+		ChampJ3.setHorizontalAlignment(SwingConstants.CENTER);
+		ChampJ3.setText("Joueur 3");
+		ChampJ3.setFont(new Font("Tahoma", Font.ITALIC, 16));
+		ChampJ3.setBackground(SystemColor.inactiveCaptionText);
+		ChampJ3.setForeground(Color.WHITE);
 		add(ChampJ3, gbc_textField_2);
 		
 		gbc_textField_3.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField_3.gridx = 2;
 		gbc_textField_3.gridy = 8;
+		ChampJ4.setHorizontalAlignment(SwingConstants.CENTER);
+		ChampJ4.setText("Joueur 4");
+		ChampJ4.setFont(new Font("Tahoma", Font.ITALIC, 16));
+		ChampJ4.setBackground(SystemColor.inactiveCaptionText);
+		ChampJ4.setForeground(Color.WHITE);
 		add(ChampJ4, gbc_textField_3);
+
 		
+		ChampJ1.addFocusListener(new FocusAdapter() {
+			public void focusGained(FocusEvent e) {
+				if(ChampJ1.getText().equals("Joueur 1")) {
+					ChampJ1.setText("");
+				}
+				ChampJ1.setBackground(Color.WHITE);
+				ChampJ1.setForeground(UIManager.getColor(new Color(102,102,102)));
+			}
+			public void focusLost(FocusEvent e) {
+				if(ChampJ1.getText().equals("")) {
+					ChampJ1.setText("Joueur 1");
+				}
+				ChampJ1.setBackground(new Color(102,102,102));
+				ChampJ1.setForeground(UIManager.getColor("DesktopIcon.borderRimColor"));
+			}
+		});
+		
+		ChampJ2.addFocusListener(new FocusAdapter() {
+			public void focusGained(FocusEvent e) {
+				if(ChampJ2.getText().equals("Joueur 2")) {
+					ChampJ2.setText("");
+				}
+				ChampJ2.setBackground(Color.WHITE);
+				ChampJ2.setForeground(UIManager.getColor(new Color(102,102,102)));
+			}
+			public void focusLost(FocusEvent e) {
+				if(ChampJ2.getText().equals("")) {
+					ChampJ2.setText("Joueur 2");
+				}
+				ChampJ2.setBackground(new Color(102,102,102));
+				ChampJ2.setForeground(UIManager.getColor("DesktopIcon.borderRimColor"));
+			}
+		});
+		
+		ChampJ3.addFocusListener(new FocusAdapter() {
+			public void focusGained(FocusEvent e) {
+				if(ChampJ3.getText().equals("Joueur 3")) {
+					ChampJ3.setText("");
+				}
+				ChampJ3.setBackground(Color.WHITE);
+				ChampJ3.setForeground(UIManager.getColor(new Color(102,102,102)));
+			}
+			public void focusLost(FocusEvent e) {
+				if(ChampJ3.getText().equals("")) {
+					ChampJ3.setText("Joueur 3");
+				}
+				ChampJ3.setBackground(new Color(102,102,102));
+				ChampJ3.setForeground(UIManager.getColor("DesktopIcon.borderRimColor"));
+			}
+		});
+		
+		ChampJ4.addFocusListener(new FocusAdapter() {
+			public void focusGained(FocusEvent e) {
+				if(ChampJ4.getText().equals("Joueur 4")) {
+					ChampJ4.setText("");
+				}
+				ChampJ4.setBackground(Color.WHITE);
+				ChampJ4.setForeground(UIManager.getColor(new Color(102,102,102)));
+			}
+			public void focusLost(FocusEvent e) {
+				if(ChampJ4.getText().equals("")) {
+					ChampJ4.setText("Joueur 4");
+				}
+				ChampJ4.setBackground(new Color(102,102,102));
+				ChampJ4.setForeground(UIManager.getColor("DesktopIcon.borderRimColor"));
+			}
+		});
+
 
 		ChampJ1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent f) {
+				ChampJ1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
+				ChampJ2.grabFocus();
 				String input = ChampJ1.getText();
 				R=input; //Ouest
 				System.out.println(input);
@@ -162,6 +261,8 @@ public class AffichageAccueil extends JPanel {
 		
 		ChampJ2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent f) {
+				ChampJ2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
+				ChampJ3.grabFocus();
 				String input = ChampJ2.getText();
 				B=input; //Nord
 				System.out.println(input);
@@ -171,6 +272,8 @@ public class AffichageAccueil extends JPanel {
 		
 		ChampJ3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent f) {
+				ChampJ3.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
+				ChampJ4.grabFocus();
 				String input = ChampJ3.getText();
 				J=input; //Est
 				System.out.println(input);
@@ -181,6 +284,7 @@ public class AffichageAccueil extends JPanel {
 		
 		ChampJ4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent f) {
+				ChampJ4.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
 				String input = ChampJ4.getText();
 				System.out.println(input);
 				V=input; //Sud
@@ -215,7 +319,7 @@ public class AffichageAccueil extends JPanel {
 	public void paintComponent(Graphics g){
 
 		try {
-	        Image img = ImageIO.read(this.getClass().getResource("/Mine0.jpg"));
+	        Image img = ImageIO.read(this.getClass().getResource("/Cube.jpg"));
 	        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 		} catch (IOException e) {
 			e.printStackTrace();
