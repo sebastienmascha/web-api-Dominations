@@ -20,7 +20,7 @@ import javax.swing.JTextPane;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
-public class AffichageFenetreAccueil extends JPanel {
+public class AffichageAccueil extends JPanel {
 	
 	
 	JTextField ChampJ1 = new JTextField();
@@ -45,7 +45,7 @@ public class AffichageFenetreAccueil extends JPanel {
 	GridBagConstraints gbc_textField_3 = new GridBagConstraints();
 
 
-	public AffichageFenetreAccueil() {
+	public AffichageAccueil() {
 
 		//BorderLayout.CENTER
 		this.setLayout(Layout);

@@ -55,8 +55,8 @@ public class Affichage implements ActionListener {
 	JFrame FenetreJeu = new JFrame("Projet Kingdomino");
 	Cote Panel = new Cote();
 
-	AffichageFenetreJeu PageJeu = new AffichageFenetreJeu();
-	AffichageFenetreAccueil PageAccueil = new AffichageFenetreAccueil();
+	AffichageJeu PageJeu = new AffichageJeu();
+	AffichageAccueil PageAccueil = new AffichageAccueil();
 
 	JPanel pane = new JPanel();
 	JPanel pan = new JPanel();
@@ -86,7 +86,7 @@ public class Affichage implements ActionListener {
 	public Affichage() {
 
 		FenetreJeu.setIconImage(new ImageIcon(this.getClass().getResource("/chateau.png")).getImage());
-		FenetreJeu.setBounds(100, 100, 450, 300);
+		FenetreJeu.setBounds(0, 0, 1440, 900);
 		FenetreJeu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		FenetreJeu.getContentPane().setLayout(PlusieursPages);
 
@@ -170,6 +170,7 @@ public class Affichage implements ActionListener {
 				nbjoueurs = 4;
 				break;
 			}
+			PageJeu.lblNbreJoueurs.setText("Partie à " + ((JRadioButton) source).getText());
 			/*
 			if (nbjoueurs==3) {
 				PageAccueil.remove(PageAccueil.ChampJ4);
@@ -239,6 +240,13 @@ public class Affichage implements ActionListener {
 			}*/
 
 			PlusieursPages.show(FenetreJeu.getContentPane(), listeIndice[1]);
+			
+			ImageIcon ChateauIcone = new ImageIcon(this.getClass().getResource("/chateau.png"));
+			Image ChateauIconeResize = ChateauIcone.getImage().getScaledInstance(PageJeu.EcranSud.BtnChateau.getWidth(), PageJeu.EcranSud.BtnChateau.getHeight(), java.awt.Image.SCALE_SMOOTH);
+	        PageJeu.EcranOuest.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
+	        PageJeu.EcranNord.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
+	        PageJeu.EcranEst.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
+	        PageJeu.EcranSud.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
 
 			for (int i = 0; i < 6; i++) {
 				PageJeu.Centre.add(new JLabel());
@@ -351,10 +359,9 @@ public class Affichage implements ActionListener {
 					Tuile tuile1 = dominostour[k][0];
 					Tuile tuile2 = dominostour[k][1];
 
-					AffichageBoutonTuile afficheurBoutonTuile = new AffichageBoutonTuile();
 
-					afficheurBoutonTuile.display(dominostour[k][0], jButton1);
-					afficheurBoutonTuile.display(dominostour[k][1], jButton2);
+					display(dominostour[k][0], jButton1);
+					display(dominostour[k][1], jButton2);
 
 					jButton1.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -495,7 +502,13 @@ public class Affichage implements ActionListener {
 	public Tuile getChoixTuileTour() {
 		return this.choixtuiletour;
 	}
+	
+	public void display(Tuile Tuile, JButton T) {
 
+		ImageIcon img = new ImageIcon(this.getClass().getResource("/"+Tuile.gettype()+Tuile.getnbcouronne()+".png"));
+		Image newimg = img.getImage().getScaledInstance(T.getWidth(), T.getHeight(), java.awt.Image.SCALE_SMOOTH);
+		T.setIcon(new ImageIcon(newimg));
+	}
 }
 
 class Cote extends JPanel {

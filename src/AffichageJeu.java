@@ -21,7 +21,7 @@ import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
 
-public class AffichageFenetreJeu extends JPanel {
+public class AffichageJeu extends JPanel {
 	
 	JScrollBar scrollBar = new JScrollBar();
 	JButton btnPioche = new JButton("Pioche");
@@ -43,16 +43,18 @@ public class AffichageFenetreJeu extends JPanel {
 	AffichagePanelDeJeu3 SudOuest = new AffichagePanelDeJeu3();
 	AffichagePanelDeJeu4 SudEst = new AffichagePanelDeJeu4();
 
-	//String[] IndiceTerrain = {"Choix", "Terrain pour le 1er joueur", "Terrain pour le 2ème joueur", "Terrain pour le 3ème joueur", "Terrain pour le 4ème joueur"};
-	 
+	JLabel lblNbreJoueurs = new JLabel();
+	
 	JButton btnRetournerAuMenu = new JButton("Retourner au menu");
 
-	public AffichageFenetreJeu() {
+	public AffichageJeu() {
 			setLayout(new GridLayout(3, 4, 0, 0));
 			
 			this.add(NordOuest);
 				NordOuest.setLayout(new GridBagLayout());
 				NordOuest.add(btnPioche);
+				NordOuest.add(lblNbreJoueurs);
+				
 			
 			this.add(EcranNord);
 						
