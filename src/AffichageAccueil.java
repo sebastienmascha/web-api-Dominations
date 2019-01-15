@@ -27,10 +27,10 @@ import javax.swing.SwingConstants;
 
 public class AffichageAccueil extends JPanel {
 	
-	String V ;
-	String B ;
 	String R ;
 	String J ;
+	String V ;
+	String B ;
 	
 	JTextField ChampJ1 = new JTextField();
 	JTextField ChampJ2 = new JTextField();
@@ -264,7 +264,7 @@ public class AffichageAccueil extends JPanel {
 				ChampJ2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
 				ChampJ3.grabFocus();
 				String input = ChampJ2.getText();
-				B=input; //Nord
+				J=input; //Nord
 				System.out.println(input);
 
 			}
@@ -275,7 +275,7 @@ public class AffichageAccueil extends JPanel {
 				ChampJ3.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
 				ChampJ4.grabFocus();
 				String input = ChampJ3.getText();
-				J=input; //Est
+				V=input; //Est
 				System.out.println(input);
 				
 
@@ -287,7 +287,7 @@ public class AffichageAccueil extends JPanel {
 				ChampJ4.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
 				String input = ChampJ4.getText();
 				System.out.println(input);
-				V=input; //Sud
+				B=input; //Sud
 			}
 		});
 

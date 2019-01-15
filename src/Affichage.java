@@ -121,6 +121,7 @@ public class Affichage implements ActionListener {
 							if (compteurclictuile == 0) {
 								if (compteurjoueur < nbrois) {
 									setJoueurEnCours(ordrejoueurs[compteurjoueur][0]);
+									System.out.println("Joueur en cours : "+ordrejoueurs[compteurjoueur][0].couleur);
 
 									/*
 									 * setNumDomiTour(numdomituile1); setNumTuileTour(0);
@@ -133,22 +134,21 @@ public class Affichage implements ActionListener {
 										compteurjoueur += 1;
 
 									} else if (bonchoix == false) {
-										System.out.println("\nMauvais Domino ! ");
+										System.out.println("\nMauvais Domino, il a deja ete selectionne ! ");
 									}
 
 									if (compteurjoueur >= nbrois) {
-										System.out.println("Il faut piocher a nouveau");
+										System.out.println("Il faut piocher a nouveau\n");
 										appelDefinitionNouvelOrdre();
-										//setRoiTour(ordrejoueurs[compteurjoueur][0].couleur, tuile1, dominostour);
-										System.out.println(
-												"\nC'est a " + ordrejoueurs[0][0].getNomJoueur() + " de jouer.");
+										//pour la suite
+										System.out.println("\nCliquez sur la case du terrain desiree, puis sur la tuile a placer.");
+										System.out.println("\nC'est au joueur "+ordrejoueurs[0][0].numjoueur+" (" + ordrejoueurs[0][0].getNomJoueur() + ", couleur "+ordrejoueurs[0][0].couleur+") de jouer.");
 										compteurclictuile = 1;
 										compteurjoueur = 0;
 									} else {
 										
 										
-										System.out.println("\nC'est a " + ordrejoueurs[compteurjoueur][0].getNomJoueur()
-												+ " de jouer");
+										System.out.println("\nC'est au joueur "+ordrejoueurs[compteurjoueur][0].numjoueur+" (" + ordrejoueurs[compteurjoueur][0].getNomJoueur() + ", couleur "+ordrejoueurs[compteurjoueur][0].couleur+") de jouer.");
 
 									}
 
@@ -157,7 +157,7 @@ public class Affichage implements ActionListener {
 									appelDefinitionNouvelOrdre();
 									//pour la suite
 									System.out.println("\nCliquez sur la case du terrain desiree, puis sur la tuile a placer.");
-									System.out.println("\nC'est a " + ordrejoueurs[0][0].getNomJoueur() + " de jouer.");
+									System.out.println("\nC'est au joueur "+ordrejoueurs[0][0].numjoueur+" (" + ordrejoueurs[0][0].getNomJoueur() + ", couleur "+ordrejoueurs[0][0].couleur+") de jouer.");
 									compteurclictuile = 1;
 									compteurjoueur = 0;
 								}
@@ -165,28 +165,35 @@ public class Affichage implements ActionListener {
 
 								if (compteurjoueur < nbrois) {
 									setJoueurEnCours(ordrejoueurs[compteurjoueur][0]);
+									System.out.println("Joueur en cours : "+ordrejoueurs[compteurjoueur][0].couleur);
 
 									setChoixTuileTour(tuile1);
 
 									
-
-									if (joueurs[compteurjoueur][0].numjoueur == 0) {
+									System.out.println("\nLe joueur qui a clique est : "+ordrejoueurs[compteurjoueur][0].numjoueur);
+								
+									
+									switch (ordrejoueurs[compteurjoueur][0].couleur) {
+									case "RED":
 										setPosX(PageJeu.EcranOuest.posx);
 										setPosY(PageJeu.EcranOuest.posy);
-									}
-
-									if (joueurs[compteurjoueur][0].numjoueur == 1) {
+										break;
+									case "YELLOW":
 										setPosX(PageJeu.EcranNord.posx);
 										setPosY(PageJeu.EcranNord.posy);
-									}
-									if (joueurs[compteurjoueur][0].numjoueur == 2) {
+										break;
+									case "GREEN":
 										setPosX(PageJeu.EcranEst.posx);
 										setPosY(PageJeu.EcranEst.posy);
-									}
-									if (joueurs[compteurjoueur][0].numjoueur == 3) {
+										break;
+									case "BLUE":
 										setPosX(PageJeu.EcranSud.posx);
 										setPosY(PageJeu.EcranSud.posy);
+										break;
+
 									}
+									
+									
 									
 									Principal.tourJeu();
 									
@@ -205,8 +212,7 @@ public class Affichage implements ActionListener {
 										appelDefinitionNouvelOrdre();
 									} else {
 
-										System.out.println("\nC'est a " + ordrejoueurs[compteurjoueur][0].getNomJoueur()
-												+ " de jouer");
+										System.out.println("\nC'est au joueur "+ordrejoueurs[0][0].numjoueur+" (" + ordrejoueurs[0][0].getNomJoueur() + ", couleur "+ordrejoueurs[0][0].couleur+") de jouer.");
 
 									}
 
@@ -298,16 +304,16 @@ public class Affichage implements ActionListener {
 	public void setRoiTour(String clr, Tuile T,Tuile[][] dominostour) {
 		Color Couleur = Color.WHITE;
 		switch (clr) {
-		case "Vert":
+		case "GREEN":
 			Couleur = Color.GREEN;
 			break;
-		case "Bleu":
+		case "BLUE":
 			Couleur = Color.BLUE;
 			break;
-		case "Rouge":
+		case "RED":
 			Couleur = Color.RED;
 			break;
-		case "Jaune":
+		case "YELLOW":
 			Couleur = Color.YELLOW;
 			break;
 		}
@@ -327,7 +333,7 @@ public class Affichage implements ActionListener {
 
 		System.out.println("Ceci est un nouvel ordre de joueurs :\n");
 		for (int j = 0; j <= ordrejoueurs.length - 1; j++) {
-			System.out.println(ordrejoueurs[j][0].nomjoueur);
+			System.out.println(ordrejoueurs[j][0].numjoueur);
 		}
 	}
 
@@ -585,20 +591,20 @@ public class Affichage implements ActionListener {
 	}
 
 	public void AffecteAOrdrejoueursETauxEcransleNomdeChaqueJoueur() {
-		ordrejoueurs[0][0].setNomJoueur(PageAccueil.J);
-		ordrejoueurs[1][0].setNomJoueur(PageAccueil.B);
+		ordrejoueurs[0][0].setNomJoueur(PageAccueil.R);
+		ordrejoueurs[1][0].setNomJoueur(PageAccueil.J);
 		if (nbjoueurs == 3) {
-			ordrejoueurs[2][0].setNomJoueur(PageAccueil.R);
+			ordrejoueurs[2][0].setNomJoueur(PageAccueil.V);
 		}
 		if (nbjoueurs == 4) {
-			ordrejoueurs[2][0].setNomJoueur(PageAccueil.R);
-			ordrejoueurs[3][0].setNomJoueur(PageAccueil.V);
+			ordrejoueurs[2][0].setNomJoueur(PageAccueil.V);
+			ordrejoueurs[3][0].setNomJoueur(PageAccueil.B);
 		}
 		
-		PageJeu.EcranOuest.Nom.setText(PageAccueil.J);
-		PageJeu.EcranNord.Nom.setText(PageAccueil.B);
-		PageJeu.EcranEst.Nom.setText(PageAccueil.R);
-		PageJeu.EcranSud.Nom.setText(PageAccueil.V);
+		PageJeu.EcranOuest.Nom.setText(PageAccueil.R);
+		PageJeu.EcranNord.Nom.setText(PageAccueil.J);
+		PageJeu.EcranEst.Nom.setText(PageAccueil.V);
+		PageJeu.EcranSud.Nom.setText(PageAccueil.B);
 	}
 
 	public void ChoixDuNombreDeJoueurs(Object source) {

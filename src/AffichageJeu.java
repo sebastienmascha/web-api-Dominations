@@ -25,16 +25,16 @@ public class AffichageJeu extends JPanel {
 	
 	JButton btnPioche = new JButton("Pioche");
 	
-	String V ;
-	String B ;
 	String R ;
 	String J ;
+	String V ;
+	String B ;
 
 	
-	AffichagePlateau EcranSud = new AffichagePlateau(V,Color.GREEN);
-	AffichagePlateau EcranNord = new AffichagePlateau(B,Color.BLUE);
-	AffichagePlateau EcranEst = new AffichagePlateau(R,Color.YELLOW);
-	AffichagePlateau EcranOuest = new AffichagePlateau(J,Color.RED);
+	AffichagePlateau EcranOuest = new AffichagePlateau(R,Color.RED);
+	AffichagePlateau EcranNord = new AffichagePlateau(J,Color.YELLOW);
+	AffichagePlateau EcranEst = new AffichagePlateau(V,Color.GREEN);
+	AffichagePlateau EcranSud = new AffichagePlateau(B,Color.BLUE);
 	
 	AffichagePanelDeJeu NordOuest = new AffichagePanelDeJeu();
 	AffichagePanelDeJeu2 NordEst = new AffichagePanelDeJeu2();
@@ -59,13 +59,13 @@ public class AffichageJeu extends JPanel {
 						
 			this.add(NordEst);
 			
-			this.add(EcranEst);
+			this.add(EcranOuest);
 			
 			this.add(Centre);
 			Centre.setBackground(Color.red);
 			Centre.setLayout(new GridLayout(6, 6, 0, 0));
 				
-			this.add(EcranOuest);
+			this.add(EcranEst);
 			
 			this.add(SudOuest);
 			

@@ -138,7 +138,7 @@ public class Jeu {
 				this.bonchoix = true;
 
 			} catch (Exception e) {
-				System.out.println("Le domino a deje ete selectionne ! Descriptif erreur: \n" + e);
+				System.out.println("Le domino a deja ete selectionne ! Descriptif erreur: \n" + e);
 				this.bonchoix = false;
 			}
 
@@ -181,8 +181,14 @@ public class Jeu {
 
 		System.out.println("Ceci est un nouvel ordre de domino:\n");
 		for (int j = 0; j <= this.dominostourpreselect.length - 1; j++) {
-			System.out.println(dominostourpreselect[j][0].num1);
+			System.out.println(this.dominostourpreselect[j][0].num1);
 		}
+		
+		System.out.println("Ceci est un nouvel ordre de joueurs:\n");
+		for (int j = 0; j <= this.ordrejoueurs.length - 1; j++) {
+			System.out.println(this.ordrejoueurs[j][0].numjoueur);
+		}
+		
 
 	}
 
@@ -327,6 +333,7 @@ public class Jeu {
 				ordrecouleurs.add(couleurs.get(j));
 
 			} else {
+				System.out.println("Joueur numero: "+j+" Couleur: "+couleurs.get(j));
 				joueurs[j][0] = new Joueur(j, couleurs.get(j));
 				ordrecouleurs.add(couleurs.get(j));
 
@@ -335,6 +342,10 @@ public class Jeu {
 	}
 
 	private void attribuerCouleursAJoueurs() {
+		
+		
+		
+		
 
 		for (int j = 0; j <= this.nbrois - 1; j++) {
 			switch (this.ordrecouleurs.get(j)) {
@@ -353,6 +364,16 @@ public class Jeu {
 
 			}
 		}
+		
+		for (int j = 0; j <= this.nbrois - 1; j++) {
+			System.out.println("\nNumero ordre Joueur apres attribution "+j);
+			System.out.println("Couleur ordreJoueur apres attribution "+this.ordrejoueurs[j][0].couleur);
+			System.out.println("Numero Joueur attribution "+this.joueurs[this.ordrejoueurs[j][0].numjoueur][0].numjoueur);
+			System.out.println("Couleur Joueur attribution "+this.joueurs[this.ordrejoueurs[j][0].numjoueur][0].couleur);
+			
+			
+		}
+		
 
 	}
 
