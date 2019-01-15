@@ -26,10 +26,14 @@ public class AffichageJeu extends JPanel {
 	JScrollBar scrollBar = new JScrollBar();
 	JButton btnPioche = new JButton("Pioche");
 	
-	String V = new String();
-	String B = new String();
-	String R = new String();
-	String Y = new String();
+	String V;
+	String B; 
+	String R; 
+	String Y;
+	
+	public void setV(String V) {
+		this.V=V;
+	}
 
 	
 	AffichagePlateau EcranSud = new AffichagePlateau(V,Color.GREEN);

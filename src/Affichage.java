@@ -34,22 +34,26 @@ public class Affichage implements ActionListener {
 
 	Icon imgIcon = new ImageIcon(this.getClass().getResource("/giphy.gif"));
 	Icon ImgIcon = new ImageIcon(this.getClass().getResource("/Giph.gif"));
-	
+
 	// vers Jeu
 	int numdomitour = 0;
 	int numtuiletour = 0;
 	Tuile choixtuiletour;
 	Joueur joueurencours;
+	int posx=0;
+	int posy=0;
 
 	// provenant de Jeu
 	int nbjoueurs = 0;
 	int nbrois = 0;
 	public Joueur[][] ordrejoueurs = new Joueur[4][2];
+	public Joueur[][] joueurs = new Joueur[4][2];
 	boolean bonchoix;
+	
 
 	int compteurpioche = 0;
 	public int compteurjoueur = 0;
-	public int compteurclictuile =0;
+	public int compteurclictuile = 0;
 
 	String NombreDeJoueursString = String.valueOf(nbjoueurs);
 	JLabel lblNombreDeJoueurs = new JLabel("Nombre de joueurs :" + nbjoueurs + ", veuillez choisir ...");
@@ -114,9 +118,9 @@ public class Affichage implements ActionListener {
 		PageJeu.btnRetournerAuMenu.addActionListener((ActionListener) this);
 		PageAccueil.btnJouer.addActionListener((ActionListener) this);
 		PageJeu.btnPioche.addActionListener((ActionListener) this);
-		
-		//PageAccueil.add(PageAccueil.ChampJ1);
-		//PageAccueil.add(PageAccueil.ChampJ2);
+
+		// PageAccueil.add(PageAccueil.ChampJ1);
+		// PageAccueil.add(PageAccueil.ChampJ2);
 		PageAccueil.ChampJ1.addActionListener((ActionListener) this);
 		PageAccueil.ChampJ2.addActionListener((ActionListener) this);
 		PageAccueil.ChampJ3.addActionListener((ActionListener) this);
@@ -174,19 +178,12 @@ public class Affichage implements ActionListener {
 			}
 			PageJeu.lblNbreJoueurs.setText("Partie à " + ((JRadioButton) source).getText());
 			/*
-			if (nbjoueurs==3) {
-				PageAccueil.remove(PageAccueil.ChampJ4);
-				PageAccueil.add(PageAccueil.ChampJ3);
-			}
-			else if (nbjoueurs==4) {
-				PageAccueil.add(PageAccueil.ChampJ3);
-				PageAccueil.add(PageAccueil.ChampJ4);
-			}
-			else {
-				PageAccueil.remove(PageAccueil.ChampJ4);
-				PageAccueil.remove(PageAccueil.ChampJ3);
-			}
-			*/
+			 * if (nbjoueurs==3) { PageAccueil.remove(PageAccueil.ChampJ4);
+			 * PageAccueil.add(PageAccueil.ChampJ3); } else if (nbjoueurs==4) {
+			 * PageAccueil.add(PageAccueil.ChampJ3); PageAccueil.add(PageAccueil.ChampJ4); }
+			 * else { PageAccueil.remove(PageAccueil.ChampJ4);
+			 * PageAccueil.remove(PageAccueil.ChampJ3); }
+			 */
 			System.out.println(nbjoueurs);
 			lblNombreDeJoueurs.setText("Nombre de joueurs :" + nbjoueurs + ", veuillez choisir ...");
 		}
@@ -198,39 +195,39 @@ public class Affichage implements ActionListener {
 		if (source == PageAccueil.btnJouer) {
 
 			Principal.initialisation();
-			
+
 			PageAccueil.ChampJ1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					String input = ((JTextComponent) e.getSource()).getText();
-					PageJeu.R=input; //Ouest
+					PageJeu.R = input; // Ouest
 					ordrejoueurs[0][0].setNomJoueur(input);
 				}
 			});
-			
+
 			PageAccueil.ChampJ2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					String input = ((JTextComponent) e.getSource()).getText();
-					PageJeu.B=input; //Nord
-					ordrejoueurs[0][0].setNomJoueur(input);
+					PageJeu.B = input; // Nord
+					ordrejoueurs[1][0].setNomJoueur(input);
 				}
 			});
-			
+
 			PageAccueil.ChampJ3.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					String input = ((JTextComponent) e.getSource()).getText();
-					PageJeu.Y=input; //Est
-					ordrejoueurs[0][0].setNomJoueur(input);
+					PageJeu.Y = input; // Est
+					ordrejoueurs[2][0].setNomJoueur(input);
 				}
 			});
-			
+
 			PageAccueil.ChampJ4.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					String input = ((JTextComponent) e.getSource()).getText();
-					PageJeu.V=input; //Sud
-					ordrejoueurs[0][0].setNomJoueur(input);
+					PageJeu.V = input; // Sud
+					ordrejoueurs[3][0].setNomJoueur(input);
 				}
 			});
-			/*
+
 			for (int i = 0; i < nbrois; i++) {
 
 				// demande nom des joueurs
@@ -239,16 +236,17 @@ public class Affichage implements ActionListener {
 				String username = scanner.nextLine();
 				ordrejoueurs[i][0].setNomJoueur(username);
 
-			}*/
+			}
 
 			PlusieursPages.show(FenetreJeu.getContentPane(), listeIndice[1]);
-			
+
 			ImageIcon ChateauIcone = new ImageIcon(this.getClass().getResource("/chateau.png"));
-			Image ChateauIconeResize = ChateauIcone.getImage().getScaledInstance(PageJeu.EcranSud.BtnChateau.getWidth(), PageJeu.EcranSud.BtnChateau.getHeight(), java.awt.Image.SCALE_SMOOTH);
-	        PageJeu.EcranOuest.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
-	        PageJeu.EcranNord.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
-	        PageJeu.EcranEst.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
-	        PageJeu.EcranSud.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
+			Image ChateauIconeResize = ChateauIcone.getImage().getScaledInstance(PageJeu.EcranSud.BtnChateau.getWidth(),
+					PageJeu.EcranSud.BtnChateau.getHeight(), java.awt.Image.SCALE_SMOOTH);
+			PageJeu.EcranOuest.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
+			PageJeu.EcranNord.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
+			PageJeu.EcranEst.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
+			PageJeu.EcranSud.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
 
 			for (int i = 0; i < 6; i++) {
 				PageJeu.Centre.add(new JLabel());
@@ -275,8 +273,8 @@ public class Affichage implements ActionListener {
 			separator4.setBackground(new Color(102, 0, 51));
 			separator5.setBackground(new Color(102, 0, 51));
 
-			if (nbrois==3) {
-				for (int i=0;i<3;i++) {
+			if (nbrois == 3) {
+				for (int i = 0; i < 3; i++) {
 					PageJeu.Centre.add(new JLabel());
 				}
 				PageJeu.Centre.add(separator);
@@ -284,23 +282,21 @@ public class Affichage implements ActionListener {
 				PageJeu.Centre.add(separator2);
 				PageJeu.Centre.add(separator3);
 				PageJeu.Centre.add(separator4);
-				for (int j=0; j<21-(6*nbrois); j++) {
+				for (int j = 0; j < 21 - (6 * nbrois); j++) {
 					PageJeu.Centre.add(new JLabel());
 				}
-			}
-			else {
+			} else {
 				PageJeu.Centre.add(separator);
 				PageJeu.Centre.add(separator1);
 				PageJeu.Centre.add(separator2);
 				PageJeu.Centre.add(separator3);
 				PageJeu.Centre.add(separator4);
 				PageJeu.Centre.add(separator5);
-				for (int i=0; i<24-(6*nbrois); i++) {
+				for (int i = 0; i < 24 - (6 * nbrois); i++) {
 					PageJeu.Centre.add(new JLabel());
 				}
 			}
 
-			
 			for (int i = 0; i < nbrois; i++) {
 				PanelRoi R = new PanelRoi();
 				JButton NouvelleTuile1 = new JButton();
@@ -314,32 +310,35 @@ public class Affichage implements ActionListener {
 				ListTour2.add(NouvelleTuile2);
 				List2BoutonRoi.add(R.Roibtn);
 			}
-			
+
 			switch (String.valueOf(nbjoueurs)) {
-			case "2" :
-				PageJeu.EcranSud.setBackground(new Color(0,0,0,64));
-				PageJeu.EcranSud.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true), new LineBorder(new Color(0,0,0,64), 4, true)));
-				PageJeu.EcranSud.Nom.setBackground(new Color(0,0,0,64));
-				PageJeu.EcranSud.PlanCentral.setBackground(new Color(0,0,0,64));
+			case "2":
+				PageJeu.EcranSud.setBackground(new Color(0, 0, 0, 64));
+				PageJeu.EcranSud.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true),
+						new LineBorder(new Color(0, 0, 0, 64), 4, true)));
+				PageJeu.EcranSud.Nom.setBackground(new Color(0, 0, 0, 64));
+				PageJeu.EcranSud.PlanCentral.setBackground(new Color(0, 0, 0, 64));
 				PageJeu.EcranSud.removeAll();
 				JLabel label1 = new JLabel(ImgIcon);
 				PageJeu.EcranSud.add(label1);
-				PageJeu.EcranNord.setBackground(new Color(0,0,0,64));
-				PageJeu.EcranNord.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true), new LineBorder(new Color(0,0,0,64), 4, true)));
-				PageJeu.EcranNord.Nom.setBackground(new Color(0,0,0,64));
-				PageJeu.EcranNord.PlanCentral.setBackground(new Color(0,0,0,64));
-				PageJeu.EcranNord.removeAll();
+				PageJeu.EcranEst.setBackground(new Color(0, 0, 0, 64));
+				PageJeu.EcranEst.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true),
+						new LineBorder(new Color(0, 0, 0, 64), 4, true)));
+				PageJeu.EcranEst.Nom.setBackground(new Color(0, 0, 0, 64));
+				PageJeu.EcranEst.PlanCentral.setBackground(new Color(0, 0, 0, 64));
+				PageJeu.EcranEst.removeAll();
 				JLabel label = new JLabel(imgIcon);
-				PageJeu.EcranNord.add(label);
+				PageJeu.EcranEst.add(label);
 				break;
-			case "3" :
-				PageJeu.EcranNord.setBackground(new Color(0,0,0,64));
-				PageJeu.EcranNord.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true), new LineBorder(new Color(0,0,0,64), 4, true)));
-				PageJeu.EcranNord.Nom.setBackground(new Color(0,0,0,64));
-				PageJeu.EcranNord.PlanCentral.setBackground(new Color(0,0,0,64));
-				PageJeu.EcranNord.removeAll();
+			case "3":
+				PageJeu.EcranSud.setBackground(new Color(0, 0, 0, 64));
+				PageJeu.EcranSud.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true),
+						new LineBorder(new Color(0, 0, 0, 64), 4, true)));
+				PageJeu.EcranSud.Nom.setBackground(new Color(0, 0, 0, 64));
+				PageJeu.EcranSud.PlanCentral.setBackground(new Color(0, 0, 0, 64));
+				PageJeu.EcranSud.removeAll();
 				JLabel label2 = new JLabel(imgIcon);
-				PageJeu.EcranNord.add(label2);
+				PageJeu.EcranSud.add(label2);
 				break;
 			}
 
@@ -348,8 +347,6 @@ public class Affichage implements ActionListener {
 		if (source == PageJeu.btnPioche) {
 			if (compteurpioche == 0) {
 
-				
-
 				for (int k = 0; k < ListTour1.size() / 2; k++) {
 
 					JButton jButton1 = ListTour1.get(2 * k);
@@ -357,10 +354,9 @@ public class Affichage implements ActionListener {
 
 					int numdomituile1 = dominostour[k][0].getnumdomi();
 					int numdomituile2 = dominostour[k][1].getnumdomi();
-					
+
 					Tuile tuile1 = dominostour[k][0];
 					Tuile tuile2 = dominostour[k][1];
-
 
 					display(dominostour[k][0], jButton1);
 					display(dominostour[k][1], jButton2);
@@ -369,88 +365,96 @@ public class Affichage implements ActionListener {
 						public void actionPerformed(ActionEvent e) {
 							Object source = e.getSource();
 							if (compteurclictuile == 0) {
-							if (compteurjoueur < nbrois) {
-								setJoueurEnCours(ordrejoueurs[compteurjoueur][0]);
-								
-								/*
-								setNumDomiTour(numdomituile1);
-								setNumTuileTour(0);
-								*/
-								
-								setChoixTuileTour(tuile1);
-								
-								Principal.preselection();
-								if (bonchoix==true) {
-									compteurjoueur += 1;
-
-								}
-								else if (bonchoix==false){
-									System.out.println("\nCe domino a deja ete selectionne !");
-								}
-								
-
-								if (compteurjoueur >= nbrois) {
-									System.out.println("Il faut piocher � nouveau");
-									appelDefinitionNouvelOrdre();
-									System.out.println("\nC'est a " + ordrejoueurs[0][0].getNomJoueur() + " de jouer.");
-									compteurclictuile=1;
-									compteurjoueur=0;
-								} else {
-									
-									
-
-									System.out.println("\nC'est a " + ordrejoueurs[compteurjoueur][0].getNomJoueur() + " de jouer");
-
-									
-
-								}
-
-							} else {
-								System.out.println("Il faut piocher � nouveau 2");
-								appelDefinitionNouvelOrdre();
-								System.out.println("\nC'est a " + ordrejoueurs[0][0].getNomJoueur() + " de jouer.");
-								compteurclictuile=1;
-								compteurjoueur=0;
-							}
-							}
-							else if (compteurclictuile == 1){
-								
 								if (compteurjoueur < nbrois) {
 									setJoueurEnCours(ordrejoueurs[compteurjoueur][0]);
-									
-					
-									
+
+									/*
+									 * setNumDomiTour(numdomituile1); setNumTuileTour(0);
+									 */
+
 									setChoixTuileTour(tuile1);
+
+									Principal.preselection();
+									if (bonchoix == true) {
+										compteurjoueur += 1;
+
+									} else if (bonchoix == false) {
+										System.out.println("\nCe domino a deja ete selectionne !");
+									}
+
+									if (compteurjoueur >= nbrois) {
+										System.out.println("Il faut piocher a nouveau");
+										appelDefinitionNouvelOrdre();
+										System.out.println(
+												"\nC'est a " + ordrejoueurs[0][0].getNomJoueur() + " de jouer.");
+										compteurclictuile = 1;
+										compteurjoueur = 0;
+									} else {
+
+										System.out.println("\nC'est a " + ordrejoueurs[compteurjoueur][0].getNomJoueur()
+												+ " de jouer");
+
+									}
+
+								} else {
+									System.out.println("Il faut piocher a nouveau 2");
+									appelDefinitionNouvelOrdre();
+									System.out.println("\nC'est a " + ordrejoueurs[0][0].getNomJoueur() + " de jouer.");
+									compteurclictuile = 1;
+									compteurjoueur = 0;
+								}
+							} else if (compteurclictuile == 1) {
+
+								if (compteurjoueur < nbrois) {
+									setJoueurEnCours(ordrejoueurs[compteurjoueur][0]);
+
+									setChoixTuileTour(tuile1);
+
+									
+
+									if (joueurs[compteurjoueur][0].numjoueur == 0) {
+										setPosX(PageJeu.EcranOuest.posx);
+										setPosY(PageJeu.EcranOuest.posy);
+									}
+
+									if (joueurs[compteurjoueur][0].numjoueur == 1) {
+										setPosX(PageJeu.EcranNord.posx);
+										setPosY(PageJeu.EcranNord.posy);
+									}
+									if (joueurs[compteurjoueur][0].numjoueur == 2) {
+										setPosX(PageJeu.EcranEst.posx);
+										setPosY(PageJeu.EcranEst.posy);
+									}
+									if (joueurs[compteurjoueur][0].numjoueur == 3) {
+										setPosX(PageJeu.EcranSud.posx);
+										setPosY(PageJeu.EcranSud.posy);
+									}
 									
 									Principal.tourJeu();
 									
-									if (bonchoix==true) {
-										compteurjoueur += 1;
-
-									}
-									else if (bonchoix==false){
-										System.out.println("\nCe domino a deja ete selectionne !");
-									}
+									
 									
 
+									if (bonchoix == true) {
+										compteurjoueur += 1;
+
+									} else if (bonchoix == false) {
+										System.out.println("\nCe domino a deja ete selectionne !");
+									}
+
 									if (compteurjoueur >= nbrois) {
-										System.out.println("Il faut piocher � nouveau");
+										System.out.println("Il faut piocher a nouveau");
 										appelDefinitionNouvelOrdre();
 									} else {
-										
-										
 
-										System.out.println("\nC'est a " + ordrejoueurs[compteurjoueur][0].getNomJoueur() + " de jouer");
-
-										
+										System.out.println("\nC'est a " + ordrejoueurs[compteurjoueur][0].getNomJoueur()
+												+ " de jouer");
 
 									}
 
 								}
-							
+
 							}
-							
-					
 
 						}
 					});
@@ -458,60 +462,45 @@ public class Affichage implements ActionListener {
 					jButton2.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							Object source = e.getSource();
-							
+
 							if (compteurjoueur < nbrois) {
 								setJoueurEnCours(ordrejoueurs[compteurjoueur][0]);
-								
+
 								/*
-								setNumDomiTour(numdomituile1);
-								setNumTuileTour(0);
-								*/
-								
+								 * setNumDomiTour(numdomituile1); setNumTuileTour(0);
+								 */
+
 								setChoixTuileTour(tuile2);
-								
+
 								Principal.preselection();
-								if (bonchoix==true) {
+								if (bonchoix == true) {
 									compteurjoueur += 1;
 
-								}
-								else if (bonchoix==false){
+								} else if (bonchoix == false) {
 									System.out.println("\nCe domino a deja ete selectionne !");
 								}
-								
 
 								if (compteurjoueur >= nbrois) {
-									System.out.println("Il faut piocher � nouveau");
+									System.out.println("Il faut piocher a nouveau");
 									appelDefinitionNouvelOrdre();
-									
-									
-									
-									
+
 								} else {
 
-									System.out.println("\nC'est a " + ordrejoueurs[compteurjoueur][0].getNomJoueur() + " de jouer");
-
-									
+									System.out.println("\nC'est a " + ordrejoueurs[compteurjoueur][0].getNomJoueur()
+											+ " de jouer");
 
 								}
 
 							} else {
-								System.out.println("Il faut piocher � nouveau 2");
+								System.out.println("Il faut piocher a nouveau 2");
 								appelDefinitionNouvelOrdre();
-								
+
 							}
-							
-							
-							
-							
-							
-							
+
 						}
 					});
 
 				}
-				
-				
-
 
 			}
 
@@ -526,58 +515,53 @@ public class Affichage implements ActionListener {
 			}
 
 		}
-		
-		/*
-		if (source==PageAccueil.ChampJ2) {
-			String input = ((JTextComponent) e.getSource()).getText();
-			PageJeu.B=input; //Nord 
-		}
-		if (source==PageAccueil.ChampJ3) {
-			String input = ((JTextComponent) e.getSource()).getText();
-			PageJeu.Y=input; //Est
-		}
-		if (source==PageAccueil.ChampJ4) {
-			String input = ((JTextComponent) e.getSource()).getText();
-			//PageJeu.EcranEst.Nom.setText(input); 
-			PageJeu.V=input;  //Sud
 
-		}/*/
+		/*
+		 * if (source==PageAccueil.ChampJ2) { String input = ((JTextComponent)
+		 * e.getSource()).getText(); PageJeu.B=input; //Nord } if
+		 * (source==PageAccueil.ChampJ3) { String input = ((JTextComponent)
+		 * e.getSource()).getText(); PageJeu.Y=input; //Est } if
+		 * (source==PageAccueil.ChampJ4) { String input = ((JTextComponent)
+		 * e.getSource()).getText(); //PageJeu.EcranEst.Nom.setText(input);
+		 * PageJeu.V=input; //Sud
+		 * 
+		 * }/
+		 */
 
 	}
-	
-	public void setRoiTour1 (String clr, Tuile T) {
-		Color Couleur=Color.WHITE;
+
+	public void setRoiTour1(String clr, Tuile T) {
+		Color Couleur = Color.WHITE;
 		switch (clr) {
-		case "Vert" :
+		case "Vert":
 			Couleur = Color.GREEN;
 			break;
-		case "Bleu" :
+		case "Bleu":
 			Couleur = Color.BLUE;
 			break;
-		case "Rouge" :
+		case "Rouge":
 			Couleur = Color.RED;
 			break;
-		case "Jaune" :
+		case "Jaune":
 			Couleur = Color.YELLOW;
 			break;
 		}
-		for (int j=0; j<List1BoutonRoi.size();j++) {
-			if (T.getnumdomi()==dominostour[j][0].getnumdomi()) { 
-			 List1BoutonRoi.get(j).setBackground(Couleur);
-			 List1BoutonRoi.get(j).setForeground(Color.WHITE);
-			 List1BoutonRoi.get(j).setText("R");
+		for (int j = 0; j < List1BoutonRoi.size(); j++) {
+			if (T.getnumdomi() == dominostour[j][0].getnumdomi()) {
+				List1BoutonRoi.get(j).setBackground(Couleur);
+				List1BoutonRoi.get(j).setForeground(Color.WHITE);
+				List1BoutonRoi.get(j).setText("R");
 			}
-		}	
+		}
 	}
-	
-	
+
 	public void appelDefinitionNouvelOrdre() {
-		//definition nouvel ordre
+		// definition nouvel ordre
 		Principal.definirordre();
-		
+
 		System.out.println("Ceci est un nouvel ordre de joueurs :\n");
 		for (int j = 0; j <= ordrejoueurs.length - 1; j++) {
-		System.out.println(ordrejoueurs[j][0].nomjoueur);
+			System.out.println(ordrejoueurs[j][0].nomjoueur);
 		}
 	}
 
@@ -592,7 +576,7 @@ public class Affichage implements ActionListener {
 		System.out.println("Num tuile clique: " + this.numtuiletour);
 
 	}
-	
+
 	public void setChoixTuileTour(Tuile tuile) {
 		this.choixtuiletour = tuile;
 
@@ -600,6 +584,10 @@ public class Affichage implements ActionListener {
 
 	public void setOrdreJoueurs(Joueur[][] ordrejoueurs) {
 		this.ordrejoueurs = ordrejoueurs;
+	}
+	
+	public void setJoueurs(Joueur[][] joueurs) {
+		this.joueurs = joueurs;
 	}
 
 	public void setJoueurEnCours(Joueur joueur) {
@@ -609,18 +597,35 @@ public class Affichage implements ActionListener {
 	public Joueur getJoueurEnCours() {
 		return this.joueurencours;
 	}
-	
+
 	public Tuile getChoixTuileTour() {
 		return this.choixtuiletour;
 	}
-	
+
 	public void setBonChoix(boolean bonchoix) {
-		this.bonchoix=bonchoix;
+		this.bonchoix = bonchoix;
 	}
 	
+	public int getPosX() {
+		return this.posx;
+	}
+	
+	public int getPosY() {
+		return this.posy;
+	}
+	
+	public void setPosX(int posx) {
+		this.posx=posx;
+	}
+	
+	public void setPosY(int posy) {
+		this.posy=posy;
+	}
+
 	public void display(Tuile Tuile, JButton T) {
 
-		ImageIcon img = new ImageIcon(this.getClass().getResource("/"+Tuile.gettype()+Tuile.getnbcouronne()+".png"));
+		ImageIcon img = new ImageIcon(
+				this.getClass().getResource("/" + Tuile.gettype() + Tuile.getnbcouronne() + ".png"));
 		Image newimg = img.getImage().getScaledInstance(T.getWidth(), T.getHeight(), java.awt.Image.SCALE_SMOOTH);
 		T.setIcon(new ImageIcon(newimg));
 	}

@@ -120,12 +120,31 @@ public class AffichagePlateau extends Carre {
 	                ((JButton) e.getSource()).setText("Cliqué !");
 	                Image newimg = IMG.getImage().getScaledInstance( ((JButton)e.getSource()).getWidth(), ((JButton)e.getSource()).getHeight(),  java.awt.Image.SCALE_SMOOTH ) ;
 	                ((JButton) e.getSource()).setIcon(new ImageIcon(newimg));
-	                posx=x;
-	                posy=y;
+	                setPosX(x);
+	                setPosY(y);
+	                System.out.println("posx "+getPosX());
+	                System.out.println("posy "+getPosY());
 	            }
 	        });
 	        return b;
 	    }
+	
+	public int getPosX() {
+		return this.posx;
+	}
+	
+	public int getPosY() {
+		return this.posy;
+	}
+	
+	public void setPosX(int posx) {
+		this.posx=posx;
+	}
+	
+	public void setPosY(int posy) {
+		this.posy=posy;
+	}
+	
         
 }
 

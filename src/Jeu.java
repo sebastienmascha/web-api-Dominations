@@ -24,7 +24,6 @@ public class Jeu {
 	boolean bonchoix;
 	int posx;
 	int posy;
-	
 
 	public void setJoueurEnCours(Joueur joueur) {
 		this.joueurencours = joueur;
@@ -241,19 +240,15 @@ public class Jeu {
 			try {
 				this.joueurencours.terrain1.remplirTerrain(this.choixtuiletour, this.posx, this.posy);
 				supprimerdomino(this.choixtuiletour, dominostour);
+				this.bonchoix = true;
 			} catch (Exception e) {
 				System.out.println("Le domino a deje ete selectionne ! Descriptif erreur: \n" + e);
+				this.bonchoix = false;
 			}
 
-			/*
-			 * System.out.
-			 * println("\nAffichage de la tuile en position 2,3 sur le terrain du joueur 0 : \n"
-			 * + joueurs[0][0].terrain1.terrain[2][3]); System.out.
-			 * println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0, roi 2 : \n"
-			 * + joueurs[1][0].terrain1.terrain[2][3]); System.out.
-			 * println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0 : \n"
-			 * + joueurs[2][0].terrain1.terrain[2][3]);
-			 */
+			System.out.println("\nAffichage de la tuile en position " + this.posx + " & " + this.posy
+					+ " sur le terrain du joueur 0 : \n" + joueurencours.terrain1.terrain[this.posx][this.posy]);
+
 			// System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du
 			// joueur 0, roi 2: \n"
 			// + joueurs[3][0].terrain1.terrain[2][3]);
@@ -558,8 +553,8 @@ public class Jeu {
 	}
 
 	public void setPositionChoixTuileTour(int posx, int posy) {
-		this.posx=posx;
-		this.posy=posy;
+		this.posx = posx;
+		this.posy = posy;
 	}
 
 	/*

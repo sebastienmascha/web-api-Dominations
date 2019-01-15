@@ -17,6 +17,7 @@ public class Principal {
 		 
 		window.setDominosTour(jeu1.dominostour); 
 		window.setnbrois(jeu1.getnbrois());
+		window.setJoueurs(jeu1.joueurs);
 		window.setOrdreJoueurs(jeu1.getOrdreJoueurs());
 		
 		 
@@ -43,7 +44,11 @@ public class Principal {
 	
 	
 	public static void tourJeu() {
+		jeu1.setChoixTuilePreselect(window.getChoixTuileTour());
+		jeu1.setJoueurEnCours(window.getJoueurEnCours());
+		jeu1.setPositionChoixTuileTour(window.getPosX(),window.getPosY());
 		jeu1.tourjoueur();
+		window.setBonChoix(jeu1.getBonChoix());
 	}
 	
 	
