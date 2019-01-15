@@ -21,6 +21,10 @@ public class Jeu {
 	Joueur joueurencours;
 	public ArrayList<Integer> choixdomitour = new ArrayList<Integer>();
 	Tuile choixtuiletour;
+	boolean bonchoix;
+	int posx;
+	int posy;
+	
 
 	public void setJoueurEnCours(Joueur joueur) {
 		this.joueurencours = joueur;
@@ -28,6 +32,10 @@ public class Jeu {
 
 	public Joueur[][] getOrdreJoueurs() {
 		return this.ordrejoueurs;
+	}
+
+	public boolean getBonChoix() {
+		return this.bonchoix;
 	}
 
 	public void initialisationpartie() {
@@ -83,27 +91,26 @@ public class Jeu {
 		if (nbjoueurs == 2) {
 
 			try {
-/*
-				int binary = 0;
-
-				if (ordrejoueurs[j][0].getPremiereSelection()) {
-					binary = 0;
-					ordrejoueurs[j][0].setPremiereSelection(false);
-				} else {
-					binary = 1;
-				}
-
-				ordrejoueurs[j][binary]
-						.setPreSelection(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)]);
-*/
+				/*
+				 * int binary = 0;
+				 * 
+				 * if (ordrejoueurs[j][0].getPremiereSelection()) { binary = 0;
+				 * ordrejoueurs[j][0].setPremiereSelection(false); } else { binary = 1; }
+				 * 
+				 * ordrejoueurs[j][binary]
+				 * .setPreSelection(dominostourpreselect[this.choixdomitour.get(0)][this.
+				 * choixdomitour.get(1)]);
+				 */
 				this.joueurencours
 						.setPreSelection(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)]);
 
 				supprimerdomino(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)],
 						dominostourpreselect);
+				this.bonchoix = true;
 
 			} catch (Exception e) {
 				System.out.println("Le domino a deje ete selectionne ! Descriptif erreur: \n" + e);
+				this.bonchoix = false;
 			}
 
 			// reset
@@ -124,15 +131,16 @@ public class Jeu {
 		} else {
 
 			try {
-				System.out.println("\nTuile cliquee : "+this.choixtuiletour);
-				
+				System.out.println("\nTuile cliquee : " + this.choixtuiletour);
+
 				this.joueurencours.setPreSelection(this.choixtuiletour);
-				//.setPreSelection(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)]);
-				supprimerdomino(this.choixtuiletour,dominostour);
-				
-				
+				// .setPreSelection(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)]);
+				supprimerdomino(this.choixtuiletour, dominostour);
+				this.bonchoix = true;
+
 			} catch (Exception e) {
 				System.out.println("Le domino a deje ete selectionne ! Descriptif erreur: \n" + e);
+				this.bonchoix = false;
 			}
 
 			System.out.println("\nAffichage de la liste de tuiles dominostourpreselect :\n");
@@ -143,19 +151,38 @@ public class Jeu {
 				System.out.println(dominostourpreselect[j][1]);
 			}
 
-			
 			/*
-			System.out.println("\nAffichage de la tuile en position 2,3 sur le terrain du joueur 0 : \n"
-					+ joueurs[0][0].terrain1.terrain[2][3]);
-			System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0, roi 2 : \n"
-					+ joueurs[1][0].terrain1.terrain[2][3]);
-			System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0 : \n"
-					+ joueurs[2][0].terrain1.terrain[2][3]);
-			System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0, roi 2: \n"
-					+ joueurs[3][0].terrain1.terrain[2][3]);
-					
-					*/
+			 * System.out.
+			 * println("\nAffichage de la tuile en position 2,3 sur le terrain du joueur 0 : \n"
+			 * + joueurs[0][0].terrain1.terrain[2][3]); System.out.
+			 * println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0, roi 2 : \n"
+			 * + joueurs[1][0].terrain1.terrain[2][3]); System.out.
+			 * println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0 : \n"
+			 * + joueurs[2][0].terrain1.terrain[2][3]); System.out.
+			 * println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0, roi 2: \n"
+			 * + joueurs[3][0].terrain1.terrain[2][3]);
+			 * 
+			 */
 
+		}
+
+	}
+
+	public void definirnouvelordre() {
+		// reset de la liste
+		this.ordrejoueurs = new Joueur[nbrois][2];
+
+		for (int j = 0; j <= this.nbrois - 1; j++) {
+
+			this.dominostourpreselect[j][0] = joueurs[j][0].activetuile;
+			this.ordrejoueurs[j] = joueurs[j];
+		}
+
+		trierOrdre(dominostourpreselect, ordrejoueurs);
+
+		System.out.println("Ceci est un nouvel ordre de domino:\n");
+		for (int j = 0; j <= this.dominostourpreselect.length - 1; j++) {
+			System.out.println(dominostourpreselect[j][0].num1);
 		}
 
 	}
@@ -210,25 +237,23 @@ public class Jeu {
 					+ joueurs[1][1].terrain1.terrain[2][3]);
 
 		} else {
-			for (int j = 0; j <= this.nbrois - 1; j++) {
-				System.out.println("C'est a " + ordrejoueurs[j][0].numjoueur + " de jouer");
 
-				try {
-					ordrejoueurs[j][0].terrain1.remplirTerrain(
-							dominostour[this.choixdomitour.get(0)][this.choixdomitour.get(1)],
-							this.choixdomitour.get(2), this.choixdomitour.get(3));
-					supprimerdomino(dominostour[this.choixdomitour.get(0)][this.choixdomitour.get(1)], dominostour);
-				} catch (Exception e) {
-					System.out.println("Le domino a deje ete selectionne ! Descriptif erreur: \n" + e);
-				}
+			try {
+				this.joueurencours.terrain1.remplirTerrain(this.choixtuiletour, this.posx, this.posy);
+				supprimerdomino(this.choixtuiletour, dominostour);
+			} catch (Exception e) {
+				System.out.println("Le domino a deje ete selectionne ! Descriptif erreur: \n" + e);
 			}
 
-			System.out.println("\nAffichage de la tuile en position 2,3 sur le terrain du joueur 0 : \n"
-					+ joueurs[0][0].terrain1.terrain[2][3]);
-			System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0, roi 2 : \n"
-					+ joueurs[1][0].terrain1.terrain[2][3]);
-			System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0 : \n"
-					+ joueurs[2][0].terrain1.terrain[2][3]);
+			/*
+			 * System.out.
+			 * println("\nAffichage de la tuile en position 2,3 sur le terrain du joueur 0 : \n"
+			 * + joueurs[0][0].terrain1.terrain[2][3]); System.out.
+			 * println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0, roi 2 : \n"
+			 * + joueurs[1][0].terrain1.terrain[2][3]); System.out.
+			 * println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0 : \n"
+			 * + joueurs[2][0].terrain1.terrain[2][3]);
+			 */
 			// System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du
 			// joueur 0, roi 2: \n"
 			// + joueurs[3][0].terrain1.terrain[2][3]);
@@ -419,6 +444,53 @@ public class Jeu {
 
 	}
 
+	// tri une liste de dominos par ordre croissant en fonction de leur numero
+	private Tuile[][] trierOrdre(Tuile[][] dominostour, Joueur[][] joueurs) {
+
+		int i = 0;
+
+		while (i < dominostour.length) {
+
+			for (int j = dominostour.length - 1; j >= i + 1; j--) {
+
+				if (dominostour[j][0].getnumdomi() < dominostour[j - 1][0].getnumdomi()) {
+
+					echangertuiles(j - 1, j, dominostour);
+					echangerjoueurs(j - 1, j, joueurs);
+
+				}
+
+			}
+
+			i = i + 1;
+		}
+
+		return dominostour;
+	}
+
+	// echange de place 2 dominos en fonction de leur indice dans la liste
+	public void echangertuiles(int i, int j, Tuile[][] dominostour2) {
+		Tuile val1 = dominostour2[i][0];
+		Tuile val2 = dominostour2[i][1];
+
+		dominostour2[i][0] = dominostour2[j][0];
+		dominostour2[j][0] = val1;
+		dominostour2[i][1] = dominostour2[j][1];
+		dominostour2[j][1] = val2;
+
+	}
+
+	public void echangerjoueurs(int i, int j, Joueur[][] dominostour2) {
+		Joueur val1 = dominostour2[i][0];
+		Joueur val2 = dominostour2[i][1];
+
+		dominostour2[i][0] = dominostour2[j][0];
+		dominostour2[j][0] = val1;
+		dominostour2[i][1] = dominostour2[j][1];
+		dominostour2[j][1] = val2;
+
+	}
+
 	// DEBUG permet l'affichage d'une liste
 	public void afficherDoubleListe(Tuile liste[][]) {
 		for (int i = 0; i <= liste.length - 1; i++) {
@@ -450,38 +522,32 @@ public class Jeu {
 
 		}
 	}
-	
-	
+
 	/*
-	public Tuile getActiveDominostourFromNumber(ArrayList<Integer> choixdomitour,Tuile[][] dominostour) {
-		
-		for (int i = 0; i <= dominostour.length - 1; i++) {
-			if (dominostour[i][0].getnumdomi()==choixdomitour.get(0)) {
-				System.out.println(dominostour[i][0]+"\n"+dominostour[i][0].getnumdomi()+" = "+choixdomitour.get(0)+" pour le tour "+i+"\n");
-				if (dominostour[i][0].getnumtuile()==choixdomitour.get(1)) {
-					System.out.println(dominostour[i][0]+"\n"+dominostour[i][0].getnumdomi()+" = "+choixdomitour.get(0)+ " pour le tour "+i+"\n");
-					return dominostour[i][0];
-				}
-				else {
-					if (dominostour[i][1].getnumtuile()==choixdomitour.get(1)) {
-						System.out.println(dominostour[i][1]+"\n"+dominostour[i][1].getnumdomi()+" = "+choixdomitour.get(0)+ " pour le tour "+i+"\n");
-						return dominostour[i][1];
-					}
-					
-				}
-			}
-			else {
-				System.out.println("Rien "+i);
-			}
-		}
-		System.out.println("Rien du tout");
-		return null;
-		
-		
-	}
-	
-	
-	*/
+	 * public Tuile getActiveDominostourFromNumber(ArrayList<Integer>
+	 * choixdomitour,Tuile[][] dominostour) {
+	 * 
+	 * for (int i = 0; i <= dominostour.length - 1; i++) { if
+	 * (dominostour[i][0].getnumdomi()==choixdomitour.get(0)) {
+	 * System.out.println(dominostour[i][0]+"\n"+dominostour[i][0].getnumdomi()
+	 * +" = "+choixdomitour.get(0)+" pour le tour "+i+"\n"); if
+	 * (dominostour[i][0].getnumtuile()==choixdomitour.get(1)) {
+	 * System.out.println(dominostour[i][0]+"\n"+dominostour[i][0].getnumdomi()
+	 * +" = "+choixdomitour.get(0)+ " pour le tour "+i+"\n"); return
+	 * dominostour[i][0]; } else { if
+	 * (dominostour[i][1].getnumtuile()==choixdomitour.get(1)) {
+	 * System.out.println(dominostour[i][1]+"\n"+dominostour[i][1].getnumdomi()
+	 * +" = "+choixdomitour.get(0)+ " pour le tour "+i+"\n"); return
+	 * dominostour[i][1]; }
+	 * 
+	 * } } else { System.out.println("Rien "+i); } }
+	 * System.out.println("Rien du tout"); return null;
+	 * 
+	 * 
+	 * }
+	 * 
+	 * 
+	 */
 
 	public void verif() {
 
@@ -490,23 +556,19 @@ public class Jeu {
 	public void setNbJoueurs(int n) {
 		this.nbjoueurs = n;
 	}
-/*
-	public void setChoixDomiTour(int numdomi, int numtuile, int posx, int posy) {
-		this.choixdomitour=new ArrayList<Integer>();
-		this.choixdomitour.add(numdomi);
-		this.choixdomitour.add(numtuile);
-		this.choixdomitour.add(posx);
-		this.choixdomitour.add(posy);
+
+	public void setPositionChoixTuileTour(int posx, int posy) {
+		this.posx=posx;
+		this.posy=posy;
 	}
 
-	public void setChoixDomiPreselect(int numdomi, int numtuile) {
-		this.choixdomitour=new ArrayList<Integer>();
-		this.choixdomitour.add(numdomi);
-		this.choixdomitour.add(numtuile);
-	}
-	*/
+	/*
+	 * public void setChoixDomiPreselect(int numdomi, int numtuile) {
+	 * this.choixdomitour=new ArrayList<Integer>(); this.choixdomitour.add(numdomi);
+	 * this.choixdomitour.add(numtuile); }
+	 */
 	public void setChoixTuilePreselect(Tuile tuile) {
-		this.choixtuiletour=tuile;
+		this.choixtuiletour = tuile;
 	}
 
 	public int getNumTour() {

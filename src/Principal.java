@@ -31,9 +31,19 @@ public class Principal {
 	public static void preselection() {
 		
 		jeu1.setChoixTuilePreselect(window.getChoixTuileTour());
-		System.out.println("Voici ce qui va etre importe dans jeu : "+window.getChoixTuileTour());
 		jeu1.setJoueurEnCours(window.getJoueurEnCours());
 		jeu1.preselection();
+		window.setBonChoix(jeu1.getBonChoix());
+	}
+	
+	public static void definirordre() {
+		jeu1.definirnouvelordre();
+		window.setOrdreJoueurs(jeu1.getOrdreJoueurs());
+	}
+	
+	
+	public static void tourJeu() {
+		jeu1.tourjoueur();
 	}
 	
 	

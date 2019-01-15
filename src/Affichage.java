@@ -37,9 +37,11 @@ public class Affichage implements ActionListener {
 	int nbjoueurs = 0;
 	int nbrois = 0;
 	public Joueur[][] ordrejoueurs = new Joueur[4][2];
+	boolean bonchoix;
 
 	int compteurpioche = 0;
 	public int compteurjoueur = 0;
+	public int compteurclictuile =0;
 
 	String NombreDeJoueursString = String.valueOf(nbjoueurs);
 	JLabel lblNombreDeJoueurs = new JLabel("Nombre de joueurs :" + nbjoueurs + ", veuillez choisir ...");
@@ -265,8 +267,8 @@ public class Affichage implements ActionListener {
 					jButton1.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							Object source = e.getSource();
-							
-							if (compteurjoueur < ordrejoueurs.length) {
+							if (compteurclictuile == 0) {
+							if (compteurjoueur < nbrois) {
 								setJoueurEnCours(ordrejoueurs[compteurjoueur][0]);
 								
 								/*
@@ -277,14 +279,26 @@ public class Affichage implements ActionListener {
 								setChoixTuileTour(tuile1);
 								
 								Principal.preselection();
-								compteurjoueur += 1;
+								if (bonchoix==true) {
+									compteurjoueur += 1;
+
+								}
+								else if (bonchoix==false){
+									System.out.println("\nCe domino a deja ete selectionne !");
+								}
 								
 
-								if (compteurjoueur == ordrejoueurs.length) {
+								if (compteurjoueur >= nbrois) {
 									System.out.println("Il faut piocher à nouveau");
+									appelDefinitionNouvelOrdre();
+									System.out.println("\nC'est a " + ordrejoueurs[0][0].getNomJoueur() + " de jouer.");
+									compteurclictuile=1;
+									compteurjoueur=0;
 								} else {
+									
+									
 
-									System.out.println("C'est a " + ordrejoueurs[compteurjoueur][0].getNomJoueur() + " de jouer");
+									System.out.println("\nC'est a " + ordrejoueurs[compteurjoueur][0].getNomJoueur() + " de jouer");
 
 									
 
@@ -292,25 +306,111 @@ public class Affichage implements ActionListener {
 
 							} else {
 								System.out.println("Il faut piocher à nouveau 2");
+								appelDefinitionNouvelOrdre();
+								System.out.println("\nC'est a " + ordrejoueurs[0][0].getNomJoueur() + " de jouer.");
+								compteurclictuile=1;
+								compteurjoueur=0;
 							}
+							}
+							else if (compteurclictuile == 1){
+								
+								if (compteurjoueur < nbrois) {
+									setJoueurEnCours(ordrejoueurs[compteurjoueur][0]);
+									
+					
+									
+									setChoixTuileTour(tuile1);
+									
+									Principal.tourJeu();
+									
+									if (bonchoix==true) {
+										compteurjoueur += 1;
+
+									}
+									else if (bonchoix==false){
+										System.out.println("\nCe domino a deja ete selectionne !");
+									}
+									
+
+									if (compteurjoueur >= nbrois) {
+										System.out.println("Il faut piocher à nouveau");
+										appelDefinitionNouvelOrdre();
+									} else {
+										
+										
+
+										System.out.println("\nC'est a " + ordrejoueurs[compteurjoueur][0].getNomJoueur() + " de jouer");
+
+										
+
+									}
+
+								}
+							
+							}
+							
+					
 
 						}
 					});
-
+					// pour bouton tuile2 excatement la meme qu'au dessus
 					jButton2.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							Object source = e.getSource();
-							setNumDomiTour(numdomituile2);
-							setNumTuileTour(1);
+							
+							if (compteurjoueur < nbrois) {
+								setJoueurEnCours(ordrejoueurs[compteurjoueur][0]);
+								
+								/*
+								setNumDomiTour(numdomituile1);
+								setNumTuileTour(0);
+								*/
+								
+								setChoixTuileTour(tuile2);
+								
+								Principal.preselection();
+								if (bonchoix==true) {
+									compteurjoueur += 1;
+
+								}
+								else if (bonchoix==false){
+									System.out.println("\nCe domino a deja ete selectionne !");
+								}
+								
+
+								if (compteurjoueur >= nbrois) {
+									System.out.println("Il faut piocher à nouveau");
+									appelDefinitionNouvelOrdre();
+									
+									
+									
+									
+								} else {
+
+									System.out.println("\nC'est a " + ordrejoueurs[compteurjoueur][0].getNomJoueur() + " de jouer");
+
+									
+
+								}
+
+							} else {
+								System.out.println("Il faut piocher à nouveau 2");
+								appelDefinitionNouvelOrdre();
+								
+							}
+							
+							
+							
+							
+							
+							
 						}
 					});
 
 				}
-				// afficher le nombre de joueurs + preselection
+				
+				
 
-				for (int j = 0; j <= this.nbrois - 1; j++) {
-
-				}
 
 			}
 
@@ -335,6 +435,17 @@ public class Affichage implements ActionListener {
 
 		}
 
+	}
+	
+	
+	public void appelDefinitionNouvelOrdre() {
+		//definition nouvel ordre
+		Principal.definirordre();
+		
+		System.out.println("Ceci est un nouvel ordre de joueurs :\n");
+		for (int j = 0; j <= ordrejoueurs.length - 1; j++) {
+		System.out.println(ordrejoueurs[j][0].nomjoueur);
+		}
 	}
 
 	public void setNumDomiTour(int num) {
@@ -368,6 +479,10 @@ public class Affichage implements ActionListener {
 	
 	public Tuile getChoixTuileTour() {
 		return this.choixtuiletour;
+	}
+	
+	public void setBonChoix(boolean bonchoix) {
+		this.bonchoix=bonchoix;
 	}
 
 }
