@@ -37,11 +37,6 @@ public class AffichageJeu extends JPanel {
 	AffichagePlateau EcranSud = new AffichagePlateau(B,Color.BLUE);
 
 	
-	AffichagePlateau EcranOuest = new AffichagePlateau(R,Color.RED);
-	AffichagePlateau EcranNord = new AffichagePlateau(J,Color.YELLOW);
-	AffichagePlateau EcranEst = new AffichagePlateau(V,Color.GREEN);
-	AffichagePlateau EcranSud = new AffichagePlateau(B,Color.BLUE);
-	
 	AffichagePanelDeJeu NordOuest = new AffichagePanelDeJeu();
 	AffichagePanelDeJeu2 NordEst = new AffichagePanelDeJeu2();
 	JCentre Centre = new JCentre();

@@ -37,33 +37,6 @@ public class Principal {
 		window.setBonChoix(jeu1.getBonChoix());
 		
 		
-
-
-		
-			//jeu1.joueurs[3][0].terrain1.remplirTerrain(jeu1.reconstruirepioche(jeu1.pioche)[j][0], j+1, j+2);
-			jeu1.joueurs[2][0].terrain1.remplirTerrain(jeu1.reconstruirepioche(jeu1.pioche)[1][0], 3, 4);
-			jeu1.joueurs[1][0].terrain1.remplirTerrain(jeu1.reconstruirepioche(jeu1.pioche)[1][0], 4, 5);
-			jeu1.joueurs[0][0].terrain1.remplirTerrain(jeu1.reconstruirepioche(jeu1.pioche)[1][0], 5, 6);
-			
-			
-		
-		
-		
-		
-		
-		
-		
-		//window.PageJeu.EcranSud.setTerrain(jeu1.ordrejoueurs[3][0].terrain1.terrain);
-		window.PageJeu.EcranOuest.setTerrain(jeu1.ordrejoueurs[0][0].terrain1.terrain);
-		window.PageJeu.EcranNord.setTerrain(jeu1.ordrejoueurs[1][0].terrain1.terrain);
-		window.PageJeu.EcranEst.setTerrain(jeu1.ordrejoueurs[2][0].terrain1.terrain);
-		
-		//window.PageJeu.EcranSud.lireTerrain(window.PageJeu.EcranSud.terrain);
-		window.PageJeu.EcranOuest.lireTerrain(window.PageJeu.EcranOuest.terrain);
-		window.PageJeu.EcranNord.lireTerrain(window.PageJeu.EcranNord.terrain);
-		window.PageJeu.EcranEst.lireTerrain(window.PageJeu.EcranEst.terrain);
-		
-		 
 		
 	}
 	

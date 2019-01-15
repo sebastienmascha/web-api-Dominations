@@ -83,13 +83,7 @@ public class AffichagePlateau extends Carre {
         
     }
     
-	public void display(Tuile Tuile, JButton T) {
 
-		ImageIcon img = new ImageIcon(
-				this.getClass().getResource("/" + Tuile.gettype() + Tuile.getnbcouronne() + ".png"));
-		Image newimg = img.getImage().getScaledInstance(T.getWidth(), T.getHeight(), java.awt.Image.SCALE_SMOOTH);
-		T.setIcon(new ImageIcon(newimg));
-	}
 	
     
     public void lireTerrain(Tuile[][] terrain) {
