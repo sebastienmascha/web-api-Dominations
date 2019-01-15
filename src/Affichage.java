@@ -69,6 +69,7 @@ public class Affichage implements ActionListener {
 		DefinitionFenetre();
 		AjouterLesActionsListner();
 		DefinitionPageCarreQuiContientPageJeu();
+		InitialiselesChampdeTexte();
 
 	}
 
@@ -111,7 +112,7 @@ public class Affichage implements ActionListener {
 
 					Tuile tuile1 = dominostour[k][0];
 					Tuile tuile2 = dominostour[k][1];
-
+					
 					display(dominostour[k][0], jButton1);
 					display(dominostour[k][1], jButton2);
 
@@ -168,7 +169,6 @@ public class Affichage implements ActionListener {
 									System.out.println("Joueur en cours : "+ordrejoueurs[compteurjoueur][0].couleur);
 
 									setChoixTuileTour(tuile1);
-
 									
 									System.out.println("\nLe joueur qui a clique est : "+ordrejoueurs[compteurjoueur][0].numjoueur);
 								
@@ -280,7 +280,7 @@ public class Affichage implements ActionListener {
 
 		}
 	}
-	
+
 	private static void resizePreview(JPanel innerPanel, JPanel container) {
 		int w = container.getWidth();
 		int h = container.getHeight();
@@ -342,7 +342,15 @@ public class Affichage implements ActionListener {
 		System.out.println("Num domi clique: " + this.numdomitour);
 
 	}
+	
+	public void display(Tuile Tuile, JButton T) {
 
+		ImageIcon img = new ImageIcon(
+				this.getClass().getResource("/" + Tuile.gettype() + Tuile.getnbcouronne() + ".png"));
+		Image newimg = img.getImage().getScaledInstance(T.getWidth(), T.getHeight(), java.awt.Image.SCALE_SMOOTH);
+		T.setIcon(new ImageIcon(newimg));
+	}
+	
 	public void setNumTuileTour(int num) {
 		this.numtuiletour = num;
 		System.out.println("Num tuile clique: " + this.numtuiletour);
@@ -394,26 +402,22 @@ public class Affichage implements ActionListener {
 		this.posy=posy;
 	}
 
-	public void display(Tuile Tuile, JButton T) {
 
-		ImageIcon img = new ImageIcon(
-				this.getClass().getResource("/" + Tuile.gettype() + Tuile.getnbcouronne() + ".png"));
-		Image newimg = img.getImage().getScaledInstance(T.getWidth(), T.getHeight(), java.awt.Image.SCALE_SMOOTH);
-		T.setIcon(new ImageIcon(newimg));
+	
+	public void InitialiselesChampdeTexte() {
+	PageAccueil.ChampJ1.setEnabled(false);
+	PageAccueil.ChampJ1.setVisible(false);
+	PageAccueil.ChampJ2.setEnabled(false);
+	PageAccueil.ChampJ2.setVisible(false);
+	PageAccueil.ChampJ3.setEnabled(false);
+	PageAccueil.ChampJ3.setVisible(false);
+	PageAccueil.ChampJ4.setEnabled(false);
+	PageAccueil.ChampJ4.setVisible(false);
 	}
 	
 	public void AfficherChampdeTexteAccueilSelonNbreJoueurs() {
-		if (nbjoueurs==0) {
-			PageAccueil.ChampJ1.setEnabled(false);
-			PageAccueil.ChampJ1.setVisible(false);
-			PageAccueil.ChampJ2.setEnabled(false);
-			PageAccueil.ChampJ2.setVisible(false);
-			PageAccueil.ChampJ3.setEnabled(false);
-			PageAccueil.ChampJ3.setVisible(false);
-			PageAccueil.ChampJ4.setEnabled(false);
-			PageAccueil.ChampJ4.setVisible(false);
-		}
-		else if (nbjoueurs==2) {
+		
+		if (nbjoueurs==2) {
 			PageAccueil.ChampJ1.setEnabled(true);
 			PageAccueil.ChampJ1.setVisible(true);
 			PageAccueil.ChampJ2.setEnabled(true);

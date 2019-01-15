@@ -30,6 +30,12 @@ public class AffichageJeu extends JPanel {
 	String V ;
 	String B ;
 
+
+	AffichagePlateau EcranOuest = new AffichagePlateau(R,Color.RED);
+	AffichagePlateau EcranNord = new AffichagePlateau(J,Color.YELLOW);
+	AffichagePlateau EcranEst = new AffichagePlateau(V,Color.GREEN);
+	AffichagePlateau EcranSud = new AffichagePlateau(B,Color.BLUE);
+
 	
 	AffichagePlateau EcranOuest = new AffichagePlateau(R,Color.RED);
 	AffichagePlateau EcranNord = new AffichagePlateau(J,Color.YELLOW);
@@ -41,7 +47,7 @@ public class AffichageJeu extends JPanel {
 	JCentre Centre = new JCentre();
 	AffichagePanelDeJeu3 SudOuest = new AffichagePanelDeJeu3();
 	AffichagePanelDeJeu4 SudEst = new AffichagePanelDeJeu4();
-
+	
 	JLabel lblNbreJoueurs = new JLabel();
 	
 	JButton btnRetournerAuMenu = new JButton("Retourner au menu");

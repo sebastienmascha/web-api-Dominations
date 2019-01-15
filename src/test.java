@@ -45,7 +45,6 @@ public class test extends JPanel {
 	GridBagConstraints gbc_textField_2 = new GridBagConstraints();
 	GridBagConstraints gbc_textField_3 = new GridBagConstraints();
 
-
 	public test() {
 		Layout.setColumns(7);
 		Layout.setRows(7);
