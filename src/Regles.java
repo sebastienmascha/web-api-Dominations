@@ -18,18 +18,31 @@ public class Regles {
 	
 	// VALIDITÉ GÉNÉRALE DU PLACEMENT D'UNE TUILE
 	public static boolean placementTuile(Terrain terrain, Tuile tuile, int posx, int posy) {
-		if (isTuileVide(posx,posy,terrain)) {
-			if (terrain.getTuilesVoisinesPositionX(tuile, posx, posy, terrain).size() != 0) {
-				if (isRoyaumeValide(posx,posy,terrain)) {
+		if (isRoyaumeValide(posx,posy,terrain)) {
+			if (isTuileVide(posx,posy,terrain)) {
+				
+				
+				if (terrain.getTuilesVoisinesPositionX(tuile, posx, posy, terrain).size() != 0) {
 					return true;
+				}else if ((Math.abs(posx-4)==1 && posy == 4) || (Math.abs(posy-4)==1 && posx == 4)) {
+					System.out.print("Vous avez placez votre tuile pres du chateau !");
+					return true;
+				}else {
+					System.out.print("Vous devez placer votre tuile à côté d'une tuile de même type !");
+					return false;
 				}
+				
+				
+				
+				
+			}else {
+				System.out.print("La tuile est occupée !");
 				return false;
 			}
-			return false;
 		}else {
+			System.out.print("Vous sortez du royaume !");
 			return false;
 		}
-		
 	}
 	
 	// ROYAUME 5x5
