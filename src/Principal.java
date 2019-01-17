@@ -27,7 +27,7 @@ public class Principal {
 		 
 	} 
 	
-	public static void preselection(AffichagePlateau Ecran, Joueur Joueur, Joueur OrdreJoueur) {
+	public static void preselection(AffichagePlateau Ecran, Joueur Joueur, Joueur OrdreJoueur, Tuile Tuile) {
 		
 		jeu1.setChoixTuilePreselect(window.PageJeu.choixtuiletour);
 		jeu1.setJoueurEnCours(window.ordrejoueurs[window.compteurjoueur][0]);
@@ -35,7 +35,7 @@ public class Principal {
 		window.setBonChoix(jeu1.getBonChoix());
 		
 		//REMPLIE CHAQUE TERRAIN
-		Joueur.terrain1.remplirTerrain(window.PageJeu.choixtuiletour, Ecran.posx, Ecran.posy);
+		Joueur.terrain1.remplirTerrain(Tuile, Ecran.posx, Ecran.posy);
 		//jeu1.joueurs[1][0].terrain1.remplirTerrain(window.dominostour[1][0], window.PageJeu.EcranNord.posx, window.PageJeu.EcranNord.posy);
 		//jeu1.joueurs[2][0].terrain1.remplirTerrain(window.dominostour[2][0], window.PageJeu.EcranEst.posx, window.PageJeu.EcranEst.posy);
 		//jeu1.joueurs[3][0].terrain1.remplirTerrain(window.dominostour[3][0], window.PageJeu.EcranSud.posx, window.PageJeu.EcranSud.posy);
@@ -63,7 +63,7 @@ public class Principal {
 	
 	
 	public static void tourJeu() {
-		jeu1.setChoixTuilePreselect(window.getChoixTuileTour());
+		jeu1.setChoixTuilePreselect(window.PageJeu.choixtuiletour);
 		jeu1.setJoueurEnCours(window.ordrejoueurs[window.compteurjoueur][0]);
 		jeu1.setPositionChoixTuileTour(window.getPosX(),window.getPosY());
 		jeu1.tourjoueur();

@@ -83,7 +83,6 @@ public class AffichagePlateau extends Carre {
         
     }
     
-
 	
     
     public void lireTerrain_et_AfficheTuilesurTerrain(Tuile[][] terrain) {
@@ -113,10 +112,9 @@ public class AffichagePlateau extends Carre {
 	
 	public JButton CreerBoutonOrganise(int x, int y) {
 	     final BoutonsPlateau b = new BoutonsPlateau("[" + x + "][" + y + "]",this.getClass().getResource("/A.jpg"), this.getClass().getResource("/Mine1.png"));
-	     b.addActionListener(new ActionListener() {
+	     /**b.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                //JButton gb = getBoutton(x, y);
 	                System.out.println("[" + x + "][" + y + "]"
 	                    + " enclenché sur le terrain " + ((JButton) e.getSource()).getParent());
 	                
@@ -125,7 +123,7 @@ public class AffichagePlateau extends Carre {
 	                System.out.println("posx "+getPosX());
 	                System.out.println("posy "+getPosY());
 	            }
-	        });
+	        });*/
 	        return b;
 	    }
 	

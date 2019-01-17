@@ -27,7 +27,8 @@ public class AffichageJeu extends JPanel {
 	
 	int compteurjoueur;
 	Tuile choixtuiletour;
-	
+	int PosDomiSelection;
+	int PosTuiSelection;
 	JButton btnPioche = new JButton("Pioche");
 	
 	String R ;
@@ -171,18 +172,7 @@ public class AffichageJeu extends JPanel {
 		this.choixtuiletour = tuile;
 	}
 	
-	public void SetActionListenerSurDomino_i_Tuile_j (int i, int j, Tuile T) { //Tuile j ème du i ème domino de notre liste dominostour sortante de la pioche
 	
-		ListTour1.get(2*i+j).addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//if (compteurclictuile == 0) {
-				//	if (compteurjoueur < nbrois) {
-						setEcran (compteurjoueur);
-						setChoixTuileTour(T);
-						Principal.preselection(Ecran, Principal.jeu1.joueurs[compteurjoueur][0], Principal.jeu1.ordrejoueurs[compteurjoueur][0]);	
-						System.out.println("Display done");
-		}});
-	}
 }
 
 class AffichagePanelDeJeu extends JPanel {

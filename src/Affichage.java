@@ -28,7 +28,6 @@ public class Affichage implements ActionListener {
 	// vers Jeu
 	int numdomitour = 0;
 	int numtuiletour = 0;
-	Tuile choixtuiletour;
 
 	int posx=0;
 	int posy=0;
@@ -109,8 +108,7 @@ public class Affichage implements ActionListener {
 
 				SortirLa_1ere_Pioche();
 				System.out.println("Compteur Joueur = " + compteurjoueur);
-				PageJeu.SetActionListenerSurDomino_i_Tuile_j (0, 0, dominostour[0][0]);
-				//SetActionListenerSurDomino_i_Tuile_j(0,0); //Domino 0 et Tuile 0 de la liste dominostours. Avec un compteur à 0, donc tour du joueur 1
+				SetActionListenerSurDomino_i_Tuile_j (0); //En argument on a la tuile de gauche ou celle de droite du domino selectionné
 				System.out.println("voila" + Ecran.getBoutton(0, 0).getBackground());
 				
 				
@@ -147,7 +145,37 @@ public class Affichage implements ActionListener {
 
 		}
 	}
+	
+	public void SetActionListenerSurDomino_i_Tuile_j (int p) { //Tuile j ème du i ème domino de notre liste dominostour sortante de la pioche
+		for (int k=0; k<dominostour.length;k++){
+			int m = k;
+			PageJeu.ListTour1.get(2*k+p).addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					setEcran (compteurjoueur);
+					PageJeu.PosDomiSelection=m;
+					PageJeu.PosTuiSelection=p;
+			}});
+		}
+	//		setChoixTuileTour(T);
 
+		for (int k=0; k<81 ;k++) {
+		
+			int m = k;
+			Ecran.ListeBoutons.get(k).addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					System.out.println("[" + m/9 + "][" + m%9 + "]" + " enclenché sur le terrain " + ((JButton) e.getSource()).getParent());
+				    JButton source = (JButton) e.getSource();
+				    Ecran.setPosX(m/9);
+				    Ecran.setPosY(m%9);
+			        System.out.println("posx "+ m/9);
+			        System.out.println("posy "+ m%9);
+					Principal.preselection(Ecran, Principal.jeu1.joueurs[compteurjoueur][0], Principal.jeu1.ordrejoueurs[compteurjoueur][0], dominostour[PageJeu.PosDomiSelection][PageJeu.PosTuiSelection]);	            
+						
+			}});
+			}
+			System.out.println("Display done");
+	}
 	public void SortirLa_1ere_Pioche () {
 		for (int k = 0; k < PageJeu.ListTour1.size() / 2; k++) {
 	
@@ -158,15 +186,14 @@ public class Affichage implements ActionListener {
 			display(dominostour[k][1], jButton2);
 		}
 	}
-	public void SetActionListenerSurDomino_i_Tuile_j (int i, int j) { //Tuile j ème du i ème domino de notre liste dominostour sortante de la pioche
+	public void SetActionListenerSurDomino_i_Tuile_j_Bis (int i, int j) { //Tuile j ème du i ème domino de notre liste dominostour sortante de la pioche
 		System.out.println("C'est au joueur " + (compteurjoueur+1) +" de jouer");
-		setChoixTuileTour(dominostour[i][j]);
 		PageJeu.ListTour1.get(2*i+j).addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Object source = e.getSource();
 				//if (compteurclictuile == 0) {
 				//	if (compteurjoueur < nbrois) {
-						Principal.preselection(Ecran, Principal.jeu1.joueurs[compteurjoueur][0], Principal.jeu1.ordrejoueurs[compteurjoueur][0]);	
+						Principal.preselection(Ecran, Principal.jeu1.joueurs[compteurjoueur][0], Principal.jeu1.ordrejoueurs[compteurjoueur][0], dominostour[0][0]);	
 						System.out.println("Display done");
 		}});		
 	}
@@ -269,10 +296,6 @@ public class Affichage implements ActionListener {
 
 	}
 
-	public void setChoixTuileTour(Tuile tuile) {
-		this.choixtuiletour = tuile;
-
-	}
 
 	public void setOrdreJoueurs(Joueur[][] ordrejoueurs) {
 		this.ordrejoueurs = ordrejoueurs;
@@ -280,11 +303,6 @@ public class Affichage implements ActionListener {
 	
 	public void setJoueurs(Joueur[][] joueurs) {
 		this.joueurs = joueurs;
-	}
-
-
-	public Tuile getChoixTuileTour() {
-		return this.choixtuiletour;
 	}
 	
 	
