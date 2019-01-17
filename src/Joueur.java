@@ -44,6 +44,8 @@ public class Joueur {
 		this.nomjoueur=nom;
 	}
 	
+
+	
 	public String getNomJoueur() {
 		return this.nomjoueur;
 		

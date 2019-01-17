@@ -17,11 +17,14 @@ import java.awt.Container;
 import java.awt.BorderLayout;
 import javax.swing.JScrollBar;
 import java.awt.FlowLayout;
+import java.awt.Font;
+
 import javax.swing.BoxLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 public class AffichageJeu extends JPanel {
 	
@@ -30,6 +33,8 @@ public class AffichageJeu extends JPanel {
 	int PosDomiSelection;
 	int PosTuiSelection;
 	JButton btnPioche = new JButton("Pioche");
+	
+	JLabel AquiLeTour = new JLabel();
 	
 	String R ;
 	String J ;
@@ -64,10 +69,12 @@ public class AffichageJeu extends JPanel {
 			setLayout(new GridLayout(3, 4, 0, 0));
 			
 			this.add(NordOuest);
-				NordOuest.setLayout(new GridBagLayout());
+				NordOuest.setLayout(new GridLayout(2,0,2,2));
 				NordOuest.add(btnPioche);
 				NordOuest.add(lblNbreJoueurs);
-				
+				lblNbreJoueurs.setForeground(Color.WHITE);
+				lblNbreJoueurs.setHorizontalAlignment(SwingConstants.CENTER);
+				lblNbreJoueurs.setFont(new Font("Tahoma", Font.ITALIC, 16));
 			
 			this.add(EcranNord);
 						
@@ -84,11 +91,14 @@ public class AffichageJeu extends JPanel {
 			this.add(EcranEst);
 			
 			this.add(SudOuest);
+			SudOuest.add(AquiLeTour);
+			AquiLeTour.setForeground(Color.WHITE);
+			AquiLeTour.setFont(new Font("Tahoma", Font.ITALIC, 16));
 			
 			this.add(EcranSud);
 				
 			this.add(SudEst);
-			SudEst.setLayout(new GridLayout(3,3,0,0));
+			SudEst.setLayout(new GridLayout(3,3,2,2));
 			SudEst.add(btnRetournerAuMenu);
 			//btnRetournerAuMenu.setBounds(281, 45, 163, 29);
         }

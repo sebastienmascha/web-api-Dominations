@@ -89,7 +89,9 @@ public class AffichagePlateau extends Carre {
     	for (int i = 0; i <= terrain.length - 1; i++) {
     		for (int j = 0; j <= terrain.length - 1; j++) {
     			if (terrain[i][j]!=null) {
+    				getBoutton(i,j).setBackground(Color.WHITE);
     				display(terrain[i][j], getBoutton(i,j));
+    				System.out.println("La tuile du terrain est remplacée sur l'interface graphique ");
     				//if vide alors rien afficher sinon utiliser fonction changerboutton
     			}
     		

@@ -1,13 +1,11 @@
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.IOException;
-import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.imageio.ImageIO;
@@ -19,7 +17,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JSeparator;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 
@@ -43,7 +40,7 @@ public class Affichage implements ActionListener {
 	int compteurpioche = 0;
 	public int compteurjoueur = 0;
 	public int compteurclictuile = 0;
-	
+	int compteurecran =0;
 
 	//Instanciation de la fenêtre et de ses pages
 	JFrame FenetreJeu = new JFrame("Projet Kingdomino");
@@ -100,66 +97,59 @@ public class Affichage implements ActionListener {
 		if (source == PageJeu.btnPioche) {
 			
 			System.out.println("La première pioche est enclenchée");
+			PageJeu.AquiLeTour.setText("C'est le tour de " + ordrejoueurs[compteurjoueur][0].nomjoueur);
 			setEcran(compteurjoueur);
-
-			System.out.println("L'écran actif est :" + Ecran.getName());
 			
 			if (compteurpioche == 0) {
 
 				SortirLa_1ere_Pioche();
+				System.out.println(Ecran.getName());
 				System.out.println("Compteur Joueur = " + compteurjoueur);
-				SetActionListenerSurDomino_i_Tuile_j (0); //En argument on a la tuile de gauche ou celle de droite du domino selectionné
-				System.out.println("voila" + Ecran.getBoutton(0, 0).getBackground());
+				SetActionListenerDePiocheATerrain (0); //En argument on a la tuile de gauche ou celle de droite du domino selectionné
 				
-				
-
 				/*
-				//for (int i = 0; i<nbrois; i=+2 ) {
 					switch(compteurjoueur) {
-						case 0 :
-							SetActionListenerSurLa_Tuile0_duDominoEnArgument(0); //Domino 0 de la liste dominostours
-							break;
-						case 1 :
-							SetActionListenerSurLa_Tuile0_duDominoEnArgument(1); //Domino 1 de la liste dominostours
-							break;
-						case 2 :
-							SetActionListenerSurLa_Tuile0_duDominoEnArgument(2); //Domino 2 de la liste dominostours
-							break;
-						case 3 :
-							//SetActionListenerSurLa_Tuile0_duDominoEnArgument(3); //Domino 3 de la liste dominostours
-							break;
-					}
-				//}
-			}*/
+				case 0 :
+					SetActionListenerSurDomino_i_Tuile_j(0); //Domino 0 de la liste dominostours
+					break;
+				case 1 :
+					SetActionListenerSurDomino_i_Tuile_j(0); //Domino 1 de la liste dominostours
+					break;
+				case 2 :
+					SetActionListenerSurDomino_i_Tuile_j(0); //Domino 2 de la liste dominostours
+					break;
+				case 3 :
+					//SetActionListenerSurDomino_i_Tuile_j(0); //Domino 3 de la liste dominostours
+					break;
+			}
+			*/	
+			
 		}
-
 			else if (compteurpioche == 1) {
-
 				// Retour couleur selectionn�e
-
 			}
-
 			else if (compteurpioche == 2) {
-
 			}
-
 		}
 	}
 	
-	public void SetActionListenerSurDomino_i_Tuile_j (int p) { //Tuile j ème du i ème domino de notre liste dominostour sortante de la pioche
+	public void SetActionListenerRoi() {
+		
+	}
+	
+	public void SetActionListenerDePiocheATerrain (int p) { //Tuile j ème du i ème domino de notre liste dominostour sortante de la pioche
 		for (int k=0; k<dominostour.length;k++){
 			int m = k;
 			PageJeu.ListTour1.get(2*k+p).addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					setEcran (compteurjoueur);
+					setEcran(compteurecran);
 					PageJeu.PosDomiSelection=m;
 					PageJeu.PosTuiSelection=p;
+					//setChoixTuileTour(dominostour[m][p]);
 			}});
 		}
-	//		setChoixTuileTour(T);
 
 		for (int k=0; k<81 ;k++) {
-		
 			int m = k;
 			Ecran.ListeBoutons.get(k).addActionListener(new ActionListener() {
 				@Override
@@ -171,11 +161,17 @@ public class Affichage implements ActionListener {
 			        System.out.println("posx "+ m/9);
 			        System.out.println("posy "+ m%9);
 					Principal.preselection(Ecran, Principal.jeu1.joueurs[compteurjoueur][0], Principal.jeu1.ordrejoueurs[compteurjoueur][0], dominostour[PageJeu.PosDomiSelection][PageJeu.PosTuiSelection]);	            
-						
+					if (VerifierSiLaTuileEstPose(m/9, m%9))	{
+						System.out.println("Joueur Suivant");
+						compteurjoueur=+1;
+						setEcran (compteurjoueur);
+						PageJeu.AquiLeTour.setText("C'est le tour de " + ordrejoueurs[compteurjoueur][0].nomjoueur);
+					}
 			}});
 			}
 			System.out.println("Display done");
 	}
+	
 	public void SortirLa_1ere_Pioche () {
 		for (int k = 0; k < PageJeu.ListTour1.size() / 2; k++) {
 	
@@ -186,17 +182,8 @@ public class Affichage implements ActionListener {
 			display(dominostour[k][1], jButton2);
 		}
 	}
-	public void SetActionListenerSurDomino_i_Tuile_j_Bis (int i, int j) { //Tuile j ème du i ème domino de notre liste dominostour sortante de la pioche
-		System.out.println("C'est au joueur " + (compteurjoueur+1) +" de jouer");
-		PageJeu.ListTour1.get(2*i+j).addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Object source = e.getSource();
-				//if (compteurclictuile == 0) {
-				//	if (compteurjoueur < nbrois) {
-						Principal.preselection(Ecran, Principal.jeu1.joueurs[compteurjoueur][0], Principal.jeu1.ordrejoueurs[compteurjoueur][0], dominostour[0][0]);	
-						System.out.println("Display done");
-		}});		
-	}
+	
+	
 	public void setEcran (int compteurjoueur) {
 		switch (compteurjoueur+1) {
 		case 1 :
@@ -215,7 +202,7 @@ public class Affichage implements ActionListener {
 	}
 
 	public boolean VerifierSiLaTuileEstPose(int i, int j) {
-		if (Ecran.getBoutton(i, j).getText()=="-") {
+		if (Ecran.getBoutton(i, j).getBackground()==Color.WHITE) {
 			System.out.println("cest bon");
 			return true;
 		}
@@ -423,7 +410,7 @@ public class Affichage implements ActionListener {
 	
 	public void DefinirChateauPourTousEcran() {
 		ImageIcon ChateauIcone = new ImageIcon(this.getClass().getResource("/chateau.png"));
-		Image ChateauIconeResize = ChateauIcone.getImage().getScaledInstance(PageJeu.EcranEst.BtnChateau.getWidth(), PageJeu.EcranEst.BtnChateau.getHeight(), java.awt.Image.SCALE_SMOOTH);
+		Image ChateauIconeResize = ChateauIcone.getImage().getScaledInstance(PageJeu.EcranOuest.BtnChateau.getWidth(), PageJeu.EcranOuest.BtnChateau.getHeight(), java.awt.Image.SCALE_SMOOTH);
 		PageJeu.EcranOuest.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
 		PageJeu.EcranNord.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
 		PageJeu.EcranEst.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));

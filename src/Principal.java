@@ -29,7 +29,7 @@ public class Principal {
 	
 	public static void preselection(AffichagePlateau Ecran, Joueur Joueur, Joueur OrdreJoueur, Tuile Tuile) {
 		
-		jeu1.setChoixTuilePreselect(window.PageJeu.choixtuiletour);
+		jeu1.setChoixTuilePreselect(Tuile);
 		jeu1.setJoueurEnCours(window.ordrejoueurs[window.compteurjoueur][0]);
 		jeu1.preselection();
 		window.setBonChoix(jeu1.getBonChoix());
