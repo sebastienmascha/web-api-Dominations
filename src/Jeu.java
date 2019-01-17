@@ -100,8 +100,7 @@ public class Jeu {
 				 * .setPreSelection(dominostourpreselect[this.choixdomitour.get(0)][this.
 				 * choixdomitour.get(1)]);
 				 */
-				this.joueurencours
-						.setPreSelection(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)]);
+				this.joueurencours.setPreSelection(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)]);
 
 				supprimerdomino(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)],
 						dominostourpreselect);

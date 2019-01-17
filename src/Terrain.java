@@ -21,7 +21,7 @@ public class Terrain {
 	
 	public void remplirTerrain(Tuile tuile, int posx, int posy) {
 
-		terrain[posx][posy] = tuile;
+		this.terrain[posx][posy] = tuile;
 	}
 	
 	

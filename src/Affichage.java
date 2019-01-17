@@ -29,7 +29,7 @@ public class Affichage implements ActionListener {
 	int numdomitour = 0;
 	int numtuiletour = 0;
 	Tuile choixtuiletour;
-	Joueur joueurencours;
+
 	int posx=0;
 	int posy=0;
 
@@ -53,24 +53,20 @@ public class Affichage implements ActionListener {
 		AffichageAccueil PageAccueil = new AffichageAccueil();
 		Cote Panel = new Cote();
 			GridBagLayout recadrage = new GridBagLayout();
-			AffichageJeu PageJeu = new AffichageJeu();
+			AffichageJeu PageJeu = new AffichageJeu() ;
 			
 
-	//Instanciation de listes de boutons. Pour pouvoir modifier les boutons du jeu
-	public ArrayList<JButton> ListTour1 = new ArrayList<>();
-	public ArrayList<JButton> ListTour2 = new ArrayList<>();
-	public ArrayList<JButton> List1BoutonRoi = new ArrayList<>();
-	public ArrayList<JButton> List2BoutonRoi = new ArrayList<>();
+
 	
 	public Tuile[][] dominostour = new Tuile[4][2];
-
+	
+	public AffichagePlateau Ecran;
 	public Affichage() {
 
 		DefinitionFenetre();
 		AjouterLesActionsListner();
 		DefinitionPageCarreQuiContientPageJeu();
 		InitialiselesChampdeTexte();
-
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -91,182 +87,53 @@ public class Affichage implements ActionListener {
 		}
 
 		if (source == PageAccueil.btnJouer) {
-			PlusieursPages.show(FenetreJeu.getContentPane(), listeIndice[1]);
 			Principal.initialisation();
+			ReduireA3JoueursSiBesoin();
+			setnbjoueursAffichageJeu(PageJeu.compteurjoueur);
+			PlusieursPages.show(FenetreJeu.getContentPane(), listeIndice[1]);
 			AffecteAOrdrejoueursETauxEcransleNomdeChaqueJoueur();
-			CreerPanelCentral_ET_ImplementerListesDeBoutons ();
 			DefinirChateauPourTousEcran();
-			DefinirNombreEcrans ();
+			DefinirNombreEcrans();
+			System.out.println("");
+			System.out.println("Appuyez sur la pioche pour commencer");
 		}
 
 		if (source == PageJeu.btnPioche) {
+			
+			System.out.println("La première pioche est enclenchée");
+			setEcran(compteurjoueur);
+
+			System.out.println("L'écran actif est :" + Ecran.getName());
+			
 			if (compteurpioche == 0) {
 
-				for (int k = 0; k < ListTour1.size() / 2; k++) {
+				SortirLa_1ere_Pioche();
+				System.out.println("Compteur Joueur = " + compteurjoueur);
+				PageJeu.SetActionListenerSurDomino_i_Tuile_j (0, 0, dominostour[0][0]);
+				//SetActionListenerSurDomino_i_Tuile_j(0,0); //Domino 0 et Tuile 0 de la liste dominostours. Avec un compteur à 0, donc tour du joueur 1
+				System.out.println("voila" + Ecran.getBoutton(0, 0).getBackground());
+				
+				
 
-					JButton jButton1 = ListTour1.get(2 * k);
-					JButton jButton2 = ListTour1.get(2 * k + 1);
-
-					int numdomituile1 = dominostour[k][0].getnumdomi();
-					int numdomituile2 = dominostour[k][1].getnumdomi();
-
-					Tuile tuile1 = dominostour[k][0];
-					Tuile tuile2 = dominostour[k][1];
-					
-					display(dominostour[k][0], jButton1);
-					display(dominostour[k][1], jButton2);
-
-					jButton1.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							Object source = e.getSource();
-							if (compteurclictuile == 0) {
-								if (compteurjoueur < nbrois) {
-									setJoueurEnCours(ordrejoueurs[compteurjoueur][0]);
-									System.out.println("Joueur en cours : "+ordrejoueurs[compteurjoueur][0].couleur);
-
-									/*
-									 * setNumDomiTour(numdomituile1); setNumTuileTour(0);
-									 */
-
-									setChoixTuileTour(tuile1);
-
-									Principal.preselection();
-									if (bonchoix == true) {
-										compteurjoueur += 1;
-
-									} else if (bonchoix == false) {
-										System.out.println("\nMauvais Domino, il a deja ete selectionne ! ");
-									}
-
-									if (compteurjoueur >= nbrois) {
-										System.out.println("Il faut piocher a nouveau\n");
-										appelDefinitionNouvelOrdre();
-										//pour la suite
-										System.out.println("\nCliquez sur la case du terrain desiree, puis sur la tuile a placer.");
-										System.out.println("\nC'est au joueur "+ordrejoueurs[0][0].numjoueur+" (" + ordrejoueurs[0][0].getNomJoueur() + ", couleur "+ordrejoueurs[0][0].couleur+") de jouer.");
-										compteurclictuile = 1;
-										compteurjoueur = 0;
-									} else {
-										
-										
-										System.out.println("\nC'est au joueur "+ordrejoueurs[compteurjoueur][0].numjoueur+" (" + ordrejoueurs[compteurjoueur][0].getNomJoueur() + ", couleur "+ordrejoueurs[compteurjoueur][0].couleur+") de jouer.");
-
-									}
-
-								} else {
-									System.out.println("Il faut piocher a nouveau 2");
-									appelDefinitionNouvelOrdre();
-									//pour la suite
-									System.out.println("\nCliquez sur la case du terrain desiree, puis sur la tuile a placer.");
-									System.out.println("\nC'est au joueur "+ordrejoueurs[0][0].numjoueur+" (" + ordrejoueurs[0][0].getNomJoueur() + ", couleur "+ordrejoueurs[0][0].couleur+") de jouer.");
-									compteurclictuile = 1;
-									compteurjoueur = 0;
-								}
-							} else if (compteurclictuile == 1) {
-
-								if (compteurjoueur < nbrois) {
-									setJoueurEnCours(ordrejoueurs[compteurjoueur][0]);
-									System.out.println("Joueur en cours : "+ordrejoueurs[compteurjoueur][0].couleur);
-
-									setChoixTuileTour(tuile1);
-									
-									System.out.println("\nLe joueur qui a clique est : "+ordrejoueurs[compteurjoueur][0].numjoueur);
-								
-									
-									switch (ordrejoueurs[compteurjoueur][0].couleur) {
-									case "RED":
-										setPosX(PageJeu.EcranOuest.posx);
-										setPosY(PageJeu.EcranOuest.posy);
-										break;
-									case "YELLOW":
-										setPosX(PageJeu.EcranNord.posx);
-										setPosY(PageJeu.EcranNord.posy);
-										break;
-									case "GREEN":
-										setPosX(PageJeu.EcranEst.posx);
-										setPosY(PageJeu.EcranEst.posy);
-										break;
-									case "BLUE":
-										setPosX(PageJeu.EcranSud.posx);
-										setPosY(PageJeu.EcranSud.posy);
-										break;
-
-									}
-									
-									
-									
-									Principal.tourJeu();
-									
-									
-									
-
-									if (bonchoix == true) {
-										compteurjoueur += 1;
-
-									} else if (bonchoix == false) {
-										System.out.println("\nMauvais domino");
-									}
-
-									if (compteurjoueur >= nbrois) {
-										System.out.println("Il faut piocher a nouveau");
-										appelDefinitionNouvelOrdre();
-									} else {
-
-										System.out.println("\nC'est au joueur "+ordrejoueurs[0][0].numjoueur+" (" + ordrejoueurs[0][0].getNomJoueur() + ", couleur "+ordrejoueurs[0][0].couleur+") de jouer.");
-
-									}
-
-								}
-
-							}
-
-						}
-					});
-					// pour bouton tuile2 excatement la meme qu'au dessus
-					jButton2.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							Object source = e.getSource();
-
-							if (compteurjoueur < nbrois) {
-								setJoueurEnCours(ordrejoueurs[compteurjoueur][0]);
-
-								/*
-								 * setNumDomiTour(numdomituile1); setNumTuileTour(0);
-								 */
-
-								setChoixTuileTour(tuile2);
-
-								Principal.preselection();
-								if (bonchoix == true) {
-									compteurjoueur += 1;
-
-								} else if (bonchoix == false) {
-									System.out.println("\nMauvais Domino ! ");
-								}
-
-								if (compteurjoueur >= nbrois) {
-									System.out.println("Il faut piocher a nouveau");
-									appelDefinitionNouvelOrdre();
-
-								} else {
-
-									System.out.println("\nC'est a " + ordrejoueurs[compteurjoueur][0].getNomJoueur()
-											+ " de jouer");
-
-								}
-
-							} else {
-								System.out.println("Il faut piocher a nouveau 2");
-								appelDefinitionNouvelOrdre();
-
-							}
-
-						}
-					});
-
-				}
-
-			}
+				/*
+				//for (int i = 0; i<nbrois; i=+2 ) {
+					switch(compteurjoueur) {
+						case 0 :
+							SetActionListenerSurLa_Tuile0_duDominoEnArgument(0); //Domino 0 de la liste dominostours
+							break;
+						case 1 :
+							SetActionListenerSurLa_Tuile0_duDominoEnArgument(1); //Domino 1 de la liste dominostours
+							break;
+						case 2 :
+							SetActionListenerSurLa_Tuile0_duDominoEnArgument(2); //Domino 2 de la liste dominostours
+							break;
+						case 3 :
+							//SetActionListenerSurLa_Tuile0_duDominoEnArgument(3); //Domino 3 de la liste dominostours
+							break;
+					}
+				//}
+			}*/
+		}
 
 			else if (compteurpioche == 1) {
 
@@ -281,6 +148,53 @@ public class Affichage implements ActionListener {
 		}
 	}
 
+	public void SortirLa_1ere_Pioche () {
+		for (int k = 0; k < PageJeu.ListTour1.size() / 2; k++) {
+	
+			JButton jButton1 = PageJeu.ListTour1.get(2 * k);
+			JButton jButton2 = PageJeu.ListTour1.get(2 * k + 1);
+			
+			display(dominostour[k][0], jButton1);
+			display(dominostour[k][1], jButton2);
+		}
+	}
+	public void SetActionListenerSurDomino_i_Tuile_j (int i, int j) { //Tuile j ème du i ème domino de notre liste dominostour sortante de la pioche
+		System.out.println("C'est au joueur " + (compteurjoueur+1) +" de jouer");
+		setChoixTuileTour(dominostour[i][j]);
+		PageJeu.ListTour1.get(2*i+j).addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Object source = e.getSource();
+				//if (compteurclictuile == 0) {
+				//	if (compteurjoueur < nbrois) {
+						Principal.preselection(Ecran, Principal.jeu1.joueurs[compteurjoueur][0], Principal.jeu1.ordrejoueurs[compteurjoueur][0]);	
+						System.out.println("Display done");
+		}});		
+	}
+	public void setEcran (int compteurjoueur) {
+		switch (compteurjoueur+1) {
+		case 1 :
+			Ecran = PageJeu.EcranOuest;
+			break;
+		case 2 :
+			Ecran = PageJeu.EcranNord;
+			break;
+		case 3 :
+			Ecran = PageJeu.EcranEst;
+			break;
+		case 4 :
+			Ecran = PageJeu.EcranSud;
+			break;
+		}
+	}
+
+	public boolean VerifierSiLaTuileEstPose(int i, int j) {
+		if (Ecran.getBoutton(i, j).getText()=="-") {
+			System.out.println("cest bon");
+			return true;
+		}
+		else { return false;}
+	}
+	
 	private static void resizePreview(JPanel innerPanel, JPanel container) {
 		int w = container.getWidth();
 		int h = container.getHeight();
@@ -297,9 +211,7 @@ public class Affichage implements ActionListener {
 		this.dominostour = dominostour;
 	}
 
-	public void setnbrois(int n) {
-		this.nbrois = n;
-	}
+	
 
 	public void setRoiTour(String clr, Tuile T,Tuile[][] dominostour) {
 		Color Couleur = Color.WHITE;
@@ -317,11 +229,11 @@ public class Affichage implements ActionListener {
 			Couleur = Color.YELLOW;
 			break;
 		}
-		for (int j = 0; j < List1BoutonRoi.size(); j++) {
+		for (int j = 0; j < PageJeu.List1BoutonRoi.size(); j++) {
 			if (T.getnumdomi() == dominostour[j][0].getnumdomi()) {
-				List1BoutonRoi.get(j).setBackground(Couleur);
-				List1BoutonRoi.get(j).setForeground(Color.WHITE);
-				List1BoutonRoi.get(j).setText("R");
+				PageJeu.List1BoutonRoi.get(j).setBackground(Couleur);
+				PageJeu.List1BoutonRoi.get(j).setForeground(Color.WHITE);
+				PageJeu.List1BoutonRoi.get(j).setText("R");
 			}
 		}
 	}
@@ -370,17 +282,12 @@ public class Affichage implements ActionListener {
 		this.joueurs = joueurs;
 	}
 
-	public void setJoueurEnCours(Joueur joueur) {
-		this.joueurencours = joueur;
-	}
-
-	public Joueur getJoueurEnCours() {
-		return this.joueurencours;
-	}
 
 	public Tuile getChoixTuileTour() {
 		return this.choixtuiletour;
 	}
+	
+	
 
 	public void setBonChoix(boolean bonchoix) {
 		this.bonchoix = bonchoix;
@@ -458,77 +365,8 @@ public class Affichage implements ActionListener {
 		PageJeu.btnPioche.addActionListener((ActionListener) this);
 	}
 
-	public void CreerPanelCentral_ET_ImplementerListesDeBoutons () {
-		JSeparator separator = new JSeparator();
-		JSeparator separator1 = new JSeparator();
-		JSeparator separator2 = new JSeparator();
-		JSeparator separator3 = new JSeparator();
-		JSeparator separator4 = new JSeparator();
-		JSeparator separator5 = new JSeparator();
-		
-		for (int i = 0; i < 6; i++) {
-			JLabel ligneduhaut = new JLabel();
-			PageJeu.Centre.add(ligneduhaut);		
-		}
-
-		for (int i = 0; i < nbrois; i++) {
-			PanelRoi R = new PanelRoi();
-			JButton NouvelleTuile1 = new JButton();
-			JButton NouvelleTuile2 = new JButton();
-
-			PageJeu.Centre.add(R);
-			PageJeu.Centre.add(NouvelleTuile1);
-			PageJeu.Centre.add(NouvelleTuile2);
-
-			ListTour1.add(NouvelleTuile1);
-			ListTour1.add(NouvelleTuile2);
-			List1BoutonRoi.add(R.Roibtn);
-		}
-
-		separator.setBackground(new Color(102, 0, 51));
-		separator1.setBackground(new Color(102, 0, 51));
-		separator2.setBackground(new Color(102, 0, 51));
-		separator3.setBackground(new Color(102, 0, 51));
-		separator4.setBackground(new Color(102, 0, 51));
-		separator5.setBackground(new Color(102, 0, 51));
-
-		if (nbrois == 3) {
-			for (int i = 0; i < 3; i++) {
-				PageJeu.Centre.add(new JLabel());
-			}
-			PageJeu.Centre.add(separator);
-			PageJeu.Centre.add(separator1);
-			PageJeu.Centre.add(separator2);
-			PageJeu.Centre.add(separator3);
-			PageJeu.Centre.add(separator4);
-			for (int j = 0; j < 21 - (6 * nbrois); j++) {
-				PageJeu.Centre.add(new JLabel());
-			}
-		} else {
-			PageJeu.Centre.add(separator);
-			PageJeu.Centre.add(separator1);
-			PageJeu.Centre.add(separator2);
-			PageJeu.Centre.add(separator3);
-			PageJeu.Centre.add(separator4);
-			PageJeu.Centre.add(separator5);
-			for (int i = 0; i < 24 - (6 * nbrois); i++) {
-				PageJeu.Centre.add(new JLabel());
-			}
-		}
-
-		for (int i = 0; i < nbrois; i++) {
-			PanelRoi R = new PanelRoi();
-			JButton NouvelleTuile1 = new JButton();
-			JButton NouvelleTuile2 = new JButton();
-
-			PageJeu.Centre.add(R);
-			PageJeu.Centre.add(NouvelleTuile1);
-			PageJeu.Centre.add(NouvelleTuile2);
-
-			ListTour2.add(NouvelleTuile1);
-			ListTour2.add(NouvelleTuile2);
-			List2BoutonRoi.add(R.Roibtn);
-		}
+	public void setnbrois (int i) {
+		this.nbrois = i;
 	}
 
 	public void DefinirNombreEcrans () {
@@ -538,20 +376,20 @@ public class Affichage implements ActionListener {
 		switch (String.valueOf(nbjoueurs)) {
 		case "2":
 			PageJeu.EcranSud.setBackground(new Color(0, 0, 0, 64));
-			PageJeu.EcranSud.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true),
-					new LineBorder(new Color(0, 0, 0, 64), 4, true)));
+			PageJeu.EcranSud.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true), new LineBorder(new Color(0, 0, 0, 64), 4, true)));
 			PageJeu.EcranSud.Nom.setBackground(new Color(0, 0, 0, 64));
 			PageJeu.EcranSud.PlanCentral.setBackground(new Color(0, 0, 0, 64));
 			PageJeu.EcranSud.removeAll();
 			JLabel label1 = new JLabel(ImgIcon);
 			PageJeu.EcranSud.add(label1);
-			PageJeu.EcranOuest.setBackground(new Color(0,0,0,64));
-			PageJeu.EcranOuest.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true), new LineBorder(new Color(0,0,0,64), 4, true)));
-			PageJeu.EcranOuest.Nom.setBackground(new Color(0,0,0,64));
-			PageJeu.EcranOuest.PlanCentral.setBackground(new Color(0,0,0,64));
-			PageJeu.EcranOuest.removeAll();
+			
+			PageJeu.EcranEst.setBackground(new Color(0,0,0,64));
+			PageJeu.EcranEst.setBorder(new CompoundBorder(new LineBorder(new Color(128, 128, 128), 1, true), new LineBorder(new Color(0,0,0,64), 4, true)));
+			PageJeu.EcranEst.Nom.setBackground(new Color(0,0,0,64));
+			PageJeu.EcranEst.PlanCentral.setBackground(new Color(0,0,0,64));
+			PageJeu.EcranEst.removeAll();
 			JLabel label = new JLabel(drole);
-			PageJeu.EcranOuest.add(label);
+			PageJeu.EcranEst.add(label);
 			break;
 		case "3" :
 			PageJeu.EcranSud.setBackground(new Color(0,0,0,64));
@@ -576,7 +414,7 @@ public class Affichage implements ActionListener {
 
 	public void DefinitionFenetre () {
 		FenetreJeu.setIconImage(new ImageIcon(this.getClass().getResource("/chateau.png")).getImage());
-		FenetreJeu.setBounds(0, 0, 1440, 900);
+		FenetreJeu.setBounds(0, 0, 1440, 600);
 		FenetreJeu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		FenetreJeu.getContentPane().setLayout(PlusieursPages);
 		FenetreJeu.getContentPane().add(PageAccueil, listeIndice[0]);
@@ -617,7 +455,40 @@ public class Affichage implements ActionListener {
 		PageAccueil.QuatreJoueurs.setSelected(false);
 		((JRadioButton) source).setSelected(true);
 	}
+	
+	public void ReduireA3JoueursSiBesoin() {
+		if (nbrois==3) {
+			PageJeu.ListTour1.get(7).setContentAreaFilled(false);
+			PageJeu.ListTour1.get(7).setBorderPainted(false); 
+			PageJeu.ListTour1.get(7).setFocusPainted(false);
+			PageJeu.ListTour1.get(6).setContentAreaFilled(false);
+			PageJeu.ListTour1.get(6).setBorderPainted(false); 
+			PageJeu.ListTour1.get(6).setFocusPainted(false);
+			PageJeu.List1BoutonRoi.get(3).setContentAreaFilled(false);
+			PageJeu.List1BoutonRoi.get(3).setBorderPainted(false); 
+			PageJeu.List1BoutonRoi.get(3).setFocusPainted(false);
+			
+			PageJeu.ListTour1.remove(7);
+			PageJeu.ListTour1.remove(6);
+			PageJeu.List1BoutonRoi.remove(3);
+			
+			PageJeu.ListTour2.get(1).setContentAreaFilled(false);
+			PageJeu.ListTour2.get(1).setBorderPainted(false); 
+			PageJeu.ListTour2.get(1).setFocusPainted(false);
+			PageJeu.ListTour2.get(0).setContentAreaFilled(false);
+			PageJeu.ListTour2.get(0).setBorderPainted(false); 
+			PageJeu.ListTour2.get(0).setFocusPainted(false);
+			PageJeu.List2BoutonRoi.get(0).setContentAreaFilled(false);
+			PageJeu.List2BoutonRoi.get(0).setBorderPainted(false); 
+			PageJeu.List2BoutonRoi.get(0).setFocusPainted(false);
+			
+			PageJeu.ListTour2.remove(1);
+			PageJeu.ListTour2.remove(0);
+			PageJeu.List2BoutonRoi.remove(0);
 
+
+		}
+	}
 	public void DefinitNbreJoueursEnFonctionDuChoix(Object source) {
 		switch (((JRadioButton) source).getText()) {
 		case "2 joueurs":
@@ -630,6 +501,10 @@ public class Affichage implements ActionListener {
 			nbjoueurs = 4;
 			break;
 		}
+	}
+	
+	public void setnbjoueursAffichageJeu(int i) {
+		i = this.nbjoueurs;
 	}
 }
 	
@@ -649,28 +524,4 @@ class Cote extends JPanel {
 	}
 }
 
-class PanelRoi extends JPanel {
-	private final JLabel lblNewLabel1 = new JLabel();
-	private final JLabel lblNewLabel2 = new JLabel();
-	private final JLabel lblNewLabel3 = new JLabel();
-	private final JLabel lblNewLabel4 = new JLabel();
-	private final JLabel lblNewLabel5 = new JLabel();
-	private final JLabel lblNewLabel6 = new JLabel();
-	private final JLabel lblNewLabel7 = new JLabel();
-	private final JLabel lblNewLabel8 = new JLabel();
-	JButton Roibtn = new JButton();
 
-	public PanelRoi() {
-		this.setOpaque(false);
-		setLayout(new GridLayout(3, 3, 0, 0));
-		this.add(lblNewLabel1);
-		this.add(lblNewLabel2);
-		this.add(lblNewLabel3);
-		this.add(lblNewLabel4);
-		this.add(Roibtn);
-		this.add(lblNewLabel5);
-		this.add(lblNewLabel6);
-		this.add(lblNewLabel7);
-		this.add(lblNewLabel8);
-	}
-}
