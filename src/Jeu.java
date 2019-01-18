@@ -45,6 +45,48 @@ public class Jeu {
 		creerJoueurs();
 
 	}
+	// definir nombre de rois en fonction du nombre de joueurs
+	private void definirnbrois() {
+		if (nbjoueurs <= 2) {
+			this.nbrois = 2 * nbjoueurs;
+		} else {
+			this.nbrois = nbjoueurs;
+
+		}
+
+	}
+	private void creerJoueurs() {
+		for (int j = 0; j <= this.nbjoueurs - 1; j++) {
+
+			if (nbjoueurs == 2) {
+
+				joueurs[j][0] = new Joueur(j, couleurs.get(j));
+				ordrecouleurs.add(couleurs.get(j));
+				joueurs[j][1] = new Joueur(j, couleurs.get(j));
+				ordrecouleurs.add(couleurs.get(j));
+
+			} else {
+				System.out.println("Joueur numero: "+j+" Couleur: "+couleurs.get(j));
+				joueurs[j][0] = new Joueur(j, couleurs.get(j));
+				ordrecouleurs.add(couleurs.get(j));
+
+			}
+		}
+	}
+	
+	public void setJoueurEnCours(Joueur joueur) {
+		this.joueurencours = joueur;
+	}
+
+	public Joueur[][] getOrdreJoueurs() {
+		return this.ordrejoueurs;
+	}
+
+	public boolean getBonChoix() {
+		return this.bonchoix;
+	}
+
+
 
 	public void preparationtour() {
 
@@ -77,7 +119,7 @@ public class Jeu {
 	public void preselection() {
 
 		if (nbjoueurs == 2) {
-			System.out.println("Nous sommes dans une configuration à deux joueurs");
+			System.out.println("Nous sommes dans une configuration ï¿½ deux joueurs");
 
 			try {
 				/*
@@ -298,7 +340,7 @@ public class Jeu {
 		}
 	}
 		else {
-			System.out.println("\n\n\n\n\n________Partie Terminée!______\n\n");
+			System.out.println("\n\n\n\n\n________Partie Terminï¿½e!______\n\n");
 			this.partieterminee=true;
 		}
 

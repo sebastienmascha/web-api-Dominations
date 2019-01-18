@@ -56,31 +56,38 @@ public class AffichageAccueil extends JPanel {
 
 
 	public AffichageAccueil() {
-		Layout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, -71, 0, 0, 0, 0, 0, 0, 0};
-		Layout.columnWidths = new int[]{0, 0, 0, 0, 119, 74, 77, 113};
+		Layout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -71, 0, 0, 0, 0, 0, 0, 0};
+		Layout.columnWidths = new int[]{0, 0, 0, 0, 57, 106, 111, 113};
 
 		this.setLayout(Layout);
 		this.setFocusable(true);
-		lblKingdomino.setForeground(Color.WHITE);
-		lblKingdomino.setFont(new Font("Comic Sans MS", Font.ITALIC, 20));
-		lblKingdomino.setBounds(179, 16, 114, 32);
-		GridBagConstraints gbc_lblKingdomino = new GridBagConstraints();
-		gbc_lblKingdomino.insets = new Insets(0, 0, 5, 5);
-		gbc_lblKingdomino.gridx = 4;
-		gbc_lblKingdomino.gridy = 0;
-		this.add(lblKingdomino, gbc_lblKingdomino);
 		
+		MiseEnPlaceLabelKingDomino ();
 
+		MiseEnPlaceLabelNbJoueurs ();
 		
-		lblNombreDeJoueurs.setForeground(Color.WHITE);
-		lblNombreDeJoueurs.setBounds(153, 191, 250, 16);
-		GridBagConstraints gbc_lblNombreDeJoueurs = new GridBagConstraints();
-		gbc_lblNombreDeJoueurs.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNombreDeJoueurs.gridx = 2;
-		gbc_lblNombreDeJoueurs.gridy = 9;
-		this.add(lblNombreDeJoueurs, gbc_lblNombreDeJoueurs);
+		MiseEnPlaceBouton2J();
+		
+		MiseEnPlaceBouton3J();
+		
+		MiseEnPlaceBouton4J();
+
+		MiseEnPlaceBtnJouer();
+		
+		MiseEnPlaceBtnRegle();
+		
+		MiseEnPlaceChampJ1();
+				
+		MiseEnPlaceChampJ2();
+		
+		MiseEnPlaceChampJ3();
+		
+		MiseEnPlaceChampJ4();	
+
+	}
+	
+	public void MiseEnPlaceBouton2J () {
 		DeuxJoueurs.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-		
 		DeuxJoueurs.setForeground(Color.WHITE);
 		DeuxJoueurs.setSelected(false);
 		DeuxJoueurs.setRequestFocusEnabled(false);
@@ -89,11 +96,22 @@ public class AffichageAccueil extends JPanel {
 		GridBagConstraints gbc_DeuxJoueurs = new GridBagConstraints();
 		gbc_DeuxJoueurs.insets = new Insets(0, 0, 5, 5);
 		gbc_DeuxJoueurs.gridx = 1;
-		gbc_DeuxJoueurs.gridy = 10;
+		gbc_DeuxJoueurs.gridy = 14;
 		this.add(DeuxJoueurs, gbc_DeuxJoueurs);
+	}
+	
+	public void MiseEnPlaceLabelNbJoueurs () {
+		lblNombreDeJoueurs.setForeground(Color.WHITE);
+		lblNombreDeJoueurs.setBounds(153, 191, 250, 16);
+		GridBagConstraints gbc_lblNombreDeJoueurs = new GridBagConstraints();
+		gbc_lblNombreDeJoueurs.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNombreDeJoueurs.gridx = 2;
+		gbc_lblNombreDeJoueurs.gridy = 13;
+		this.add(lblNombreDeJoueurs, gbc_lblNombreDeJoueurs);
+	}
+	
+	public void MiseEnPlaceBouton3J () {
 		TroisJoueurs.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-		
-		
 		TroisJoueurs.setForeground(Color.WHITE);
 		TroisJoueurs.setSelected(false);
 		TroisJoueurs.setRequestFocusEnabled(false);
@@ -102,10 +120,12 @@ public class AffichageAccueil extends JPanel {
 		GridBagConstraints gbc_TroisJoueurs = new GridBagConstraints();
 		gbc_TroisJoueurs.insets = new Insets(0, 0, 5, 5);
 		gbc_TroisJoueurs.gridx = 2;
-		gbc_TroisJoueurs.gridy = 10;
+		gbc_TroisJoueurs.gridy = 14;
 		this.add(TroisJoueurs, gbc_TroisJoueurs);
+	}
+	
+	public void MiseEnPlaceBouton4J () {
 		QuatreJoueurs.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-		
 		QuatreJoueurs.setForeground(Color.WHITE);
 		QuatreJoueurs.setSelected(false);
 		QuatreJoueurs.setRequestFocusEnabled(false);
@@ -114,20 +134,47 @@ public class AffichageAccueil extends JPanel {
 		GridBagConstraints gbc_QuatreJoueurs = new GridBagConstraints();
 		gbc_QuatreJoueurs.insets = new Insets(0, 0, 5, 5);
 		gbc_QuatreJoueurs.gridx = 3;
-		gbc_QuatreJoueurs.gridy = 10;
+		gbc_QuatreJoueurs.gridy = 14;
 		this.add(QuatreJoueurs, gbc_QuatreJoueurs);
-				
-				btnJouer.setBounds(50, 243, 117, 29);
-				GridBagConstraints gbc_btnJouer = new GridBagConstraints();
-				gbc_btnJouer.insets = new Insets(0, 0, 5, 5);
-				gbc_btnJouer.gridx = 2;
-				gbc_btnJouer.gridy = 11;
-				this.add(btnJouer, gbc_btnJouer);
+	}
+	
+	public void MiseEnPlaceBtnJouer () {
+		btnJouer.setBounds(50, 243, 117, 29);
+		GridBagConstraints gbc_btnJouer = new GridBagConstraints();
+		gbc_btnJouer.insets = new Insets(0, 0, 5, 5);
+		gbc_btnJouer.gridx = 2;
+		gbc_btnJouer.gridy = 15;
+		this.add(btnJouer, gbc_btnJouer);
+	}
+	
+	public void MiseEnPlaceLabelKingDomino () {
+		lblKingdomino.setForeground(Color.WHITE);
+		lblKingdomino.setFont(new Font("Comic Sans MS", Font.ITALIC, 20));
+		lblKingdomino.setBounds(179, 16, 114, 32);
+		GridBagConstraints gbc_lblKingdomino = new GridBagConstraints();
+		gbc_lblKingdomino.insets = new Insets(0, 0, 5, 5);
+		gbc_lblKingdomino.gridx = 4;
+		gbc_lblKingdomino.gridy = 0;
+		this.add(lblKingdomino, gbc_lblKingdomino);
+	}
+	
+	public void MiseEnPlaceBtnRegle (){
+		BoutonRegles.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		BoutonRegles.setBounds(312, 243, 132, 29);
+		GridBagConstraints gbc_BoutonRegles = new GridBagConstraints();
+		gbc_BoutonRegles.insets = new Insets(0, 0, 5, 5);
+		gbc_BoutonRegles.gridx = 0;
+		gbc_BoutonRegles.gridy = 19;
+		this.add(BoutonRegles, gbc_BoutonRegles);
+		BoutonRegles.addActionListener(ActionRegles);
+	}
+	
+	public void MiseEnPlaceChampJ1(){
 		
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 6;
-		gbc_textField.gridy = 13;
+		gbc_textField.gridx = 5;
+		gbc_textField.gridy = 14;
 		ChampJ1.setHorizontalAlignment(SwingConstants.CENTER);
 		ChampJ1.setText("Joueur 1");
 		ChampJ1.setFont(new Font("Tahoma", Font.ITALIC, 16));
@@ -153,31 +200,30 @@ public class AffichageAccueil extends JPanel {
 						ChampJ1.setForeground(UIManager.getColor("DesktopIcon.borderRimColor"));
 					}
 				});
-				
-				
-						ChampJ1.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent f) {
-								ChampJ1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
-								ChampJ2.grabFocus();
-								String input = ChampJ1.getText();
-								R=input; //Ouest
-								System.out.println(input);
-				
-							}
-						});
-		
-				
-				gbc_textField_1.insets = new Insets(0, 0, 5, 0);
-				gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-				gbc_textField_1.gridx = 7;
-				gbc_textField_1.gridy = 13;
-				ChampJ2.setHorizontalAlignment(SwingConstants.CENTER);
-				ChampJ2.setText("Joueur 2");
-				ChampJ2.setFont(new Font("Tahoma", Font.ITALIC, 16));
-				ChampJ2.setBackground(SystemColor.inactiveCaptionText);
-				ChampJ2.setForeground(Color.WHITE);
-				add(ChampJ2, gbc_textField_1);
-				ChampJ2.setColumns(10);
+						
+				ChampJ1.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent f) {
+						ChampJ1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
+						ChampJ2.grabFocus();
+						String input = ChampJ1.getText();
+						R=input; //Ouest
+						System.out.println(input);	
+					}
+				});
+	}
+	
+	public void MiseEnPlaceChampJ2(){
+		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_1.gridx = 6;
+		gbc_textField_1.gridy = 14;
+		ChampJ2.setHorizontalAlignment(SwingConstants.CENTER);
+		ChampJ2.setText("Joueur 2");
+		ChampJ2.setFont(new Font("Tahoma", Font.ITALIC, 16));
+		ChampJ2.setBackground(SystemColor.inactiveCaptionText);
+		ChampJ2.setForeground(Color.WHITE);
+		add(ChampJ2, gbc_textField_1);
+		ChampJ2.setColumns(10);
 				
 				ChampJ2.addFocusListener(new FocusAdapter() {
 					public void focusGained(FocusEvent e) {
@@ -203,22 +249,22 @@ public class AffichageAccueil extends JPanel {
 						String input = ChampJ2.getText();
 						J=input; //Nord
 						System.out.println(input);
-
+	
 					}
 				});
-		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
-		
-		
-				
-				gbc_textField_2.insets = new Insets(0, 0, 5, 5);
-				gbc_textField_2.gridx = 6;
-				gbc_textField_2.gridy = 14;
-				ChampJ3.setHorizontalAlignment(SwingConstants.CENTER);
-				ChampJ3.setText("Joueur 3");
-				ChampJ3.setFont(new Font("Tahoma", Font.ITALIC, 16));
-				ChampJ3.setBackground(SystemColor.inactiveCaptionText);
-				ChampJ3.setForeground(Color.WHITE);
-				add(ChampJ3, gbc_textField_2);
+	}
+	
+	public void MiseEnPlaceChampJ3(){
+		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;			
+		gbc_textField_2.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_2.gridx = 5;
+		gbc_textField_2.gridy = 15;
+		ChampJ3.setHorizontalAlignment(SwingConstants.CENTER);
+		ChampJ3.setText("Joueur 3");
+		ChampJ3.setFont(new Font("Tahoma", Font.ITALIC, 16));
+		ChampJ3.setBackground(SystemColor.inactiveCaptionText);
+		ChampJ3.setForeground(Color.WHITE);
+		add(ChampJ3, gbc_textField_2);
 				
 				ChampJ3.addFocusListener(new FocusAdapter() {
 					public void focusGained(FocusEvent e) {
@@ -244,15 +290,15 @@ public class AffichageAccueil extends JPanel {
 						String input = ChampJ3.getText();
 						V=input; //Est
 						System.out.println(input);
-			
-
 					}
 				});
-		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
-		
-		gbc_textField_3.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_3.gridx = 7;
-		gbc_textField_3.gridy = 14;
+	}
+	
+	public void MiseEnPlaceChampJ4(){
+		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;	
+		gbc_textField_3.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_3.gridx = 6;
+		gbc_textField_3.gridy = 15;
 		ChampJ4.setHorizontalAlignment(SwingConstants.CENTER);
 		ChampJ4.setText("Joueur 4");
 		ChampJ4.setFont(new Font("Tahoma", Font.ITALIC, 16));
@@ -260,7 +306,7 @@ public class AffichageAccueil extends JPanel {
 		ChampJ4.setForeground(Color.WHITE);
 		add(ChampJ4, gbc_textField_3);
 		
-		ChampJ4.addFocusListener(new FocusAdapter() {
+			ChampJ4.addFocusListener(new FocusAdapter() {
 			public void focusGained(FocusEvent e) {
 				if(ChampJ4.getText().equals("Joueur 4")) {
 					ChampJ4.setText("");
@@ -277,30 +323,7 @@ public class AffichageAccueil extends JPanel {
 			}
 		});
 		
-		ChampJ2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent f) {
-				ChampJ2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
-				ChampJ3.grabFocus();
-				String input = ChampJ2.getText();
-				J=input; //Nord
-				System.out.println(input);
-
-			}
-		});
-		
-		ChampJ3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent f) {
-				ChampJ3.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
-				ChampJ4.grabFocus();
-				String input = ChampJ3.getText();
-				V=input; //Est
-				System.out.println(input);
-				
-
-			}
-		});
-		
-		ChampJ4.addActionListener(new ActionListener() {
+			ChampJ4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent f) {
 				ChampJ4.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
 				String input = ChampJ4.getText();
@@ -308,18 +331,7 @@ public class AffichageAccueil extends JPanel {
 				B=input; //Sud
 			}
 		});
-		
-		BoutonRegles.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		BoutonRegles.setBounds(312, 243, 132, 29);
-		GridBagConstraints gbc_BoutonRegles = new GridBagConstraints();
-		gbc_BoutonRegles.insets = new Insets(0, 0, 5, 5);
-		gbc_BoutonRegles.gridx = 0;
-		gbc_BoutonRegles.gridy = 15;
-		this.add(BoutonRegles, gbc_BoutonRegles);
-		BoutonRegles.addActionListener(ActionRegles);
-
 	}
-	
 	
 	public ActionListener ActionRegles = new ActionListener() {
 	   	@Override
@@ -331,7 +343,7 @@ public class AffichageAccueil extends JPanel {
 	   		
 	   		JPanel pan = new JPanel();
 	   		JLabel label = new JLabel("Règles du jeu");
-	   		FenetreRegles.add(label,BorderLayout.NORTH);
+	   		FenetreRegles.getContentPane().add(label,BorderLayout.NORTH);
 	   		FenetreRegles.getContentPane().add(pan, BorderLayout.CENTER);
 	   		pan.add(label);	 
 			JTextPane wewe = new JTextPane();
@@ -342,8 +354,6 @@ public class AffichageAccueil extends JPanel {
 	   }
 	};
 	
-
-	
 	public void paintComponent(Graphics g){
 
 		try {
@@ -353,5 +363,6 @@ public class AffichageAccueil extends JPanel {
 			e.printStackTrace();
 		}
 	}
+
 }
 
