@@ -108,7 +108,7 @@ public class Affichage implements ActionListener {
 		if (source == PageJeu.btnPioche) {
 
 			System.out.println("La première pioche est enclenchée");
-			PageJeu.AquiLeTour.setText("C'est le tour de " + joueurs[compteurjoueur][0].nomjoueur);
+			PageJeu.AquiLeTour.setText("C'est le tour de " + ordrejoueurs[compteurjoueur][0].nomjoueur);
 			setEcran(ordrejoueurs[compteurjoueur][0].numjoueur);
 
 			if (compteurpioche == 0) {
@@ -117,8 +117,9 @@ public class Affichage implements ActionListener {
 				
 				System.out.println("Compteur Joueur = " + compteurjoueur);
 
-				preselectionaffichage();
+				SetActionListenerRoi();
 
+				System.out.println("Choisissez où déposer vos rois, l'un après l'autre");
 			} else if (compteurpioche == 1) {
 
 				Principal.definirordre();
@@ -170,13 +171,14 @@ public class Affichage implements ActionListener {
 
 	}
 
-	public void SetActionListenerRoi(int k) {
+	public void SetActionListenerRoi() {
 		
-		
+		for (int k = 0; k < nbrois; k++) {
+			int m = k;
 
-			PageJeu.List1BoutonRoi.get(k).addActionListener(new ActionListener() {
+			PageJeu.List1BoutonRoi.get(m).addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String clr = (ordrejoueurs[k][0].couleur);
+					String clr = (ordrejoueurs[m][0].couleur);
 
 					switch (clr) {
 					case "RED":
@@ -195,37 +197,25 @@ public class Affichage implements ActionListener {
 					((JButton) e.getSource()).setText("R");
 					((JButton) e.getSource()).setBackground(Color.BLACK);
 					System.out.println("Colorié !");
-
-				}
-			});
-			
-	}
-
-	public void preselectionaffichage() {
-		for (int k = 0; k < nbrois; k++) {
-			int m = k;
-			PageJeu.ListTour1.get(2 * k).addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+				
 					setChoixTuileTour(dominostour[m][0]);
 					setJoueurEnCours(ordrejoueurs[m][0]);
-
+		
 					if (compteurclictuile < nbrois&&compteurpioche==0) {
 						compteurclictuile += 1;
 						Principal.preselection();
-						SetActionListenerRoi(m);
-
 					}
 					if (compteurclictuile == nbrois&&compteurpioche==0) {
 						System.out.println("Cliquez sur le bouton pioche");
 						compteurpioche += 1;
 						
 					}
-
 				}
 			});
 		}
 
 	}
+
 
 	public void SetActionListenerDePiocheATerrain(int p) { // Tuile j ème du i ème domino de notre liste dominostour
 															// sortante de la pioche
