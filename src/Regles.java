@@ -182,14 +182,14 @@ public class Regles {
 		rechercheZone(x, y, terrain); // recursivité pour délimiter la zone
 		compteur -= 1;
 		if (compteur < 1) {
-			System.out.println("Affichage :");
-			System.out.println(ZonesTuiles);
+			//System.out.println("Affichage :");
+			//System.out.println(ZonesTuiles);
 			int nbCourrones = 0;
 			for (int i = 0; i < ZonesTuiles.size(); i++) { // calcul du nb de courronne par zone
 				nbCourrones += ZonesTuiles.get(i).getnbcouronne();
 			} 
 			terrain.Score += (ZonesTuiles.size()*nbCourrones);
-			System.out.println(ZonesTuiles.size()*nbCourrones);
+			//System.out.println(ZonesTuiles.size()*nbCourrones);
 		}		
 	}
 

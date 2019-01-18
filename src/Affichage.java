@@ -156,12 +156,12 @@ public class Affichage implements ActionListener {
 		if (source==PageAccueil.btnJouer) {
 			Principal.initialisation();
 			PlusieursPages.show(FenetreJeu.getContentPane(), listeIndice[1]);
-			System.out.println("__Liste dominostour dans affichage__");
-			for (int i = 0; i <= nbjoueurs - 1; i++) {
+			//System.out.println("__Liste dominostour dans affichage__");
+			/*for (int i = 0; i <= nbjoueurs - 1; i++) {
 				System.out.println("____");
 				System.out.println(dominostour[i][0]);
 				System.out.println(dominostour[i][1]);
-			}
+			}*/
 					
 			for (int i=0; i<6; i++) {
 				PageJeu.Centre.add(new JLabel());
