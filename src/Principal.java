@@ -48,6 +48,10 @@ public class Principal {
 		
 		
 		
+		
+		
+		
+		
 	}
 	
 	
@@ -57,51 +61,38 @@ public class Principal {
 		jeu1.setPositionChoixTuileTour(window.getPosX(),window.getPosY());
 		jeu1.tourjoueur();
 		
-		window.PageJeu.EcranOuest.setTerrain(jeu1.joueurs[0][0].terrain1.terrain);
-		window.PageJeu.EcranOuest.lireTerrain(jeu1.joueurs[0][0].terrain1.terrain);
+	
 		
-		window.PageJeu.EcranNord.setTerrain(jeu1.joueurs[1][0].terrain1.terrain);
-		window.PageJeu.EcranNord.lireTerrain(jeu1.joueurs[1][0].terrain1.terrain);
 
-		window.PageJeu.EcranEst.setTerrain(jeu1.joueurs[2][0].terrain1.terrain);
-		window.PageJeu.EcranEst.lireTerrain(jeu1.joueurs[2][0].terrain1.terrain);
-		
-		if (jeu1.nbjoueurs==4) {
-		window.PageJeu.EcranSud.setTerrain(jeu1.joueurs[3][0].terrain1.terrain);
-		window.PageJeu.EcranSud.lireTerrain(jeu1.joueurs[3][0].terrain1.terrain);
-		}
-		
-		//window.PageJeu.EcranSud.setTerrain(jeu1.joueurs[3][0].terrain1.terrain);
-		//window.PageJeu.EcranSud.lireTerrain(jeu1.joueurs[3][0].terrain1.terrain);
 		
 	
 		window.setBonChoix(jeu1.getBonChoix());
 	}
 
 	
-	
+	public static void main(String[] args) {
+
+		Domino.extraireCsv("dominos.csv");
+		System.out.println(
+				"Voici la longueur de la liste des dominos extraits du csv : " + Domino.listedetouslesDominos.size());
+
+		Domino.creationListeDominos();
+		System.out.println("La liste dominos a correctement ete creee.");
+
+		Tuile.remplirlistetuile(Domino.dominos);
+		System.out.println("La liste tuiles a ete remplie e partir de la liste dominos.");
+
+		System.out.println("\n_____________Nouvelle Partie_____________\n");
+		
+		window.deroulement();
+		
+		
+		
+
+	}
 	 
  
-	public static void main(String[] args) { 
-		 
- 
-		Domino.extraireCsv("dominos.csv"); 
-		System.out.println("Voici le nombre de dominos extraits du csv : " + Domino.nombreinitialdominos); 
-		System.out.println( 
-				"Voici la longueur de la liste des dominos extraits du csv : " + Domino.listedetouslesDominos.size()); 
- 
-		Domino.creationListeDominos(); 
-		System.out.println("La liste dominos a correctement ete creee."); 
- 
-		Tuile.remplirlistetuile(Domino.dominos); 
-		System.out.println("La liste tuiles a ete remplie e partir de la liste dominos."); 
- 
 	 
-		window.FenetreJeu.setVisible(true); 
- 
- 
-		System.out.println("\n_____________Nouvelle Partie_____________\n"); 
-	} 
 	 
 	 
  
