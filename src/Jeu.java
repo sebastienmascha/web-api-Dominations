@@ -13,6 +13,8 @@ public class Jeu {
 	public Tuile[][] dominostourpreselect;
 	public Joueur[][] joueurs = new Joueur[4][2];
 	public Joueur[][] ordrejoueurs = new Joueur[4][2];
+	public boolean piochevide = false;
+	public boolean partieterminee = false;
 
 	public List<String> couleurs = Arrays.asList("RED", "YELLOW", "GREEN", "BLUE");
 	public ArrayList<String> ordrecouleurs = new ArrayList<String>();
@@ -30,8 +32,6 @@ public class Jeu {
 		// initialiser la pioche
 		pioche = reconstruirepioche(Tuile.tuiles);
 
-		
-
 		supprimerdominosinitial();
 		System.out.println(
 				"Les dominos ont correctements ete supprimes de la liste tuiles initiale en fonction du nombre de joueurs.");
@@ -43,9 +43,6 @@ public class Jeu {
 		System.out.println("Le nombre de rois a ete correctement defini, nbrois= " + nbrois + ".");
 
 		creerJoueurs();
-
-		// System.out.println("\nVoici les couleurs actives: ");
-		// afficherMonoListe(joueurs);
 
 	}
 
@@ -64,12 +61,13 @@ public class Jeu {
 		dominostourpreselect = new Tuile[4][2];
 		dominostourpreselect = reconstruirepioche(dominostour);
 
-		// System.out.println("\nListe dominotours apres tri :");
-		//afficherDoubleListe(dominostour);
 		Collections.shuffle(ordrecouleurs);
 		System.out.println("\n" + ordrecouleurs + "\n");
 
-		attribuerCouleursAJoueurs();
+		creerOrdreAPartirDeCouleur();
+
+		// System.out.println("\nListe dominotours apres tri :");
+		// afficherDoubleListe(dominostour);
 
 		// afficherDoubleListeJoueur(joueurs);
 		// afficherDoubleListeJoueur(ordrejoueurs);
@@ -77,8 +75,6 @@ public class Jeu {
 	}
 
 	public void preselection() {
-		
-
 
 		if (nbjoueurs == 2) {
 			System.out.println("Nous sommes dans une configuration à deux joueurs");
@@ -94,11 +90,12 @@ public class Jeu {
 				 * .setPreSelection(dominostourpreselect[this.choixdomitour.get(0)][this.
 				 * choixdomitour.get(1)]);
 				 */
-				
+
 				this.joueurencours
 						.setPreSelection(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)]);
 
-				dominostourpreselect=supprimerdomino(dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)],
+				dominostourpreselect = supprimerdomino(
+						dominostourpreselect[this.choixdomitour.get(0)][this.choixdomitour.get(1)],
 						dominostourpreselect);
 				this.bonchoix = true;
 
@@ -128,7 +125,7 @@ public class Jeu {
 				System.out.println("\nTuile cliquee : " + this.choixtuiletour);
 
 				this.joueurencours.setPreSelection(this.choixtuiletour);
-				this.dominostourpreselect=supprimerdomino(this.choixtuiletour, this.dominostourpreselect);
+				this.dominostourpreselect = supprimerdomino(this.choixtuiletour, this.dominostourpreselect);
 				this.bonchoix = true;
 
 			} catch (Exception e) {
@@ -143,7 +140,7 @@ public class Jeu {
 				System.out.println("_");
 				System.out.println(dominostourpreselect[j][1]);
 			}
-			
+
 			System.out.println("\nAffichage de la liste de tuiles dominostour :\n");
 			for (int j = 0; j <= this.dominostour.length - 1; j++) {
 				System.out.println("________");
@@ -181,45 +178,46 @@ public class Jeu {
 		}
 
 		trierOrdre(dominostourpreselect, ordrejoueurs);
-/*
+
 		System.out.println("Ceci est un nouvel ordre de domino:\n");
 		for (int j = 0; j <= this.dominostourpreselect.length - 1; j++) {
 			System.out.println(this.dominostourpreselect[j][0].num1);
 		}
 
-		System.out.println("Ceci est un nouvel ordre de joueurs:\n");
+		System.out.println("Ceci est un ordre de couleurs:\n");
 		for (int j = 0; j <= this.ordrejoueurs.length - 1; j++) {
 			System.out.println(this.ordrejoueurs[j][0].numjoueur);
-		}*/
+		}
 
 	}
-	
-	
+
 	// tri une liste de dominos par ordre croissant en fonction de leur numero
-		private Tuile[][] trierOrdre(Tuile[][] dominostour, Joueur[][] joueurs) {
+	private Tuile[][] trierOrdre(Tuile[][] dominostour, Joueur[][] joueurs) {
 
-			int i = 0;
+		int i = 0;
 
-			while (i < dominostour.length) {
+		while (i < dominostour.length) {
 
-				for (int j = dominostour.length - 1; j >= i + 1; j--) {
+			for (int j = dominostour.length - 1; j >= i + 1; j--) {
 
-					if (dominostour[j][0].getnumdomi() < dominostour[j - 1][0].getnumdomi()) {
+				if (dominostour[j][0].getnumdomi() < dominostour[j - 1][0].getnumdomi()) {
 
-						echangertuiles(j - 1, j, dominostour);
-						echangerjoueurs(j - 1, j, joueurs);
-
-					}
+					echangertuiles(j - 1, j, dominostour);
+					echangerjoueurs(j - 1, j, joueurs);
 
 				}
 
-				i = i + 1;
 			}
 
-			return dominostour;
+			i = i + 1;
 		}
 
+		return dominostour;
+	}
+
 	public void tourjoueur() {
+		
+		if (!this.piochevide) {
 
 		this.numtour += 1;
 
@@ -243,7 +241,8 @@ public class Jeu {
 					ordrejoueurs[j][binary].terrain1.remplirTerrain(
 							dominostour[this.choixdomitour.get(0)][this.choixdomitour.get(1)],
 							this.choixdomitour.get(2), this.choixdomitour.get(3));
-					//supprimerdomino(dominostour[this.choixdomitour.get(0)][this.choixdomitour.get(1)], dominostour);
+					// supprimerdomino(dominostour[this.choixdomitour.get(0)][this.choixdomitour.get(1)],
+					// dominostour);
 					// il faut ici update la liste dominostour dans affichage afin de montrer la
 					// suppression
 
@@ -270,26 +269,37 @@ public class Jeu {
 
 		} else {
 
-			/*try {*/
-				if (Regles.placementTuile(this.joueurencours.terrain1, this.choixtuiletour, this.posx, this.posy)) {
-					this.joueurencours.terrain1.remplirTerrain(this.choixtuiletour, this.posx, this.posy);
-					//supprimerdomino(this.choixtuiletour, dominostour);
-					this.bonchoix = true;
-				} else {
-					this.bonchoix = false;
+			 try { 
+			if (Regles.placementTuile(this.joueurencours.terrain1, this.choixtuiletour, this.posx, this.posy)) {
+				this.joueurencours.terrain1.remplirTerrain(this.choixtuiletour, this.posx, this.posy);
+				
+				if (this.pioche.length<nbrois+1) {
+					this.piochevide=true;
 				}
-			/*} catch (Exception e) {
-				System.out.println("Le domino a deje ete selectionne ! Descriptif erreur: \n" + e);
+				
+				this.bonchoix = true;
+			} else {
 				this.bonchoix = false;
-			}*/
+			}
+			
+			  } catch (Exception e) {
+			  System.out.println("Le domino a deje ete selectionne ! Descriptif erreur: \n"
+			  + e); this.bonchoix = false; }
+			 
 
 			System.out.println("\nAffichage de la tuile en position " + this.posx + " & " + this.posy
-					+ " sur le terrain du joueur "+this.joueurencours.couleur+" : \n" + joueurencours.terrain1.terrain[this.posx][this.posy]);
+					+ " sur le terrain du joueur " + this.joueurencours.couleur + " : \n"
+					+ joueurencours.terrain1.terrain[this.posx][this.posy]);
 
 			// System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du
 			// joueur 0, roi 2: \n"
 			// + joueurs[3][0].terrain1.terrain[2][3]);
 
+		}
+	}
+		else {
+			System.out.println("\n\n\n\n\n________Partie Terminée!______\n\n");
+			this.partieterminee=true;
 		}
 
 	}
@@ -337,7 +347,7 @@ public class Jeu {
 		this.pioche = reconstruirepioche(listetuiles);
 
 	}
-	
+
 	private Tuile[][] supprimerdomino(Tuile tuile, Tuile listetuiles[][]) {
 		int i = 0;
 
@@ -388,7 +398,7 @@ public class Jeu {
 		}
 	}
 
-	private void attribuerCouleursAJoueurs() {
+	private void creerOrdreAPartirDeCouleur() {
 
 		for (int j = 0; j <= this.nbrois - 1; j++) {
 			switch (this.ordrecouleurs.get(j)) {
@@ -507,8 +517,6 @@ public class Jeu {
 
 	}
 
-	
-
 	// echange de place 2 dominos en fonction de leur indice dans la liste
 	public void echangertuiles(int i, int j, Tuile[][] dominostour2) {
 		Tuile val1 = dominostour2[i][0];
@@ -573,7 +581,7 @@ public class Jeu {
 	public void afficherDoubleListe(Tuile liste[][]) {
 		System.out.println("\nListe dominostour :\n");
 		for (int i = 0; i <= liste.length - 1; i++) {
-			System.out.println("Domino ______________ "+i);
+			System.out.println("Domino ______________ " + i);
 			System.out.println(liste[i][0]);
 			System.out.println("__");
 			System.out.println(liste[i][1]);

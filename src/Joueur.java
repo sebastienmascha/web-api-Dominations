@@ -7,6 +7,7 @@ public class Joueur {
 	String nomjoueur;
 	boolean premiereselection=true;
 	Tuile activetuile;
+	int score;
 	
 	
 	public Joueur(int numjoueur, String couleur) {
@@ -46,6 +47,15 @@ public class Joueur {
 	
 	public String getNomJoueur() {
 		return this.nomjoueur;
+		
+	}
+	
+	public void setScore(int score) {
+		this.score=score;
+	}
+	
+	public int getScore() {
+		return this.score;
 		
 	}
 

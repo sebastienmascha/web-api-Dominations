@@ -18,15 +18,13 @@ public class Affichage {
 	boolean bonchoix;
 	public Tuile[][] dominostour = new Tuile[4][2];
 	public Tuile[][] dominostourbackup = new Tuile[4][2];
-	
-	
 
 	// compteurs
 	int compteurpioche = 0;
 	public int compteurjoueur = 0;
 	public int compteurclictuile = 0;
 
-	void deroulement() {
+	void initialisation() {
 
 		// on choisit le nombre joueurs
 		this.nbjoueurs = 3;
@@ -38,6 +36,11 @@ public class Affichage {
 
 		System.out.println("nbjoueurs : " + nbjoueurs);
 		System.out.println("nbrois : " + nbrois);
+
+	}
+
+	void deroulement() {
+
 		afficherDoubleListe(dominostour);
 
 		// poser les rois
@@ -74,22 +77,15 @@ public class Affichage {
 
 		// tour de jeu
 		System.out.println("\nTOUR DE JEU");
-		
-		//envoie de la
-		
-		for (int i = 0; i <= nbrois - 1; i++) {
-			
 
-			
-			
+		for (int i = 0; i <= nbrois - 1; i++) {
 
 			// choix tuile
 
 			this.bonchoix = false;
 
 			while (!bonchoix) {
-				
-				
+
 				System.out.println("\n______________________Affichage de la liste de tuiles dominostourbackup :\n");
 				for (int j = 0; j <= this.dominostourbackup.length - 1; j++) {
 					System.out.println("________");
@@ -102,33 +98,38 @@ public class Affichage {
 				System.out.println(
 						"\n" + ordrejoueurs[i][0].couleur + ", veuillez choisir une tuile par son numéro :\n\n=>");
 				int numtuile = sc.nextInt();
-				
+
 				Scanner sc2 = new Scanner(System.in);
-				System.out.println(
-						"\n" + ordrejoueurs[i][0].couleur + ", veuillez choisir la position en x sur votre terrain :\n\n=>");
+				System.out.println("\n" + ordrejoueurs[i][0].couleur
+						+ ", veuillez choisir la position en x sur votre terrain :\n\n=>");
 				int positionx = sc2.nextInt();
-				
+
 				Scanner sc3 = new Scanner(System.in);
-				System.out.println(
-						"\n" + ordrejoueurs[i][0].couleur + ", veuillez choisir la position en y sur votre terrain :\n\n=>");
+				System.out.println("\n" + ordrejoueurs[i][0].couleur
+						+ ", veuillez choisir la position en y sur votre terrain :\n\n=>");
 				int positiony = sc3.nextInt();
-				
-				
-				
+
 				setPosX(positionx);
 				setPosY(positiony);
 				setChoixTuileTour(dominostourbackup[numtuile][0]);
 				setJoueurEnCours(ordrejoueurs[i][0]);
 
+				// lancement d'un tour
 				Principal.tourJeu();
+				joueurencours.setScore(Regles.scorePlateau(joueurencours.terrain1));
 
 			}
 
 		}
+		// affichage score a chaque tour
+		
+		for (int j = 0; j <= nbrois - 1; j++) {
+			System.out.println("Le score est :" + Regles.scorePlateau(joueurs[j][0].terrain1));
+		}
 
 	}
 
-	// AFFICHAGE
+	// AFFICHAGE CONSOLE
 
 	public void afficherDoubleListe(Tuile liste[][]) {
 		System.out.println("\nListe dominostour :\n");
@@ -150,8 +151,8 @@ public class Affichage {
 		this.dominostour = dominostour;
 		dominostourbackup = new Tuile[dominostour.length][2];
 		for (int i = 0; i <= dominostour.length - 1; i++) {
-			this.dominostourbackup[i][0]=dominostour[i][0];
-			this.dominostourbackup[i][1]=dominostour[i][1];
+			this.dominostourbackup[i][0] = dominostour[i][0];
+			this.dominostourbackup[i][1] = dominostour[i][1];
 		}
 	}
 

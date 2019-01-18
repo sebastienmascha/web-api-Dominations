@@ -84,7 +84,15 @@ public class Principal {
 
 		System.out.println("\n_____________Nouvelle Partie_____________\n");
 		
-		window.deroulement();
+		
+		window.initialisation();
+		while(!jeu1.partieterminee) {
+			
+			window.deroulement();
+			jeu1.preparationtour();
+			
+		}
+		
 		
 		
 		
