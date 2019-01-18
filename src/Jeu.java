@@ -23,9 +23,12 @@ public class Jeu {
 	Joueur joueurencours;
 	public ArrayList<Integer> choixdomitour = new ArrayList<Integer>();
 	Tuile choixtuiletour;
+	Tuile autretuile;
 	boolean bonchoix;
 	int posx;
 	int posy;
+	int orientationX, orientationY;
+	
 
 	public void initialisationpartie() {
 
@@ -216,90 +219,118 @@ public class Jeu {
 	}
 
 	public void tourjoueur() {
-		
+
 		if (!this.piochevide) {
 
-		this.numtour += 1;
+			this.numtour += 1;
 
-		if (nbjoueurs == 2) {
+			if (nbjoueurs == 2) {
 
-			for (int j = 0; j <= this.nbrois - 1; j++) {
+				for (int j = 0; j <= this.nbrois - 1; j++) {
 
-				System.out.println("C'est a " + ordrejoueurs[j][0].numjoueur + " de jouer");
-				try {
+					System.out.println("C'est a " + ordrejoueurs[j][0].numjoueur + " de jouer");
+					try {
 
-					int binary = 0;
-					// on verifie si c'est bien la premiere fois que le joueur ayant ce roi a place
-					// une tuile
-					if (ordrejoueurs[j][0].getPremiereSelection()) {
-						binary = 0;
-						ordrejoueurs[j][0].setPremiereSelection(false);
-					} else {
-						binary = 1;
+						int binary = 0;
+						// on verifie si c'est bien la premiere fois que le joueur ayant ce roi a place
+						// une tuile
+						if (ordrejoueurs[j][0].getPremiereSelection()) {
+							binary = 0;
+							ordrejoueurs[j][0].setPremiereSelection(false);
+						} else {
+							binary = 1;
+						}
+						// essayer ici la verif de placement
+						ordrejoueurs[j][binary].terrain1.remplirTerrain(
+								dominostour[this.choixdomitour.get(0)][this.choixdomitour.get(1)],
+								this.choixdomitour.get(2), this.choixdomitour.get(3));
+						// supprimerdomino(dominostour[this.choixdomitour.get(0)][this.choixdomitour.get(1)],
+						// dominostour);
+						// il faut ici update la liste dominostour dans affichage afin de montrer la
+						// suppression
+
+					} catch (Exception e) {
+						System.out.println("Le domino a deje ete selectionne ! Descriptif erreur: \n" + e);
 					}
-					// essayer ici la verif de placement
-					ordrejoueurs[j][binary].terrain1.remplirTerrain(
-							dominostour[this.choixdomitour.get(0)][this.choixdomitour.get(1)],
-							this.choixdomitour.get(2), this.choixdomitour.get(3));
-					// supprimerdomino(dominostour[this.choixdomitour.get(0)][this.choixdomitour.get(1)],
-					// dominostour);
-					// il faut ici update la liste dominostour dans affichage afin de montrer la
-					// suppression
+
+				}
+
+				// reset
+				ordrejoueurs[0][0].setPremiereSelection(true);
+				ordrejoueurs[1][0].setPremiereSelection(true);
+				ordrejoueurs[0][1].setPremiereSelection(true);
+				ordrejoueurs[1][1].setPremiereSelection(true);
+
+				System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0 : \n"
+						+ joueurs[0][0].terrain1.terrain[2][3]);
+				System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0, roi 2 : \n"
+						+ joueurs[0][1].terrain1.terrain[2][3]);
+				System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0 : \n"
+						+ joueurs[1][0].terrain1.terrain[2][3]);
+				System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0, roi 2: \n"
+						+ joueurs[1][1].terrain1.terrain[2][3]);
+
+			} else {
+
+				try {
+					if (Regles.placementTuile(this.joueurencours.terrain1, this.choixtuiletour, this.posx, this.posy)) {
+						this.joueurencours.terrain1.remplirTerrain(this.choixtuiletour, this.posx, this.posy);
+						
+
+						if (this.pioche.length < nbrois + 1) {
+							this.piochevide = true;
+						}
+
+						this.bonchoix = true;
+					} else {
+						this.bonchoix = false;
+					}
 
 				} catch (Exception e) {
-					System.out.println("Le domino a deje ete selectionne ! Descriptif erreur: \n" + e);
+					System.out.println("Probleme regle ou domino deja selectionne ! Descriptif erreur: \n" + e);
+					this.bonchoix = false;
+				}
+				
+				
+				System.out.println("\n"+this.autretuile+"\n");
+				
+				
+				try {
+					if (Regles.isTuileVide((this.posx + this.orientationX), (this.posy + this.orientationY), this.joueurencours.terrain1)) {
+					
+						this.joueurencours.terrain1.remplirTerrain(this.autretuile, (this.posx + this.orientationX),
+								(this.posy + this.orientationY));
+
+						if (this.pioche.length < nbrois + 1) {
+							this.piochevide = true;
+						}
+
+						this.bonchoix = true;
+					} else {
+						this.bonchoix = false;
+					}
+
+				} catch (Exception e) {
+					System.out.println("Probleme de sens ! Descriptif erreur: \n" + e);
+					this.bonchoix = false;
 				}
 
+				System.out.println("\n\nAffichage de la tuile en position " + this.posx + " & " + this.posy
+						+ " sur le terrain du joueur " + this.joueurencours.couleur + " : \n\n"
+						+ joueurencours.terrain1.terrain[this.posx][this.posy]+"\n");
+				
+				System.out.println("\nAffichage de la tuile en position " + (this.posx+this.orientationX) + " & " + (this.posy+this.orientationY)
+						+" sur le terrain du joueur " + this.joueurencours.couleur + " : \n\n"
+						+ joueurencours.terrain1.terrain[(this.posx+ this.orientationX)][(this.posy+ this.orientationY)]+"\n");
+
+				// System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du
+				// joueur 0, roi 2: \n"
+				// + joueurs[3][0].terrain1.terrain[2][3]);
+
 			}
-
-			// reset
-			ordrejoueurs[0][0].setPremiereSelection(true);
-			ordrejoueurs[1][0].setPremiereSelection(true);
-			ordrejoueurs[0][1].setPremiereSelection(true);
-			ordrejoueurs[1][1].setPremiereSelection(true);
-
-			System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0 : \n"
-					+ joueurs[0][0].terrain1.terrain[2][3]);
-			System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0, roi 2 : \n"
-					+ joueurs[0][1].terrain1.terrain[2][3]);
-			System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0 : \n"
-					+ joueurs[1][0].terrain1.terrain[2][3]);
-			System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du joueur 0, roi 2: \n"
-					+ joueurs[1][1].terrain1.terrain[2][3]);
-
 		} else {
-
-			 try { 
-			if (Regles.placementTuile(this.joueurencours.terrain1, this.choixtuiletour, this.posx, this.posy)) {
-				this.joueurencours.terrain1.remplirTerrain(this.choixtuiletour, this.posx, this.posy);
-				
-				if (this.pioche.length<nbrois+1) {
-					this.piochevide=true;
-				}
-				
-				this.bonchoix = true;
-			} else {
-				this.bonchoix = false;
-			}
-			
-			  } catch (Exception e) {
-			  System.out.println("Le domino a deje ete selectionne ! Descriptif erreur: \n"
-			  + e); this.bonchoix = false; }
-			 
-
-			System.out.println("\nAffichage de la tuile en position " + this.posx + " & " + this.posy
-					+ " sur le terrain du joueur " + this.joueurencours.couleur + " : \n"
-					+ joueurencours.terrain1.terrain[this.posx][this.posy]);
-
-			// System.out.println("\nAffichage de la tuile en position 1,0 sur le terrain du
-			// joueur 0, roi 2: \n"
-			// + joueurs[3][0].terrain1.terrain[2][3]);
-
-		}
-	}
-		else {
 			System.out.println("\n\n\n\n\n________Partie Terminée!______\n\n");
-			this.partieterminee=true;
+			this.partieterminee = true;
 		}
 
 	}
@@ -542,6 +573,10 @@ public class Jeu {
 
 	// GETTERS & SETTERS
 
+	public void setOrientation(int orientationX,int orientationY) {
+		this.orientationX = orientationX;
+		this.orientationY = orientationY;
+	}
 	public void setNbJoueurs(int n) {
 		this.nbjoueurs = n;
 	}
@@ -609,5 +644,8 @@ public class Jeu {
 
 		}
 	}
+	
+	
+	
 
 }

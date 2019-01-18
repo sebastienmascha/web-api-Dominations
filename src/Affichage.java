@@ -6,9 +6,11 @@ public class Affichage {
 	int numdomitour = 0;
 	int numtuiletour = 0;
 	Tuile choixtuiletour;
+	Tuile autretuile;
 	Joueur joueurencours;
 	int posx = 0;
 	int posy = 0;
+	int orientationX, orientationY;
 
 	// provenant de Jeu
 	int nbjoueurs = 0;
@@ -29,7 +31,7 @@ public class Affichage {
 		// on choisit le nombre joueurs
 		this.nbjoueurs = 3;
 
-		// le nombre de joueur a été defini au préalable
+		// le nombre de joueur a Ã©tÃ© defini au prÃ©alable
 		Principal.initialisation();
 
 		// affichage du retour
@@ -55,10 +57,17 @@ public class Affichage {
 
 				Scanner sc = new Scanner(System.in);
 				System.out.println(
-						"\n" + ordrejoueurs[i][0].couleur + ", veuillez choisir une tuile par son numéro :\n\n=>");
+						"\n" + ordrejoueurs[i][0].couleur + ", veuillez choisir une tuile par son numÃ©ro :\n\n=>");
 				int numtuile = sc.nextInt();
 
-				setChoixTuileTour(dominostour[numtuile][0]);
+				try {
+					setChoixTuileTour(dominostour[numtuile][0]);
+					
+				}
+				catch(Exception e) {
+					System.out.println("Cette tuile n'est pas presente dans la liste");
+				}
+				
 				setJoueurEnCours(ordrejoueurs[i][0]);
 
 				Principal.preselection();
@@ -66,7 +75,7 @@ public class Affichage {
 			}
 
 		}
-		// recupérer ordre joueurs
+		// recupÃ©rer ordre joueurs
 		Principal.definirordre();
 
 		// affichage du retour
@@ -96,7 +105,7 @@ public class Affichage {
 
 				Scanner sc = new Scanner(System.in);
 				System.out.println(
-						"\n" + ordrejoueurs[i][0].couleur + ", veuillez choisir une tuile par son numéro :\n\n=>");
+						"\n" + ordrejoueurs[i][0].couleur + ", veuillez choisir une tuile par son numÃ©ro :\n\n=>");
 				int numtuile = sc.nextInt();
 
 				Scanner sc2 = new Scanner(System.in);
@@ -108,7 +117,36 @@ public class Affichage {
 				System.out.println("\n" + ordrejoueurs[i][0].couleur
 						+ ", veuillez choisir la position en y sur votre terrain :\n\n=>");
 				int positiony = sc3.nextInt();
+				
+				
+				Scanner sc4 = new Scanner(System.in);
+				System.out.println("\n" + ordrejoueurs[i][0].couleur
+						+ ", veuillez choisir la direction de votre tuile :\n1  :  Vers la droite\n2  :  Vers le haut\n3  :  Vers la gauche\n4  :  Vers le bas\n\n=>");
+				int orientation = sc4.nextInt();
+				
+				if (orientation==1) {
+					orientationX=1;
+					orientationY=0;
+				}
+				if (orientation==3) {
+					orientationX=-1;
+					orientationY=0;
+				}
+				if (orientation==2) {
+					orientationY=-1;
+					orientationX=0;
+				}
+				if (orientation==4) {
+					orientationY=1;
+					orientationX=0;
+				}
 
+
+				
+				
+				
+				this.autretuile=getAutreTuile(choixtuiletour, numtuile, dominostourbackup);
+				setOrientation(orientationX,orientationY);
 				setPosX(positionx);
 				setPosY(positiony);
 				setChoixTuileTour(dominostourbackup[numtuile][0]);
@@ -140,6 +178,18 @@ public class Affichage {
 			System.out.println(liste[i][1]);
 		}
 	}
+	
+	public Tuile getAutreTuile(Tuile tuile, int j, Tuile[][]dominostourbackup) {
+		if (tuile.num2==1) {
+			return dominostourbackup[j][0];
+		}
+		else if (tuile.num2==0) {
+			return dominostourbackup[j][1];
+		}
+		return null;
+		
+	}
+	
 
 	// GETTERS & SETTERS
 
@@ -196,6 +246,10 @@ public class Affichage {
 	public Tuile getChoixTuileTour() {
 		return this.choixtuiletour;
 	}
+	
+	public Tuile getChoixAutreTuileTour() {
+		return this.autretuile;
+	}
 
 	public void setBonChoix(boolean bonchoix) {
 		this.bonchoix = bonchoix;
@@ -215,6 +269,20 @@ public class Affichage {
 
 	public void setPosY(int posy) {
 		this.posy = posy;
+	}
+	
+	public void setOrientation(int orientationX,int orientationY) {
+		this.orientationX = orientationX;
+		this.orientationY = orientationY;
+	}
+	
+	public int getOrientationX() {
+		return this.orientationX;
+		
+	}
+	public int getOrientationY() {
+		return this.orientationY;
+		
 	}
 
 }

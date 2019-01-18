@@ -9,7 +9,7 @@ public class Tuile {
 	String type;
 
 	public static Tuile[][] tuiles = new Tuile[49][2];
-	
+
 	public Tuile(int num1, int num2, int nbCouronne, String type) {
 		this.num1 = num1;
 		this.num2 = num2;
@@ -36,67 +36,73 @@ public class Tuile {
 		return tuiles;
 
 	}
-	
-	//remplir la liste des tuiles avec tous les dominos
-	public static Tuile[][] remplirlistetuile(Domino[] dominos){
-		
-		for (int i=0; i<=Domino.nombreinitialdominos-1; i++) {
+
+	// remplir la liste des tuiles avec tous les dominos
+	public static Tuile[][] remplirlistetuile(Domino[] dominos) {
+
+		for (int i = 0; i <= Domino.nombreinitialdominos - 1; i++) {
 			ajoutertuile(dominos[i]);
 		}
-		
+
 		return tuiles;
-		
-	}
-	
-	//supprimer une tuile de la liste
-	public static void supprimertuiledetuile(int num0, int num1){
-		
-		tuiles[num0][num1] = null;
-		
-	}
-	
-	public static void supprimerdominodetuile(int num0){
-		
-		tuiles[num0][0] = null;
-		tuiles[num0][1] = null;
-		
 
 	}
-	
-	
-	//affichage console des attributs d'une tuile
-	
-	public String toString() {
-		return "numéro Domino: " + num1 + "\nnuméro Tuile: " + num2 + "\nnbcouronne: " + nbCouronne +"\ntype : " + type;
+
+	// supprimer une tuile de la liste
+	public static void supprimertuiledetuile(int num0, int num1) {
+
+		tuiles[num0][num1] = null;
+
 	}
+
+	public static void supprimerdominodetuile(int num0) {
+
+		tuiles[num0][0] = null;
+		tuiles[num0][1] = null;
+
+	}
+
 	
-	
-	//GETTERS & SETTERS
-	
+
+	// affichage console des attributs d'une tuile
+
+	public String toString() {
+		return "numéro Domino: " + num1 + "\nnuméro Tuile: " + num2 + "\nnbcouronne: " + nbCouronne + "\ntype : "
+				+ type;
+	}
+
+	// GETTERS & SETTERS
+
 	public int getnumdomi() {
 		return num1;
 	}
+
 	public int getnumtuile() {
 		return num2;
 	}
+
 	public int getnbcouronne() {
 		return nbCouronne;
 	}
+
 	public String gettype() {
 		return type;
 	}
+
 	public void setnumdomi(int num1) {
 		this.num1 = num1;
 	}
+
 	public void setnumtuile(int num2) {
 		this.num2 = num2;
 	}
+
 	public void setnbcouronne(int nbCouronne) {
 		this.nbCouronne = nbCouronne;
 	}
+
 	public void settype(String type) {
 		this.type = type;
 	}
-	
 
 }

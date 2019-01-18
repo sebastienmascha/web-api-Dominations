@@ -25,7 +25,7 @@ public class Regles {
 				if (terrain.getTuilesVoisinesPositionX(tuile, posx, posy, terrain).size() != 0) {
 					return true;
 				}else if ((Math.abs(posx-4)==1 && posy == 4) || (Math.abs(posy-4)==1 && posx == 4)) {
-					System.out.print("Vous avez placer votre tuile pres du chateau !");
+					System.out.print("Vous avez place votre tuile pres du chateau !");
 					return true;
 				}else {
 					System.out.print("Vous devez placer votre tuile à côté d'une tuile de même type !");
@@ -96,8 +96,11 @@ public class Regles {
 
 	public static boolean isTuileVide(int posx, int posy, Terrain terrain) {
 		try {
+			System.out.println("\nL'emplacement est libre\n");
 			return terrain.terrain[posx][posy] == null;
+			
 		}catch(Exception e) {
+			System.out.println("\nLa tuile est deja occupee !\n");
 			return true;
 		}
 	}
@@ -182,14 +185,13 @@ public class Regles {
 		rechercheZone(x, y, terrain); // recursivité pour délimiter la zone
 		compteur -= 1;
 		if (compteur < 1) {
-			System.out.println("Affichage :");
-			System.out.println(ZonesTuiles);
+			
 			int nbCourrones = 0;
 			for (int i = 0; i < ZonesTuiles.size(); i++) { // calcul du nb de courronne par zone
 				nbCourrones += ZonesTuiles.get(i).getnbcouronne();
 			} 
 			terrain.Score += (ZonesTuiles.size()*nbCourrones);
-			System.out.println(ZonesTuiles.size()*nbCourrones);
+			
 		}		
 	}
 

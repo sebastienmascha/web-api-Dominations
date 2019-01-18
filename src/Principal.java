@@ -59,6 +59,9 @@ public class Principal {
 		jeu1.setChoixTuilePreselect(window.getChoixTuileTour());
 		jeu1.setJoueurEnCours(window.getJoueurEnCours());
 		jeu1.setPositionChoixTuileTour(window.getPosX(),window.getPosY());
+		jeu1.setOrientation(window.getOrientationX(),window.getOrientationY());
+		jeu1.autretuile=window.getChoixAutreTuileTour();
+
 		jeu1.tourjoueur();
 		
 	
@@ -68,6 +71,10 @@ public class Principal {
 	
 		window.setBonChoix(jeu1.getBonChoix());
 	}
+	
+	
+	
+	
 
 	
 	public static void main(String[] args) {
