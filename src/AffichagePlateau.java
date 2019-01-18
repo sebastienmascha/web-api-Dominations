@@ -22,18 +22,16 @@ public class AffichagePlateau extends Carre {
 	
 	public int posx; 
 	public int posy; 
+	
 	Tuile terrain[][]= new Tuile[9][9];
 	
     JButton BtnChateau = new JButton();
 	JPanel PlanCentral = new JPanel();
 	JLabel Nom = new JLabel();
 	BorderLayout Lay = new BorderLayout(0, 0);
-	ImageIcon IMG = new ImageIcon(this.getClass().getResource("/mer1.png"));
-	//JButton C = new JButton(Bulle);
-	JButton C = new JButton();
 	GridLayout Layout = new GridLayout(9, 9, 0, 0);
 	List<JButton> ListeBoutons = new ArrayList<JButton>();
-
+	
 	public  AffichagePlateau(String nom, Color couleur){
 		
 		this.setBackground(couleur);
@@ -89,31 +87,22 @@ public class AffichagePlateau extends Carre {
     	for (int i = 0; i <= terrain.length - 1; i++) {
     		for (int j = 0; j <= terrain.length - 1; j++) {
     			if (terrain[i][j]!=null) {
-    				getBoutton(i,j).setBackground(Color.WHITE);
+    				getBoutton(i,j).setBackground(Color.BLACK);
     				display(terrain[i][j], getBoutton(i,j));
-    				System.out.println("La tuile du terrain est remplacée sur l'interface graphique ");
+    				System.out.println("La (ou les) tuile(s) du terrain est remplacée sur l'interface graphique ");
     				//if vide alors rien afficher sinon utiliser fonction changerboutton
-    			}
-    		
-    			
-    		}
-    		
-    		
+    			}	
+    		}  		
     	}
-    	
     }
     
     public void setTerrain(Tuile[][] terrain) {
     	this.terrain=terrain;
     }
-    
-    public void changeBoutton(int x , int y, String type,int nbcour) {
-    	getBoutton(x,y).setIcon(new ImageIcon(this.getClass().getResource("/"+type+nbcour+".png")));
-    }
-	
+
 	
 	public JButton CreerBoutonOrganise(int x, int y) {
-	     final BoutonsPlateau b = new BoutonsPlateau("[" + x + "][" + y + "]",this.getClass().getResource("/A.jpg"), this.getClass().getResource("/Mine1.png"));
+	     JButton b = new JButton();
 	     /**b.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
@@ -149,7 +138,9 @@ public class AffichagePlateau extends Carre {
 
 		ImageIcon img = new ImageIcon(this.getClass().getResource("/" + Tuile.gettype() + Tuile.getnbcouronne() + ".png"));
 		Image newimg = img.getImage().getScaledInstance(T.getWidth(), T.getHeight(), java.awt.Image.SCALE_SMOOTH);
-		T.setIcon(new ImageIcon(newimg));
+		ImageIcon Icone = new ImageIcon(newimg);
+		T.setIcon(Icone);
+		
 	}
 }
 
@@ -172,21 +163,23 @@ class Carre extends JPanel {
 }
 
 class BoutonsPlateau extends JButton {
-	public BoutonsPlateau(String Titre, URL img, URL imgflottante) {
-		super(Titre);
+	public BoutonsPlateau(String Titre, URL img) {
+		//super(Titre);
 		//this.add(a);
-		setForeground(Color.WHITE);
-        
+		//setForeground(Color.WHITE);
+        /*
         setOpaque(false);
         setContentAreaFilled(false); // On met à false pour empêcher le composant de peindre l'intérieur du JButton.
         setBorderPainted(true); // De même, on ne veut pas afficher les bordures.
         setFocusPainted(false); // On n'affiche pas l'effet de focus.
-         
-        setHorizontalAlignment(SwingConstants.CENTER);
-        setHorizontalTextPosition(SwingConstants.CENTER);
-          
+         */
+        //setHorizontalAlignment(SwingConstants.CENTER);
+        //setHorizontalTextPosition(SwingConstants.CENTER);
+        
+        
         setIcon(new ImageIcon(img));
-        setRolloverIcon(new ImageIcon(imgflottante));
+        //setRolloverIcon(new ImageIcon(imgflottante));
+        //setRolloverIcon(Survole);
         //Rajouter la main survolante
 	}
 

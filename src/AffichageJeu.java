@@ -144,7 +144,6 @@ public class AffichageJeu extends JPanel {
 			PanelRoi R = new PanelRoi();
 			JButton NouvelleTuile1 = new JButton();
 			JButton NouvelleTuile2 = new JButton();
-
 			Centre.add(R);
 			Centre.add(NouvelleTuile1);
 			Centre.add(NouvelleTuile2);

@@ -6,9 +6,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.IOException;
+import java.net.URL;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.imageio.ImageIO;
+import javax.swing.AbstractButton;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -32,7 +35,6 @@ public class Affichage implements ActionListener {
 	// provenant de Jeu
 	int nbjoueurs = 0;
 	int nbrois = 0;
-	public Joueur[][] ordrejoueurs = new Joueur[4][2];
 	public Joueur[][] joueurs = new Joueur[4][2];
 	boolean bonchoix;
 	
@@ -40,7 +42,6 @@ public class Affichage implements ActionListener {
 	int compteurpioche = 0;
 	public int compteurjoueur = 0;
 	public int compteurclictuile = 0;
-	int compteurecran =0;
 
 	//Instanciation de la fenêtre et de ses pages
 	JFrame FenetreJeu = new JFrame("Projet Kingdomino");
@@ -57,6 +58,8 @@ public class Affichage implements ActionListener {
 	public Tuile[][] dominostour = new Tuile[4][2];
 	
 	public AffichagePlateau Ecran;
+	ImageIcon IconeSurvole;
+	boolean valide = false;
 	public Affichage() {
 
 		DefinitionFenetre();
@@ -87,9 +90,10 @@ public class Affichage implements ActionListener {
 			ReduireA3JoueursSiBesoin();
 			setnbjoueursAffichageJeu(PageJeu.compteurjoueur);
 			PlusieursPages.show(FenetreJeu.getContentPane(), listeIndice[1]);
-			AffecteAOrdrejoueursETauxEcransleNomdeChaqueJoueur();
-			DefinirChateauPourTousEcran();
+			AffecteAjoueursETauxEcransleNomdeChaqueJoueur();
+			DefinirChateauPourTouTEcran_EtFondDesTuilesPlateau();
 			DefinirNombreEcrans();
+			PrintListeJoueurs();
 			System.out.println("");
 			System.out.println("Appuyez sur la pioche pour commencer");
 		}
@@ -97,32 +101,21 @@ public class Affichage implements ActionListener {
 		if (source == PageJeu.btnPioche) {
 			
 			System.out.println("La première pioche est enclenchée");
-			PageJeu.AquiLeTour.setText("C'est le tour de " + ordrejoueurs[compteurjoueur][0].nomjoueur);
+			PageJeu.AquiLeTour.setText("C'est le tour de " + joueurs[compteurjoueur][0].nomjoueur);
 			setEcran(compteurjoueur);
 			
 			if (compteurpioche == 0) {
 
 				SortirLa_1ere_Pioche();
-				System.out.println(Ecran.getName());
+				SetActionListenerRoi();
 				System.out.println("Compteur Joueur = " + compteurjoueur);
-				SetActionListenerDePiocheATerrain (0); //En argument on a la tuile de gauche ou celle de droite du domino selectionné
 				
-				/*
-					switch(compteurjoueur) {
-				case 0 :
-					SetActionListenerSurDomino_i_Tuile_j(0); //Domino 0 de la liste dominostours
-					break;
-				case 1 :
-					SetActionListenerSurDomino_i_Tuile_j(0); //Domino 1 de la liste dominostours
-					break;
-				case 2 :
-					SetActionListenerSurDomino_i_Tuile_j(0); //Domino 2 de la liste dominostours
-					break;
-				case 3 :
-					//SetActionListenerSurDomino_i_Tuile_j(0); //Domino 3 de la liste dominostours
-					break;
-			}
-			*/	
+				SetActionListenerDePiocheATerrain (0);//En argument on a la tuile de gauche ou celle de droite du domino selectionné
+				SetActionListenerDePiocheATerrain (0);
+				SetActionListenerDePiocheATerrain (0);
+
+				
+			
 			
 		}
 			else if (compteurpioche == 1) {
@@ -133,43 +126,89 @@ public class Affichage implements ActionListener {
 		}
 	}
 	
+	
+	
 	public void SetActionListenerRoi() {
-		
+		for (int k=0; k<nbrois;k++){
+			int m = k;
+			PageJeu.List1BoutonRoi.get(k).addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String clr = (joueurs[m][0].couleur);
+					
+					switch (clr) {
+						case "RED" :
+							((JButton) e.getSource()).setForeground(Color.RED);
+							break;
+						case "YELLOW" :
+							((JButton) e.getSource()).setForeground(Color.YELLOW);
+							break;
+						case "GREEN" :
+							((JButton) e.getSource()).setForeground(Color.GREEN);
+							break;
+						case "BLUE" :
+							((JButton) e.getSource()).setForeground(Color.BLUE);
+							break;
+					}
+					((JButton) e.getSource()).setText("R");
+					((JButton) e.getSource()).setBackground(Color.BLACK);
+					System.out.println("Colorié !");
+				}
+			});
+					
+				
+		}
 	}
 	
 	public void SetActionListenerDePiocheATerrain (int p) { //Tuile j ème du i ème domino de notre liste dominostour sortante de la pioche
+		
 		for (int k=0; k<dominostour.length;k++){
 			int m = k;
 			PageJeu.ListTour1.get(2*k+p).addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					setEcran(compteurecran);
+					IconeSurvole = (ImageIcon) ((JButton) e.getSource()).getIcon(); 
+							this.getClass().getResource("/Champs0.png");//(ImageIcon) ((AbstractButton) e.getSource()).getIcon();
 					PageJeu.PosDomiSelection=m;
 					PageJeu.PosTuiSelection=p;
 					//setChoixTuileTour(dominostour[m][p]);
-			}});
+					
+					for (int k=0; k<81 ;k++) {
+						int m = k;
+						Ecran.ListeBoutons.get(k).setRolloverIcon((new ImageIcon(IconeSurvole.getImage().getScaledInstance(Ecran.ListeBoutons.get(k).getWidth(), Ecran.ListeBoutons.get(k).getHeight(), java.awt.Image.SCALE_SMOOTH))));
+						Ecran.ListeBoutons.get(k).addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								System.out.println("[" + m/9 + "][" + m%9 + "]" + " enclenché sur le terrain " + ((JButton) e.getSource()).getParent());
+							    JButton source = (JButton) e.getSource();
+							    Ecran.setPosX(m/9);
+							    Ecran.setPosY(m%9);
+						        System.out.println("posx "+ m/9);
+						        System.out.println("posy "+ m%9);
+								Principal.preselection(Ecran, Principal.jeu1.joueurs[compteurjoueur][0], dominostour[PageJeu.PosDomiSelection][PageJeu.PosTuiSelection],dominostour[PageJeu.PosDomiSelection][PageJeu.PosTuiSelection+1], 0, 1);	            
+								if (VerifierSiLaTuileEstPose(m/9, m%9))	{
+									System.out.println("Condition verifiée pour passer au joueur suivant");
+									if (compteurjoueur < nbjoueurs-1) {
+									compteurjoueur=compteurjoueur+1;
+									System.out.println(compteurjoueur);
+									System.out.println("La tuile est bien posée. C'est au joueur " + joueurs[compteurjoueur][0].numjoueur + "nommé " + joueurs[compteurjoueur][0].nomjoueur + " de couleur " + joueurs[compteurjoueur][0].couleur);
+									PageJeu.AquiLeTour.setText("C'est le tour de " + joueurs[compteurjoueur][0].nomjoueur);
+									setEcran(compteurjoueur);
+									}
+								}
+						}});
+						}
+				}
+			});
 		}
+		
+			System.out.println("SetActionListener done");
+	}
 
-		for (int k=0; k<81 ;k++) {
-			int m = k;
-			Ecran.ListeBoutons.get(k).addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					System.out.println("[" + m/9 + "][" + m%9 + "]" + " enclenché sur le terrain " + ((JButton) e.getSource()).getParent());
-				    JButton source = (JButton) e.getSource();
-				    Ecran.setPosX(m/9);
-				    Ecran.setPosY(m%9);
-			        System.out.println("posx "+ m/9);
-			        System.out.println("posy "+ m%9);
-					Principal.preselection(Ecran, Principal.jeu1.joueurs[compteurjoueur][0], Principal.jeu1.ordrejoueurs[compteurjoueur][0], dominostour[PageJeu.PosDomiSelection][PageJeu.PosTuiSelection]);	            
-					if (VerifierSiLaTuileEstPose(m/9, m%9))	{
-						System.out.println("Joueur Suivant");
-						compteurjoueur=+1;
-						setEcran (compteurjoueur);
-						PageJeu.AquiLeTour.setText("C'est le tour de " + ordrejoueurs[compteurjoueur][0].nomjoueur);
-					}
-			}});
-			}
-			System.out.println("Display done");
+
+	public void PrintListeJoueurs() {
+		System.out.println("Les joueurs sont : ");
+		for ( int k=0; k<nbjoueurs;k++) {
+			System.out.println(joueurs[k][0].couleur + " et " + joueurs[k][0].nomjoueur + " et " + joueurs[k][0].numjoueur);
+		}
 	}
 	
 	public void SortirLa_1ere_Pioche () {
@@ -185,25 +224,24 @@ public class Affichage implements ActionListener {
 	
 	
 	public void setEcran (int compteurjoueur) {
-		switch (compteurjoueur+1) {
-		case 1 :
+		switch (compteurjoueur) {
+		case 0 :
 			Ecran = PageJeu.EcranOuest;
 			break;
-		case 2 :
+		case 1 :
 			Ecran = PageJeu.EcranNord;
 			break;
-		case 3 :
+		case 2 :
 			Ecran = PageJeu.EcranEst;
 			break;
-		case 4 :
+		case 3 :
 			Ecran = PageJeu.EcranSud;
 			break;
 		}
 	}
 
 	public boolean VerifierSiLaTuileEstPose(int i, int j) {
-		if (Ecran.getBoutton(i, j).getBackground()==Color.WHITE) {
-			System.out.println("cest bon");
+		if (Ecran.getBoutton(i, j).getBackground()==Color.BLACK) {
 			return true;
 		}
 		else { return false;}
@@ -258,8 +296,8 @@ public class Affichage implements ActionListener {
 		Principal.definirordre();
 
 		System.out.println("Ceci est un nouvel ordre de joueurs :\n");
-		for (int j = 0; j <= ordrejoueurs.length - 1; j++) {
-			System.out.println(ordrejoueurs[j][0].numjoueur);
+		for (int j = 0; j <= joueurs.length - 1; j++) {
+			System.out.println(joueurs[j][0].numjoueur);
 		}
 	}
 
@@ -270,7 +308,6 @@ public class Affichage implements ActionListener {
 	}
 	
 	public void display(Tuile Tuile, JButton T) {
-
 		ImageIcon img = new ImageIcon(
 				this.getClass().getResource("/" + Tuile.gettype() + Tuile.getnbcouronne() + ".png"));
 		Image newimg = img.getImage().getScaledInstance(T.getWidth(), T.getHeight(), java.awt.Image.SCALE_SMOOTH);
@@ -284,8 +321,8 @@ public class Affichage implements ActionListener {
 	}
 
 
-	public void setOrdreJoueurs(Joueur[][] ordrejoueurs) {
-		this.ordrejoueurs = ordrejoueurs;
+	public void setjoueurs(Joueur[][] joueurs) {
+		this.joueurs = joueurs;
 	}
 	
 	public void setJoueurs(Joueur[][] joueurs) {
@@ -408,7 +445,14 @@ public class Affichage implements ActionListener {
 		}
 	}
 	
-	public void DefinirChateauPourTousEcran() {
+	public void DefinirChateauPourTouTEcran_EtFondDesTuilesPlateau() {
+		for (int k=0; k<81; k++) {
+		PageJeu.EcranOuest.ListeBoutons.get(k).setIcon(new ImageIcon((new ImageIcon (this.getClass().getResource("/A.jpg"))).getImage().getScaledInstance(PageJeu.EcranOuest.ListeBoutons.get(k).getWidth(), PageJeu.EcranOuest.ListeBoutons.get(k).getHeight(), java.awt.Image.SCALE_SMOOTH)));
+		PageJeu.EcranNord.ListeBoutons.get(k).setIcon(new ImageIcon((new ImageIcon (this.getClass().getResource("/A.jpg"))).getImage().getScaledInstance(PageJeu.EcranNord.ListeBoutons.get(k).getWidth(), PageJeu.EcranOuest.ListeBoutons.get(k).getHeight(), java.awt.Image.SCALE_SMOOTH)));
+		PageJeu.EcranEst.ListeBoutons.get(k).setIcon(new ImageIcon((new ImageIcon (this.getClass().getResource("/A.jpg"))).getImage().getScaledInstance(PageJeu.EcranEst.ListeBoutons.get(k).getWidth(), PageJeu.EcranOuest.ListeBoutons.get(k).getHeight(), java.awt.Image.SCALE_SMOOTH)));
+		PageJeu.EcranSud.ListeBoutons.get(k).setIcon(new ImageIcon((new ImageIcon (this.getClass().getResource("/A.jpg"))).getImage().getScaledInstance(PageJeu.EcranSud.ListeBoutons.get(k).getWidth(), PageJeu.EcranOuest.ListeBoutons.get(k).getHeight(), java.awt.Image.SCALE_SMOOTH)));		
+		//PageJeu.EcranOuest.ListeBoutons.get(k).setIcon(new ImageIcon(this.getClass().getResource("/A.jpg")));
+		}
 		ImageIcon ChateauIcone = new ImageIcon(this.getClass().getResource("/chateau.png"));
 		Image ChateauIconeResize = ChateauIcone.getImage().getScaledInstance(PageJeu.EcranOuest.BtnChateau.getWidth(), PageJeu.EcranOuest.BtnChateau.getHeight(), java.awt.Image.SCALE_SMOOTH);
 		PageJeu.EcranOuest.BtnChateau.setIcon(new ImageIcon(ChateauIconeResize));
@@ -419,7 +463,7 @@ public class Affichage implements ActionListener {
 
 	public void DefinitionFenetre () {
 		FenetreJeu.setIconImage(new ImageIcon(this.getClass().getResource("/chateau.png")).getImage());
-		FenetreJeu.setBounds(0, 0, 1440, 600);
+		FenetreJeu.setBounds(0, 0, 1440, 900);
 		FenetreJeu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		FenetreJeu.getContentPane().setLayout(PlusieursPages);
 		FenetreJeu.getContentPane().add(PageAccueil, listeIndice[0]);
@@ -437,15 +481,15 @@ public class Affichage implements ActionListener {
 		});
 	}
 
-	public void AffecteAOrdrejoueursETauxEcransleNomdeChaqueJoueur() {
-		ordrejoueurs[0][0].setNomJoueur(PageAccueil.R);
-		ordrejoueurs[1][0].setNomJoueur(PageAccueil.J);
+	public void AffecteAjoueursETauxEcransleNomdeChaqueJoueur() {
+		joueurs[0][0].setNomJoueur(PageAccueil.R);
+		joueurs[1][0].setNomJoueur(PageAccueil.J);
 		if (nbjoueurs == 3) {
-			ordrejoueurs[2][0].setNomJoueur(PageAccueil.V);
+			joueurs[2][0].setNomJoueur(PageAccueil.V);
 		}
 		if (nbjoueurs == 4) {
-			ordrejoueurs[2][0].setNomJoueur(PageAccueil.V);
-			ordrejoueurs[3][0].setNomJoueur(PageAccueil.B);
+			joueurs[2][0].setNomJoueur(PageAccueil.V);
+			joueurs[3][0].setNomJoueur(PageAccueil.B);
 		}
 		
 		PageJeu.EcranOuest.Nom.setText(PageAccueil.R);
