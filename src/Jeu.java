@@ -305,7 +305,7 @@ public class Jeu {
 							this.piochevide = true;
 						}
 
-						this.bonchoix = true;
+						//this.bonchoix = true;
 					} else {
 						this.bonchoix = false;
 					}

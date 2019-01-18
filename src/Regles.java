@@ -97,7 +97,8 @@ public class Regles {
 	public static boolean isTuileVide(int posx, int posy, Terrain terrain) {
 		try {
 			System.out.println("\nL'emplacement est libre\n");
-			return terrain.terrain[posx][posy] == null;
+			terrain.terrain[posx][posy].getnumdomi();
+			return false;
 			
 		}catch(Exception e) {
 			System.out.println("\nLa tuile est deja occupee !\n");
