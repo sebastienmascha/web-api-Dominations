@@ -41,6 +41,8 @@ public class Affichage2 {
 
 	void deroulement() {
 
+		
+		/*
 		afficherDoubleListe(dominostour);
 
 		// poser les rois
@@ -67,13 +69,14 @@ public class Affichage2 {
 
 		}
 		// recupérer ordre joueurs
-		Principal.definirordre();
+		Principal.definirordre();*/
 
+		/*
 		// affichage du retour
 		for (int i = 0; i <= nbrois - 1; i++) {
 			System.out.println("Nouvel ordre : " + this.ordrejoueurs[i][0].couleur + " ("
 					+ this.ordrejoueurs[i][0].numjoueur + ")");
-		}
+		}*/
 
 		// tour de jeu
 		System.out.println("\nTOUR DE JEU");

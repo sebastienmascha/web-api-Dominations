@@ -45,48 +45,6 @@ public class Jeu {
 		creerJoueurs();
 
 	}
-	// definir nombre de rois en fonction du nombre de joueurs
-	private void definirnbrois() {
-		if (nbjoueurs <= 2) {
-			this.nbrois = 2 * nbjoueurs;
-		} else {
-			this.nbrois = nbjoueurs;
-
-		}
-
-	}
-	private void creerJoueurs() {
-		for (int j = 0; j <= this.nbjoueurs - 1; j++) {
-
-			if (nbjoueurs == 2) {
-
-				joueurs[j][0] = new Joueur(j, couleurs.get(j));
-				ordrecouleurs.add(couleurs.get(j));
-				joueurs[j][1] = new Joueur(j, couleurs.get(j));
-				ordrecouleurs.add(couleurs.get(j));
-
-			} else {
-				System.out.println("Joueur numero: "+j+" Couleur: "+couleurs.get(j));
-				joueurs[j][0] = new Joueur(j, couleurs.get(j));
-				ordrecouleurs.add(couleurs.get(j));
-
-			}
-		}
-	}
-	
-	public void setJoueurEnCours(Joueur joueur) {
-		this.joueurencours = joueur;
-	}
-
-	public Joueur[][] getOrdreJoueurs() {
-		return this.ordrejoueurs;
-	}
-
-	public boolean getBonChoix() {
-		return this.bonchoix;
-	}
-
-
 
 	public void preparationtour() {
 
@@ -314,6 +272,7 @@ public class Jeu {
 			 try { 
 			if (Regles.placementTuile(this.joueurencours.terrain1, this.choixtuiletour, this.posx, this.posy)) {
 				this.joueurencours.terrain1.remplirTerrain(this.choixtuiletour, this.posx, this.posy);
+				//this.joueurencours.terrain1.remplirTerrain(this.choixtuiletour, this.posx, this.posy);
 				
 				if (this.pioche.length<nbrois+1) {
 					this.piochevide=true;
